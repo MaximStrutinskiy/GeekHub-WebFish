@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {#add meta tegs#}
+    {% include "MainBundle:Main:_meta.html.twig" %}
+    {% block meta %}{% endblock %}
+
+    {#add title#}
+    <title>WebFish {% block title %}/ Welcome!{% endblock %}</title>
+
+    {#add styles#}
+    {% include "MainBundle:Main:_style.html.twig" %}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+{# Body top #}
+{% block body_top %}{% endblock %}
+
+{# Body center #}
+{% block body %} <div class="col-md-4">Hi</div>  {% endblock %}
+
+{# Body footer #}
+{% block body_bottom %}{% endblock %}
+
+{# for FosUserBundle #}
+{% block body_user_content %}{% endblock %}
+
+{#add scripts#}
+{% include "MainBundle:Main:_script.html.twig" %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

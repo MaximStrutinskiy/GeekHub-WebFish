@@ -1,0 +1,24 @@
+{
+  "progect": "gulp-progect",
+  "version": "0.1.0",
+  "devDependencies": {
+    "breakpoint-sass": "^2.7.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-connect": "^4.1.0",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sass-glob": "^1.0.6",
+    "jshint": "^2.9.2",
+    "sass-loader": "^3.2.1",
+    "sass-toolkit": "^2.10.0",
+    "susy": "^2.2.12"
+  }
+}

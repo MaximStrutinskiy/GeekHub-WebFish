@@ -53,5 +53,11 @@
 18) Assert validation - https://symfony.com/doc/current/validation.html
 19) SonataAdminBundle - https://sonata-project.org
 20) Doctrine - http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
+```
+---
 
+**Help**
+```
+Connecting to GitHub with SSH: https://help.github.com/articles/connecting-to-github-with-ssh/
+```
 

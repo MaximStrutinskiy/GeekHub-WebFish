@@ -1,0 +1,35 @@
+// If you wont add new font - put file in web/assets/assets/css/font and config hem like this:
+//@font-face {
+//  font-family: 'LatoLightItalic';
+//  src: url('font/Lato-LightItalic.ttf');
+//}
+
+$base-font-size: 16px !default;
+
+@font-face {
+  font-family: 'LatoLightItalic';
+  src: url('font/Lato-LightItalic.ttf');
+}
+
+$lato: 'LatoLightItalic';
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: url('font/Montserrat-Light.otf');
+}
+
+$m-light: 'Montserrat-Light';
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('font/Montserrat-Regular.otf');
+}
+
+$m-regular: 'Montserrat-Regular';
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: url('font/Montserrat-SemiBold.otf');
+}
+
+$m-semibold: 'Montserrat-SemiBold';

@@ -1,0 +1,18 @@
+//In this file imported all scss styles from project
+//add new folder and write his URL, like this:(  @import 'you_folder/**/*.scss'  );
+
+// Import external libraries.
+@import 'breakpoint';
+@import 'susy';
+
+//all variables for scss
+@import 'variables/**/*.scss';
+
+//style all pages
+@import 'Page/**/*.scss';
+
+//style all sections
+@import 'Section/**/*.scss';
+
+//style all components
+@import 'Component/**/*.scss';

@@ -1,0 +1,103 @@
+$debug-grid: hide;
+
+$bps: (
+		'mob-s': 0 479px,
+		'mob-l': 480px 639px,
+		'tab-s': 640px 767px,
+		'tab-l': 768px 959px,
+		'desk-s': 960px 1271px,
+		'desk-l': 1250px
+);
+
+//Override default Susy settings
+$susy: (
+		gutter-position: after,
+		global-box-sizing: border-box,
+		last-flow: from,
+		gutters: (1/3),
+		debug: (
+				image: $debug-grid,
+		),
+		use-custom: (
+				clearfix: true,
+		)
+);
+
+$grids: (
+		'mob-s': (
+				container: auto,
+				columns: 4,
+				gutters: (28/50),
+		),
+		'mob-l': (
+				container: auto,
+				columns: 4,
+				gutters: (28/50),
+		),
+		'tab-s': (
+				container: auto,
+				columns: 6,
+				gutters: (36/70),
+		),
+		'tab-l': (
+				container: auto,
+				columns: 8,
+				gutters: (31/63),
+		),
+		'desk-s': (
+				container: auto,
+				columns: 12,
+				gutters: (40/66),
+		),
+		'desk-l': (
+				container: 1250px,
+				columns: 12,
+				gutters: (40/66),
+		)
+);
+
+$grid-padding: (
+		'mob-s': 25px,
+		'mob-l': 25px,
+		'tab-s': 25px,
+		'tab-l': 25px,
+		'desk-s': 15px,
+		'desk-l': 15px
+);
+
+@mixin page-container($grid-layout: null, $padding: null) {
+  @if ($grid-layout) {
+	@include container($grid-layout);
+	@if ($padding) {
+	  padding-left: $padding;
+	  padding-right: $padding;
+	}
+  } @else {
+	@each $bp, $w in $bps {
+	  $grid: map_get($grids, $bp);
+
+	  $pad: $padding;
+	  @if not $pad {
+		$pad: map_get($grid-padding, $bp);
+	  }
+
+	  @include susy-breakpoint($w, $grid) {
+		@include container($grid);
+		@if ($pad) {
+		  padding-left: $pad;
+		  padding-right: $pad;
+		}
+	  }
+	}
+  }
+}
+
+.page-container {
+  @include page-container();
+}
+
+.pane-inner-container {
+  & > .panel-pane-inner {
+	@include page-container();
+  }
+}
