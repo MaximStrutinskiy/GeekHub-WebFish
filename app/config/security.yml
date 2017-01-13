@@ -1,24 +1,59 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
             memory: ~
 
+        fos_userbundle:
+            #id: fos_user.user_provider.username #login whis user name
+            id: fos_user.user_provider.username_email #login whis user email/name
+
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern: ^/
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                require_previous_session: false
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+                # submit the login form here
+                check_path: /login_check
+
+                # the user is redirected here when they need to log in
+                login_path: /login
+
+                # login success redirecting options (read further below)
+                always_use_default_target_path: false
+                default_target_path:            /profile/
+                target_path_parameter:          _target_path
+                use_referer:                    false
+
+            logout:
+                path:   /logout
+                target: /
+                invalidate_session: false
+                delete_cookies:
+                    a: { path: null, domain: null }
+                    b: { path: null, domain: null }
+
+            anonymous: true
+
+            remember_me:
+                secret: "%secret%"
+                lifetime: 604800 # 1 week in seconds
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+
+#instruction - http://symfony.com/doc/current/reference/configuration/security.html
