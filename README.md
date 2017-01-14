@@ -7,7 +7,8 @@
 - master (live);
 - dev (development);
 - task-bundle (install module);
-- task-/ (development task);
+- task-1**** (development branch MaximStrutinskiy);
+- task-2**** (development branch OlexanderGavuka);
 ```
 
 ---
