@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Category
- * @package BlogBundle\Entity
- * @ORM\Table(name="category")
+ * Class PostCategory
+ * @package MainBundle\Entity
+ * @ORM\Table(name="post_category")
  * @ORM\Entity()
- * @ORM\Entity(repositoryClass="MainBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\PostCategoryRepository")
  **/
-class Category
+class PostCategory
 {
     /**
      * @ORM\Column(type="integer")

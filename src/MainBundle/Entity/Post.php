@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post
- * @package BlogBundle\Entity
+ * @package MainBundle\Entity
  * @ORM\Table(name="post")
  * @ORM\Entity()
  * @ORM\Entity(repositoryClass="MainBundle\Repository\PostRepository")
@@ -95,7 +95,7 @@ class Post
      * One Post has Many Comments.
      * Used function __construct().
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="PostComment", mappedBy="post")
      */
     protected $comment;
 
@@ -103,7 +103,7 @@ class Post
      * Many Post have Many Tags.
      * Used function __construct().
      *
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="PostTag")
      * @ORM\JoinTable(name="post_tags",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=false)}
@@ -113,7 +113,7 @@ class Post
 
     /**
      * Many Posts have One Category.
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="PostCategory")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
