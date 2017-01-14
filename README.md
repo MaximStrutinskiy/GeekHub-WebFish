@@ -2,6 +2,16 @@
 
 ---
 
+**Branch's**
+```
+- master (live);
+- dev (development);
+- task-bundle (install module);
+- task-/ (development task);
+```
+
+---
+
 **Install project**
 ```
 - Create DB, and add settings for connected;
