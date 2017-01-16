@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Post
 {
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer" nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -84,7 +84,7 @@ class Post
     protected $longDescriptions;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime" nullable=false)
      *
      * @Assert\DateTime()
      * @Assert\LessThanOrEqual("now")
@@ -92,12 +92,14 @@ class Post
     protected $postDate;
 
     /**
-     * One Post has Many Comments.
-     * Used function __construct().
-     *
-     * @ORM\OneToMany(targetEntity="PostComment", mappedBy="post")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    protected $comment;
+    protected $postLikes;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $postStatus;
 
     /**
      * Many Post have Many Tags.
@@ -117,6 +119,14 @@ class Post
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
+
+    /**
+     * One Post has Many Comments.
+     * Used function __construct().
+     *
+     * @ORM\OneToMany(targetEntity="PostComment", mappedBy="post")
+     */
+    protected $postComment;
 
     /**
      * One Post has One User.

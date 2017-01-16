@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class PostTag
+ * Class Tag
  * @package MainBundle\Entity
- * @ORM\Table(name="post_tag")
+ * @ORM\Table(name="tag")
  * @ORM\Entity()
- * @ORM\Entity(repositoryClass="MainBundle\Repository\PostTagRepository")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\TagRepository")
  **/
-class PostTag
+class Tag
 {
     /**
      * @ORM\Column(type="integer")

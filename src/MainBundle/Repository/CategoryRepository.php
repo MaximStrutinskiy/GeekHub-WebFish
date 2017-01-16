@@ -4,7 +4,7 @@ namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class PostTagRepository extends EntityRepository
+class CategoryRepository extends EntityRepository
 {
 
 }
