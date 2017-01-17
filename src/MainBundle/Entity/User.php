@@ -79,7 +79,7 @@ class User extends BaseUser
      * Many User have Many Comments.
      * Used function __construct().
      *
-     * @ORM\ManyToMany(targetEntity="PostComment")
+     * @ORM\ManyToMany(targetEntity="Comment")
      * @ORM\JoinTable(name="user_comments",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id", unique=true)}
@@ -168,7 +168,7 @@ class User extends BaseUser
     /**
      * Set city
      *
-     * @param integer $city
+     * @param string $city
      *
      * @return User
      */
@@ -182,7 +182,7 @@ class User extends BaseUser
     /**
      * Get city
      *
-     * @return integer
+     * @return string
      */
     public function getCity()
     {
@@ -216,11 +216,11 @@ class User extends BaseUser
     /**
      * Add comment
      *
-     * @param \BlogBundle\Entity\Comment $comment
+     * @param \MainBundle\Entity\Comment $comment
      *
      * @return User
      */
-    public function addComment(\BlogBundle\Entity\Comment $comment)
+    public function addComment(\MainBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
 
@@ -230,9 +230,9 @@ class User extends BaseUser
     /**
      * Remove comment
      *
-     * @param \BlogBundle\Entity\Comment $comment
+     * @param \MainBundle\Entity\Comment $comment
      */
-    public function removeComment(\BlogBundle\Entity\Comment $comment)
+    public function removeComment(\MainBundle\Entity\Comment $comment)
     {
         $this->comments->removeElement($comment);
     }

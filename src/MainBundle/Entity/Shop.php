@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Post
+ * Class Shop
  * @package MainBundle\Entity
- * @ORM\Table(name="post")
+ * @ORM\Table(name="shop")
  * @ORM\Entity()
- * @ORM\Entity(repositoryClass="MainBundle\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\ShopRepository")
  **/
-class Post
+class Shop
 {
     /**
      * @ORM\Column(type="integer")
@@ -25,19 +25,19 @@ class Post
      * @ORM\Column(type="string", nullable=true)
      *
      * @Assert\Image(
-     *     minWidth = 800,
+     *     minWidth = 250,
      *     maxWidth = 3500,
-     *     minHeight = 400,
+     *     minHeight = 250,
      *     maxHeight = 2500,
      *     maxSize = "5M",
-     *     minWidthMessage="min width 800px.",
+     *     minWidthMessage="min width 250px.",
      *     maxWidthMessage="max width 3500px.",
-     *     minHeightMessage="min height 400px.",
+     *     minHeightMessage="min height 250px.",
      *     maxHeightMessage="max height 2500px.",
      *     maxSizeMessage = "Too big img, max size = 5M."
      * )
      */
-    protected $postImg;
+    protected $productImg;
 
     /**
      * @ORM\Column(type="string", length=75, nullable=false)
@@ -94,53 +94,85 @@ class Post
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $postLike;
+    protected $productLike;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $postStatus;
+    protected $productStatus;
 
     /**
-     * Many Post have Many Tags.
+     * Many Shop have Many Tags.
      * Used function __construct().
      *
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="post_tags",
-     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="shop_tags",
+     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=false)}
      *      )
      */
     protected $tag;
 
     /**
-     * Many Posts have One Category.
+     * Many Shop have One Category.
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
 
     /**
-     * One Post has Many Comments.
+     * One Shop has Many Comments.
      * Used function __construct().
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
      */
-    protected $postComment;
+    protected $productComment;
 
     /**
-     * One Post has One User.
+     * One Shop has One User.
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
 
     /**
-     * Post constructor.
+     * @ORM\Column(type="float")
+     *
+     * min = 1,
+     * max = 1000,
+     * minMessage = "You price to small {{ limit }}",
+     * maxMessage = "You price to big {{ limit }}"
+     */
+    protected $productPrice;
+
+    /**
+     * Many User's can add many shops to favorite
+     *
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="favorite_user_shop",
+     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
+     *      )
+     */
+    protected $favorite;
+
+    /**
+     * Many User's can add many shops to favorite
+     *
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="cart_user_shop",
+     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
+     *      )
+     */
+    protected $cart;
+
+    /**
+     * Shop constructor.
      */
     public function __construct()
     {
-        $this->postComment = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->shopComment = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -155,27 +187,27 @@ class Post
     }
 
     /**
-     * Set postImg
+     * Set productImg
      *
-     * @param string $postImg
+     * @param string $productImg
      *
-     * @return Post
+     * @return Shop
      */
-    public function setPostImg($postImg)
+    public function setProductImg($productImg)
     {
-        $this->postImg = $postImg;
+        $this->productImg = $productImg;
 
         return $this;
     }
 
     /**
-     * Get postImg
+     * Get productImg
      *
      * @return string
      */
-    public function getPostImg()
+    public function getProductImg()
     {
-        return $this->postImg;
+        return $this->productImg;
     }
 
     /**
@@ -183,7 +215,7 @@ class Post
      *
      * @param string $shortTitle
      *
-     * @return Post
+     * @return Shop
      */
     public function setShortTitle($shortTitle)
     {
@@ -207,7 +239,7 @@ class Post
      *
      * @param string $longTitle
      *
-     * @return Post
+     * @return Shop
      */
     public function setLongTitle($longTitle)
     {
@@ -231,7 +263,7 @@ class Post
      *
      * @param string $shortDescriptions
      *
-     * @return Post
+     * @return Shop
      */
     public function setShortDescriptions($shortDescriptions)
     {
@@ -255,7 +287,7 @@ class Post
      *
      * @param string $longDescriptions
      *
-     * @return Post
+     * @return Shop
      */
     public function setLongDescriptions($longDescriptions)
     {
@@ -279,7 +311,7 @@ class Post
      *
      * @param \DateTime $postDate
      *
-     * @return Post
+     * @return Shop
      */
     public function setPostDate($postDate)
     {
@@ -299,51 +331,75 @@ class Post
     }
 
     /**
-     * Set postLike
+     * Set productLike
      *
-     * @param integer $postLike
+     * @param integer $productLike
      *
-     * @return Post
+     * @return Shop
      */
-    public function setPostLike($postLike)
+    public function setProductLike($productLike)
     {
-        $this->postLike = $postLike;
+        $this->productLike = $productLike;
 
         return $this;
     }
 
     /**
-     * Get postLike
+     * Get productLike
      *
      * @return integer
      */
-    public function getPostLike()
+    public function getProductLike()
     {
-        return $this->postLike;
+        return $this->productLike;
     }
 
     /**
-     * Set postStatus
+     * Set productStatus
      *
-     * @param integer $postStatus
+     * @param integer $productStatus
      *
-     * @return Post
+     * @return Shop
      */
-    public function setPostStatus($postStatus)
+    public function setProductStatus($productStatus)
     {
-        $this->postStatus = $postStatus;
+        $this->productStatus = $productStatus;
 
         return $this;
     }
 
     /**
-     * Get postStatus
+     * Get productStatus
      *
      * @return integer
      */
-    public function getPostStatus()
+    public function getProductStatus()
     {
-        return $this->postStatus;
+        return $this->productStatus;
+    }
+
+    /**
+     * Set productPrice
+     *
+     * @param float $productPrice
+     *
+     * @return Shop
+     */
+    public function setProductPrice($productPrice)
+    {
+        $this->productPrice = $productPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get productPrice
+     *
+     * @return float
+     */
+    public function getProductPrice()
+    {
+        return $this->productPrice;
     }
 
     /**
@@ -351,7 +407,7 @@ class Post
      *
      * @param \MainBundle\Entity\Tag $tag
      *
-     * @return Post
+     * @return Shop
      */
     public function addTag(\MainBundle\Entity\Tag $tag)
     {
@@ -385,7 +441,7 @@ class Post
      *
      * @param \MainBundle\Entity\Category $category
      *
-     * @return Post
+     * @return Shop
      */
     public function setCategory(\MainBundle\Entity\Category $category = null)
     {
@@ -405,37 +461,37 @@ class Post
     }
 
     /**
-     * Add postComment
+     * Add productComment
      *
-     * @param \MainBundle\Entity\Comment $postComment
+     * @param \MainBundle\Entity\Comment $productComment
      *
-     * @return Post
+     * @return Shop
      */
-    public function addPostComment(\MainBundle\Entity\Comment $postComment)
+    public function addProductComment(\MainBundle\Entity\Comment $productComment)
     {
-        $this->postComment[] = $postComment;
+        $this->productComment[] = $productComment;
 
         return $this;
     }
 
     /**
-     * Remove postComment
+     * Remove productComment
      *
-     * @param \MainBundle\Entity\Comment $postComment
+     * @param \MainBundle\Entity\Comment $productComment
      */
-    public function removePostComment(\MainBundle\Entity\Comment $postComment)
+    public function removeProductComment(\MainBundle\Entity\Comment $productComment)
     {
-        $this->postComment->removeElement($postComment);
+        $this->productComment->removeElement($productComment);
     }
 
     /**
-     * Get postComment
+     * Get productComment
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPostComment()
+    public function getProductComment()
     {
-        return $this->postComment;
+        return $this->productComment;
     }
 
     /**
@@ -443,7 +499,7 @@ class Post
      *
      * @param \MainBundle\Entity\User $user
      *
-     * @return Post
+     * @return Shop
      */
     public function setUser(\MainBundle\Entity\User $user = null)
     {
@@ -460,5 +516,73 @@ class Post
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add favorite
+     *
+     * @param \MainBundle\Entity\User $favorite
+     *
+     * @return Shop
+     */
+    public function addFavorite(\MainBundle\Entity\User $favorite)
+    {
+        $this->favorite[] = $favorite;
+
+        return $this;
+    }
+
+    /**
+     * Remove favorite
+     *
+     * @param \MainBundle\Entity\User $favorite
+     */
+    public function removeFavorite(\MainBundle\Entity\User $favorite)
+    {
+        $this->favorite->removeElement($favorite);
+    }
+
+    /**
+     * Get favorite
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * Add cart
+     *
+     * @param \MainBundle\Entity\User $cart
+     *
+     * @return Shop
+     */
+    public function addCart(\MainBundle\Entity\User $cart)
+    {
+        $this->cart[] = $cart;
+
+        return $this;
+    }
+
+    /**
+     * Remove cart
+     *
+     * @param \MainBundle\Entity\User $cart
+     */
+    public function removeCart(\MainBundle\Entity\User $cart)
+    {
+        $this->cart->removeElement($cart);
+    }
+
+    /**
+     * Get cart
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCart()
+    {
+        return $this->cart;
     }
 }

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Entity(repositoryClass="MainBundle\Repository\CommentRepository")
  **/
-class PostComment
+class Comment
 {
     /**
      * @ORM\Column(type="integer")
@@ -22,16 +22,16 @@ class PostComment
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=20000)
+     * @ORM\Column(type="string")
      *
      * @Assert\Length(
      *     min=1,
-     *     max=75,
+     *     max=20000,
      *     minMessage="Comment to short.",
      *     maxMessage="Comment is to long, max length 20000.",
      * )
      */
-    protected $commentPost;
+    protected $commentText;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,10 +41,18 @@ class PostComment
     /**
      * Many Comments have One Post.
      *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment")
-     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     protected $post;
+
+    /**
+     * Many Comments have One Shop.
+     *
+     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    protected $product;
 
     /**
      * Get id
@@ -57,27 +65,27 @@ class PostComment
     }
 
     /**
-     * Set commentPost
+     * Set commentText
      *
-     * @param string $commentPost
+     * @param string $commentText
      *
      * @return Comment
      */
-    public function setCommentPost($commentPost)
+    public function setCommentText($commentText)
     {
-        $this->commentPost = $commentPost;
+        $this->commentText = $commentText;
 
         return $this;
     }
 
     /**
-     * Get commentPost
+     * Get commentText
      *
      * @return string
      */
-    public function getCommentPost()
+    public function getCommentText()
     {
-        return $this->commentPost;
+        return $this->commentText;
     }
 
     /**
@@ -107,11 +115,11 @@ class PostComment
     /**
      * Set post
      *
-     * @param \BlogBundle\Entity\Post $post
+     * @param \MainBundle\Entity\Post $post
      *
      * @return Comment
      */
-    public function setPost(\BlogBundle\Entity\Post $post = null)
+    public function setPost(\MainBundle\Entity\Post $post = null)
     {
         $this->post = $post;
 
@@ -121,10 +129,34 @@ class PostComment
     /**
      * Get post
      *
-     * @return \BlogBundle\Entity\Post
+     * @return \MainBundle\Entity\Post
      */
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \MainBundle\Entity\Shop $product
+     *
+     * @return Comment
+     */
+    public function setProduct(\MainBundle\Entity\Shop $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \MainBundle\Entity\Shop
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }
