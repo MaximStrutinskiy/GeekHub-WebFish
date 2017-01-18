@@ -81,8 +81,8 @@ class User extends BaseUser
      *
      * @ORM\ManyToMany(targetEntity="Comment")
      * @ORM\JoinTable(name="user_comments",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=true)}
      *      )
      */
     protected $comments;
