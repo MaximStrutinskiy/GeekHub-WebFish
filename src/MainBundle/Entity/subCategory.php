@@ -6,14 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Category
+ * Class subCategory
  * @package MainBundle\Entity
- * @ORM\Table(name="category")
+ * @ORM\Table(name="sub_category")
  * @ORM\Entity()
- * @ORM\Entity(repositoryClass="MainBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\subCategoryRepository")
  **/
-class Category
-{
+class subCategory{
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -60,7 +60,7 @@ class Category
      *
      * @param string $name
      *
-     * @return Category
+     * @return subCategory
      */
     public function setName($name)
     {
@@ -84,7 +84,7 @@ class Category
      *
      * @param string $description
      *
-     * @return Category
+     * @return subCategory
      */
     public function setDescription($description)
     {
