@@ -18,23 +18,27 @@ class UserAdmin extends Admin
         $formMapper
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
-            ->add('enabled', ChoiceType::class, array(
-                'multiple' => false,
-                'choice_label' => 'Role',
-                'choices'  => array(
-                    'Admin' => 'a:1:{i:0;s:16:"ROLE_SUPER_ADMIN";}',
-                    'User' => 'a:0:{}',
-//                    'Moderator' => array('[0 => ROLE_MODERATOR]', '[1 => ROLE_USER]'),
-                ),
-            ))
-            ->add('roles', ChoiceType::class, array(
-                'choices'  => array(
-                    'Yes' => true,
-                    'No' => false,
-                ),
-            ))
-
-        ;
+            ->add(
+                'enabled',
+                ChoiceType::class,
+                array(
+                    'choices' => array(
+                        'Yes' => true,
+                        'No' => false,
+                    ),
+                )
+            )
+            ->add(
+                'roles',
+                ChoiceType::class,
+                array(
+                    'multiple' => true,
+                    'choices' => array(
+                        'Admin' => 'ROLE_SUPER_ADMIN',
+                        'User' => 'ROLE_USER',
+                    ),
+                )
+            );
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -43,8 +47,7 @@ class UserAdmin extends Admin
             ->add('username')
             ->add('email')
             ->add('enabled')
-            ->add('roles')
-        ;
+            ->add('roles');
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -54,14 +57,16 @@ class UserAdmin extends Admin
             ->addIdentifier('email')
             ->add('enabled')
             ->add('roles')
-
-            ->add('_action', 'actions', [
-                'actions' => [
-                    'edit' => [],
-                    'delete' => [],
+            ->add(
+                '_action',
+                'actions',
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
                 ]
-            ])
-        ;
+            );
     }
 
     public function toString($object)
