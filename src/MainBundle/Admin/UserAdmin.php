@@ -13,7 +13,10 @@ class UserAdmin extends Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('username', TextType::class);
+        $formMapper
+            ->add('username', TextType::class)
+            ->add('username', TextType::class)
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

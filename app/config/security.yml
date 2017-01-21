@@ -3,6 +3,18 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+            # for convenience, I decided to gather Sonata roles here
+            ROLE_SONATA_MODERATOR_READER:
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_LIST
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_VIEW
+            ROLE_SONATA_MODERATOR_EDITOR:
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_CREATE
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_EDIT
+            ROLE_SONATA_MODERATOR_ADMIN:
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_DELETE
+                - ROLE_SONATA_ADMIN_DEMO_MODERATOR_EXPORT
+
+            ROLE_MODERATOR:   [ROLE_USER, ROLE_SONATA_MODERATOR_READER, ROLE_SONATA_MODERATOR_EDITOR]
             ROLE_ADMIN:       ROLE_USER
             ROLE_SUPER_ADMIN: ROLE_ADMIN
 

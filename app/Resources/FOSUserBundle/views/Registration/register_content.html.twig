@@ -1,0 +1,30 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+<div class="register_form important_form">
+    <h2>Important data's</h2>
+    <ul>
+        <li>{{ form_row(form.email) }}</li>
+        <li>{{ form_row(form.username) }}</li>
+        <li>{{ form_row(form.plainPassword) }}</li>
+    </ul>
+</div>
+
+<div class="register_form important_form">
+    <h2>Not Important data's</h2>
+    <ul>
+        <li>{{ form_row(form.img) }}</li>
+        <li>{{ form_row(form.name) }}</li>
+        <li>{{ form_row(form.soname) }}</li>
+        <li>{{ form_row(form.age) }}</li>
+        <li>{{ form_row(form.city) }}</li>
+    </ul>
+</div>
+
+<div>
+    <input type="submit" value="{{ 'registration.submit'|trans }}" class="active"/>
+    <input type="reset" value="Clean"/>
+</div>
+
+{{ form_end(form) }}

@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    user_images: '%kernel.root_dir%/../web/user_images/'
 
 framework:
     #esi:             ~
@@ -71,9 +72,28 @@ swiftmailer:
 
 # FOSUser Configuration
 fos_user:
-    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    db_driver: orm
     firewall_name: main
     user_class: MainBundle\Entity\User
+    from_email:
+        address: 5i4wxk+ru5w0pxut6tq2nlv3lucc@sharklasers.com
+        sender_name: WebFish
+
+    #https://symfony.com/doc/current/bundles/FOSUserBundle/emails.html
+    registration:
+        form:
+            type: MainBundle\Forms\FOSUserBundle\FormRegistrationType
+
+#        if you need confirm emain - enable this settings
+#        confirmation:
+#            enabled: true
+
+    resetting:
+        token_ttl: 86400 # change this value, it is in seconds = 24 hours
+        email:
+            from_email:
+                address:        5i4wxk+ru5w0pxut6tq2nlv3lucc@sharklasers.com
+                sender_name:    WebFish
 
 # SonataAdminBundle Configuration
 sonata_block:
@@ -83,3 +103,13 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
         # ...
+
+# KNPMenuBundle Configuration
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig

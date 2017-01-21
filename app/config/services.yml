@@ -5,9 +5,16 @@ parameters:
 
 services:
 
-#FosUserBundle
+#FOSUserBundle
+#Registration
+    app.form.registration:
+        class: MainBundle\Forms\FOSUserBundle\FormRegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+# SonataAdminBundle - add User.
     #User
-    admin.tag:
+    admin.user:
           class: MainBundle\Admin\UserAdmin
           arguments: [~, MainBundle\Entity\User, ~]
           tags:

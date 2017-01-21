@@ -1,0 +1,52 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2>Hello {{ user.username }}, it's you personal page.</h2>
+<br>
+<p>User name: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<br>
+{% if user.img  is empty %}
+    </p><p>No photo</p>
+{% else %}
+    <p>Photo: <img src="{{ asset('user_images/' ~ user.img ) }}" alt="{{ user.username }}'s img">
+{% endif %}
+
+{% if user.name  is empty %}
+    <p>No Name</p>
+{% else %}
+    <p>Name: {{ user.name }}</p>
+{% endif %}
+
+{% if user.soname  is empty %}
+    <p>No Soname</p>
+{% else %}
+    <p>Soname: {{ user.soname }}</p>
+{% endif %}
+
+{% if user.age  is empty %}
+    <p>No Age</p>
+{% else %}
+    <p>Age: {{ user.age }}</p>
+{% endif %}
+
+{% if user.city  is empty %}
+    <p>No City</p>
+{% else %}
+    <p>City: {{ user.city }}</p>
+{% endif %}
+
+{% if app.user.roles is iterable %}
+    {% for role in app.user.roles %}
+        {% if role == 'ROLE_SUPER_ADMIN' %}
+            <a class="on" href="{{ path('sonata_admin_dashboard') }}">
+                <i class="fa fa-medkit" aria-hidden="true"></i>
+
+                Admin room
+
+            </a>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+

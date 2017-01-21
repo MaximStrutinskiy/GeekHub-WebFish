@@ -16,3 +16,4 @@
 /web/bundles/
 .idea/
 node_modules/
+/web/user_images/*

@@ -18,7 +18,15 @@
 {% block body_top %}{% endblock %}
 
 {# Body center #}
-{% block body %} <div class="col-md-4">Hi</div>  {% endblock %}
+{% block body %}
+
+    <div class="col-md-12">
+        <h1>Main Menu</h1>
+        {{ knp_menu_render('MainBundle:Builder:mainMenu') }}
+        {{ render(controller('MainBundle:Security:loginMenu')) }}
+    </div>
+
+{% endblock %}
 
 {# Body footer #}
 {% block body_bottom %}{% endblock %}
