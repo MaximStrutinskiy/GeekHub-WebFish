@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use MainBundle\Entity\User as User;
 
@@ -18,8 +19,19 @@ class UserAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->with(
+                'Main information',
+                array('class' => 'col-md-3')
+            )
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
+            ->add('password', PasswordType::class)
+            ->end()
+
+            ->with(
+                'Security information',
+                array('class' => 'col-md-3')
+            )
             ->add(
                 'enabled',
                 ChoiceType::class,
@@ -41,19 +53,29 @@ class UserAdmin extends Admin
                     ),
                 )
             )
+            ->end()
+
+            ->with(
+                'More information',
+                array('class' => 'col-md-6')
+            )
             ->add('name', TextType::class)
             ->add('soname', TextType::class)
             ->add('age', IntegerType::class)
             ->add('city', TextType::class)
             ->add(
-                'Img',
+                'img',
                 FileType::class,
                 array(
                     'label' => 'Upload User img (PNG file)',
                     'data_class' => null,
                     'required' => false,
                 )
-            );
+            )
+            ->end()
+
+        ;
+
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

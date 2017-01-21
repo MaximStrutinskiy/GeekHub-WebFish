@@ -2,9 +2,7 @@
 {% block field %}
     <div>
         {% if object.img != null %}
-            <img src="{{ asset('user_images/' ~ app.user.img ) }}">
-        {% else %}
-            <span>No picture</span>
+            <img src="{{ asset('user_images/' ~ object.img ) }}">
         {% endif %}
     </div>
 {% endblock %}
