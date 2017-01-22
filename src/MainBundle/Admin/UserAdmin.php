@@ -163,8 +163,8 @@ class UserAdmin extends Admin
 
     private function processImage($object)
     {
-
-        $img = $this->getForm()->get('img')->getData();
+        //mapped true $object->getImg()
+        $img = $this->getForm()->get('img')->getData(); //mapped false
         if ($img !== null) {
             $fileName = md5(uniqid()).'.'.$img->getExtension();
             $img->move(
