@@ -27,8 +27,13 @@ class UserAdmin extends Admin
             ->add('email', EmailType::class)
             ->add(
                 'password',
-                PasswordType::class,
+                'repeated',
                 array(
+                    'type' => 'password',
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'form.password'),
+                    'second_options' => array('label' => 'form.password_confirmation'),
+                    'invalid_message' => 'fos_user.password.mismatch',
                     'mapped' => false,
                     'required' => false,
                 )
@@ -101,8 +106,7 @@ class UserAdmin extends Admin
                     'required' => false,
                 )
             )
-            ->end()
-        ;
+            ->end();
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -153,18 +157,31 @@ class UserAdmin extends Admin
      */
     public function preUpdate($object)
     {
+        $this->processPassword($object);
         $this->processImage($object);
     }
 
     public function prePersist($object)
     {
+        $this->processPassword($object);
         $this->processImage($object);
+    }
+
+    private function processPassword(User $object)
+    {
+        $pass = $this->getForm()->get('password')->getData();
+        if ($pass !==null) {
+            $object->setPlainPassword($pass);
+        }
+
+        $um = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
+        $um->updateUser($object, false);
     }
 
     private function processImage($object)
     {
-        //mapped true $object->getImg()
-        $img = $this->getForm()->get('img')->getData(); //mapped false
+        // Mapped => true $object->getImg().
+        $img = $this->getForm()->get('img')->getData(); // Mapped false.
         if ($img !== null) {
             $fileName = md5(uniqid()).'.'.$img->getExtension();
             $img->move(
