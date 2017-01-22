@@ -60,6 +60,7 @@ class UserAdmin extends Admin
                     'multiple' => true,
                     'choices' => array(
                         'Admin' => 'ROLE_SUPER_ADMIN',
+                        'Moderator' => 'ROLE_MODERATOR',
                         'User' => 'ROLE_USER',
                     ),
                 )
@@ -199,6 +200,3 @@ class UserAdmin extends Admin
             : 'User';
     }
 }
-
-//img
-//pass

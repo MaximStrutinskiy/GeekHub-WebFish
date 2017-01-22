@@ -6,7 +6,7 @@
 <p>Email: {{ user.email }}</p>
 <br>
 {% if user.img  is empty %}
-    </p><p>No photo</p>
+    <p>No photo</p>
 {% else %}
     <p>Photo: <img src="{{ asset('user_images/' ~ user.img ) }}" alt="{{ user.username }}'s img">
 {% endif %}
@@ -37,12 +37,10 @@
 
 {% if app.user.roles is iterable %}
     {% for role in app.user.roles %}
-        {% if role == 'ROLE_SUPER_ADMIN' %}
+        {% if role == 'ROLE_SUPER_ADMIN' or role == 'ROLE_MODERATOR'%}
             <a class="on" href="{{ path('sonata_admin_dashboard') }}">
                 <i class="fa fa-medkit" aria-hidden="true"></i>
-
                 Admin room
-
             </a>
         {% endif %}
     {% endfor %}
