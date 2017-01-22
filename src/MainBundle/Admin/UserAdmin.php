@@ -25,9 +25,15 @@ class UserAdmin extends Admin
             )
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add(
+                'password',
+                PasswordType::class,
+                array(
+                    'mapped' => false,
+                    'required' => false,
+                )
+            )
             ->end()
-
             ->with(
                 'Security information',
                 array('class' => 'col-md-3')
@@ -54,28 +60,49 @@ class UserAdmin extends Admin
                 )
             )
             ->end()
-
             ->with(
                 'More information',
                 array('class' => 'col-md-6')
             )
-            ->add('name', TextType::class)
-            ->add('soname', TextType::class)
-            ->add('age', IntegerType::class)
-            ->add('city', TextType::class)
+            ->add(
+                'name',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'soname',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'age',
+                IntegerType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'city',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
             ->add(
                 'img',
                 FileType::class,
                 array(
-                    'label' => 'Upload User img (PNG file)',
+                    'mapped' => false,
                     'data_class' => null,
                     'required' => false,
                 )
             )
             ->end()
-
         ;
-
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -138,16 +165,11 @@ class UserAdmin extends Admin
     {
         $img = $object->getImg();
         if ($img !== null) {
-            // Generate a unique name for the file before saving it
             $fileName = md5(uniqid()).'.'.$img->getExtension();
-
-            // Move the file to the directory where brochures are stored
             $img->move(
                 $this->getConfigurationPool()->getContainer()->getParameter('user_images'),
                 $fileName
             );
-            // Update the 'img' property to store the img file name
-            // instead of its contents
             $object->setImg($fileName);
         }
     }
@@ -155,7 +177,10 @@ class UserAdmin extends Admin
     public function toString($object)
     {
         return $object instanceof User
-            ? $object->getName()
-            : 'User'; // shown in the breadcrumb on the create view
+            ? $object->getUsername()
+            : 'User';
     }
 }
+
+//img
+//pass
