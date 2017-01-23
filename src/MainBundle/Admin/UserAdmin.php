@@ -199,6 +199,3 @@ class UserAdmin extends Admin
             : 'User';
     }
 }
-
-//img
-//pass
