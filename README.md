@@ -19,6 +19,7 @@
 - $composer install; //install all librarys and reqires
 - $php bin/console doctrine:fixtures:load //add castom data's for entity's
 - $npm install; //install gulp
+- $php bin/console doctrine:schema:drop --force && bin/console doctrine:generate:entities BlogBundle && bin/console doctrine:schema:update --force && php bin/console doctrine:fixtures:load && php bin/console fos:user:create --super-admin
 ```
 
 ---
