@@ -1,4 +1,5 @@
 <?php
+
 namespace MainBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
@@ -22,7 +23,17 @@ class TagAdmin extends Admin {
   protected function configureListFields(ListMapper $listMapper) {
     $listMapper
       ->addIdentifier('id')
-      ->addIdentifier('name');
+      ->addIdentifier('name')
+      ->add(
+        '_action',
+        'actions',
+        [
+          'actions' => [
+            'edit' => [],
+            'delete' => [],
+          ],
+        ]
+      );
   }
 
   public function toString($object) {

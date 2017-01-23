@@ -25,11 +25,11 @@ services:
             class: MainBundle\Admin\CategoryAdmin
             arguments: [~, MainBundle\Entity\Category, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Post info,  label: Category }
+                - { name: sonata.admin, manager_type: orm, group: Category/Tags info,  label: Category }
 
     # Tag.
     admin.tag:
             class: MainBundle\Admin\TagAdmin
             arguments: [~, MainBundle\Entity\Tag, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Post info,  label: Tag }
+                - { name: sonata.admin, manager_type: orm, group: Category/Tags info,  label: Tag }
