@@ -4,6 +4,11 @@ namespace MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class MainController
+ *
+ * @package MainBundle\Controller
+ */
 class MainController extends Controller
 {
 

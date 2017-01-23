@@ -14,6 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use MainBundle\Entity\User as User;
 
+/**
+ * Class UserAdmin
+ *
+ * @package MainBundle\Admin
+ */
 class UserAdmin extends Admin {
   protected function configureFormFields(FormMapper $formMapper) {
     $formMapper

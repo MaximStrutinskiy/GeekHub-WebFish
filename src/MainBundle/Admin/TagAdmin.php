@@ -9,6 +9,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use MainBundle\Entity\Tag as Tag;
 
+/**
+ * Class TagAdmin
+ *
+ * @package MainBundle\Admin
+ */
 class TagAdmin extends Admin {
   protected function configureFormFields(FormMapper $formMapper) {
     $formMapper->add('name', TextType::class);

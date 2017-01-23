@@ -6,7 +6,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use MainBundle\Entity\Category as Category;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-
+/**
+ * Class LoadCategoryData
+ *
+ * @package MainBundle\DataFixtures\ORM
+ */
 class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)

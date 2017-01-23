@@ -8,7 +8,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 use MainBundle\Entity\Category as Category;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-
+/**
+ * Class CategoryAdmin
+ *
+ * @package MainBundle\Admin
+ */
 class CategoryAdmin extends Admin {
   protected function configureFormFields(FormMapper $formMapper) {
     $formMapper

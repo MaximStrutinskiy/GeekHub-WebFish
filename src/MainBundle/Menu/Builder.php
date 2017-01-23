@@ -6,7 +6,11 @@ use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-
+/**
+ * Class Builder
+ *
+ * @package MainBundle\Menu
+ */
 class Builder implements ContainerAwareInterface
 {
     use ContainerAwareTrait;

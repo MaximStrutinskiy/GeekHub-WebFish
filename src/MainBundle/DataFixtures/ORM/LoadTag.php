@@ -6,6 +6,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use MainBundle\Entity\Tag as Tag;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
+/**
+ * Class LoadTagData
+ *
+ * @package MainBundle\DataFixtures\ORM
+ */
 class LoadTagData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
