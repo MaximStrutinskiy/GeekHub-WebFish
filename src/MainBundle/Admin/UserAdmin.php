@@ -63,6 +63,7 @@ class UserAdmin extends Admin {
           'multiple' => TRUE,
           'choices' => array(
             'Admin' => 'ROLE_SUPER_ADMIN',
+            'Moderator' => 'ROLE_MODERATOR',
             'User' => 'ROLE_USER',
           ),
         )
