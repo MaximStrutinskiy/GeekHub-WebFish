@@ -88,6 +88,10 @@ fos_user:
 #        confirmation:
 #            enabled: true
 
+    profile:
+        form:
+            type: MainBundle\Forms\FOSUserBundle\FormEditType
+
     resetting:
         token_ttl: 86400 # change this value, it is in seconds = 24 hours
         email:
