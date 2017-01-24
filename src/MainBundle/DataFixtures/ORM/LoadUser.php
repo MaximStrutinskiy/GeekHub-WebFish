@@ -7,7 +7,7 @@ use MainBundle\Entity\User as User;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 /**
- * Class LoadTagData
+ * Class LoadUserData
  *
  * @package MainBundle\DataFixtures\ORM
  */

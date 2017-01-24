@@ -13,7 +13,7 @@ services:
             - { name: form.type, alias: app_user_registration }
 
 # SonataAdminBundle - add User.
-    #User
+    # User
     app.admin.user:
           class: MainBundle\Admin\UserAdmin
           arguments: [~, MainBundle\Entity\User, ~]
