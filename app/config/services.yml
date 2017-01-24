@@ -14,7 +14,7 @@ services:
 
 # SonataAdminBundle - add User.
     #User
-    admin.user:
+    app.admin.user:
           class: MainBundle\Admin\UserAdmin
           arguments: [~, MainBundle\Entity\User, ~]
           tags:
