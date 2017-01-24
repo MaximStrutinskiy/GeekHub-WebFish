@@ -49,17 +49,35 @@ class ProfileController extends BaseController {
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
 
-      $img = $this->getForm()->get('img')->getData(); // Mapped false.
+//      no mapped
+      $img = $user->getImg();
       if ($img !== NULL) {
+        $img = $user->getImg();
+        // Generate a unique name for the file before saving it
         $fileName = md5(uniqid()) . '.' . $img->getExtension();
+
+        // Move the file to the directory where brochures are stored
         $img->move(
-          $this->getConfigurationPool()
-            ->getContainer()
-            ->getParameter('user_images'),
+          $this->getParameter('user_images'),
           $fileName
         );
-        $img->setImg($fileName);
+        // Update the 'img' property to store the img file name
+        // instead of its contents
+        $user->setImg($fileName);
       }
+
+//      mapped
+//      $img = $this->getForm()->get('img')->getData(); // Mapped false.
+//      if ($img !== NULL) {
+//        $fileName = md5(uniqid()) . '.' . $img->getExtension();
+//        $img->move(
+//          $this->getConfigurationPool()
+//            ->getContainer()
+//            ->getParameter('user_images'),
+//          $fileName
+//        );
+//        $img->setImg($fileName);
+//      }
 
       /** @var $userManager UserManagerInterface */
       $userManager = $this->get('fos_user.user_manager');
