@@ -115,6 +115,7 @@ class UserAdmin extends Admin {
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
     $datagridMapper
+      ->add('id')
       ->add('username')
       ->add('email')
       ->add('enabled')
@@ -127,6 +128,7 @@ class UserAdmin extends Admin {
 
   protected function configureListFields(ListMapper $listMapper) {
     $listMapper
+      ->add('id')
       ->add('username')
       ->add('email')
       ->add('enabled')

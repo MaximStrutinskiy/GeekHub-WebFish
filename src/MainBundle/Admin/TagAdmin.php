@@ -27,8 +27,8 @@ class TagAdmin extends Admin {
 
   protected function configureListFields(ListMapper $listMapper) {
     $listMapper
-      ->addIdentifier('id')
-      ->addIdentifier('name')
+      ->add('id')
+      ->add('name')
       ->add(
         '_action',
         'actions',

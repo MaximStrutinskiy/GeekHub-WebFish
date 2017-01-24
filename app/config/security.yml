@@ -9,9 +9,23 @@ security:
             ROLE_SONATA_MODERATOR_READER:
                 - ROLE_APP_ADMIN_USER_LIST
 #                - ROLE_APP_ADMIN_USER_VIEW
+
+                - ROLE_APP_ADMIN_CATEGORY_LIST
+                - ROLE_APP_ADMIN_CATEGORY_VIEW
+
+                - ROLE_APP_ADMIN_TAG_LIST
+                - ROLE_APP_ADMIN_TAG_VIEW
+
             ROLE_SONATA_MODERATOR_EDITOR:
 #                - ROLE_APP_ADMIN_USER_CREATE
 #                - ROLE_APP_ADMIN_USER_EDIT
+
+                - ROLE_APP_ADMIN_CATEGORY_CREATE
+                - ROLE_APP_ADMIN_CATEGORY_EDIT
+
+                - ROLE_APP_ADMIN_TAG_CREATE
+                - ROLE_APP_ADMIN_TAG_EDIT
+
             ROLE_SONATA_MODERATOR_ADMIN:
 #                - ROLE_APP_ADMIN_USER_DELETE
 #                - ROLE_APP_ADMIN_USER_EXPORT

@@ -22,12 +22,14 @@ class CategoryAdmin extends Admin {
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
     $datagridMapper
+      ->add('id')
       ->add('name')
       ->add('description');
   }
 
   protected function configureListFields(ListMapper $listMapper) {
     $listMapper
+      ->add('id')
       ->add('name')
       ->add('description')
       ->add(
