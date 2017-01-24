@@ -6,6 +6,7 @@ security:
             # for convenience, I decided to gather Sonata roles here
             # https://sonata-project.org/bundles/admin/master/doc/reference/security.html#id1
             # task-1002 - add all Role for User - Moderator.
+            # Example ROLE_APP_ADMIN_CATEGORY_LIST - "ROLE"."APP_ADMIN_CATEGORY = app.admin.category (in service.yml)"."LIST- action"
             ROLE_SONATA_MODERATOR_READER:
                 - ROLE_APP_ADMIN_USER_LIST
 #                - ROLE_APP_ADMIN_USER_VIEW
