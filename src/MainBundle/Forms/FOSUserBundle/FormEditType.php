@@ -9,7 +9,6 @@
 namespace MainBundle\Forms\FOSUserBundle;
 
 
-use MainBundle\Entity\User as User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;

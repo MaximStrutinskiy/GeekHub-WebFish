@@ -50,21 +50,21 @@ class ProfileController extends BaseController {
     if ($form->isSubmitted() && $form->isValid()) {
 
 //      no mapped
-      $img = $user->getImg();
-      if ($img !== NULL) {
-        $img = $user->getImg();
-        // Generate a unique name for the file before saving it
-        $fileName = md5(uniqid()) . '.' . $img->getExtension();
-
-        // Move the file to the directory where brochures are stored
-        $img->move(
-          $this->getParameter('user_images'),
-          $fileName
-        );
-        // Update the 'img' property to store the img file name
-        // instead of its contents
-        $user->setImg($fileName);
-      }
+//      $img = $user->getImg();
+//      if ($img !== NULL) {
+//        $img = $user->getImg();
+//        // Generate a unique name for the file before saving it
+//        $fileName = md5(uniqid()) . '.' . $img->getExtension();
+//
+//        // Move the file to the directory where brochures are stored
+//        $img->move(
+//          $this->getParameter('user_images'),
+//          $fileName
+//        );
+//        // Update the 'img' property to store the img file name
+//        // instead of its contents
+//        $user->setImg($fileName);
+//      }
 
 //      mapped
 //      $img = $this->getForm()->get('img')->getData(); // Mapped false.
