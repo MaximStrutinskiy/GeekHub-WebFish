@@ -47,7 +47,7 @@ class SecurityController extends BaseController
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        return $this->renderLogin(
+        return $this->renderLoginMenu(
             array(
                 'last_username' => $lastUsername,
                 'error' => $error,
@@ -64,7 +64,7 @@ class SecurityController extends BaseController
      *
      * @return Response
      */
-    protected function renderLogin(array $data)
+    protected function renderLoginMenu(array $data)
     {
         return $this->render('FOSUserBundle:Security:login_menu.html.twig', $data);
     }
