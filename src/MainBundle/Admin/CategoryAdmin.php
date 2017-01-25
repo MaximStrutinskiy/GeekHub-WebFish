@@ -13,40 +13,45 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  *
  * @package MainBundle\Admin
  */
-class CategoryAdmin extends Admin {
-  protected function configureFormFields(FormMapper $formMapper) {
-    $formMapper
-      ->add('name', TextType::class)
-      ->add('description', TextType::class);
-  }
+class CategoryAdmin extends Admin
+{
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('name', TextType::class)
+            ->add('description', TextType::class);
+    }
 
-  protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
-    $datagridMapper
-      ->add('id')
-      ->add('name')
-      ->add('description');
-  }
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('id')
+            ->add('name')
+            ->add('description');
+    }
 
-  protected function configureListFields(ListMapper $listMapper) {
-    $listMapper
-      ->add('id')
-      ->add('name')
-      ->add('description')
-      ->add(
-        '_action',
-        'actions',
-        [
-          'actions' => [
-            'edit' => [],
-            'delete' => [],
-          ],
-        ]
-      );
-  }
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->add('id')
+            ->add('name')
+            ->add('description')
+            ->add(
+                '_action',
+                'actions',
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
+            );
+    }
 
-  public function toString($object) {
-    return $object instanceof Category
-      ? $object->getName()
-      : 'Category';
-  }
+    public function toString($object)
+    {
+        return $object instanceof Category
+            ? $object->getName()
+            : 'Category';
+    }
 }

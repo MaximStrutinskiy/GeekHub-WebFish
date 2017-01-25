@@ -22,35 +22,35 @@ class FormRegistrationType extends AbstractType
                 'name',
                 TextType::class,
                 array(
-                    'required' => false
+                    'required' => false,
                 )
             )
             ->add(
                 'soname',
                 TextType::class,
                 array(
-                    'required' => false
+                    'required' => false,
                 )
             )
             ->add(
                 'email',
                 EmailType::class,
                 array(
-                    'required' => false
+                    'required' => false,
                 )
             )
             ->add(
                 'age',
                 TextType::class,
                 array(
-                    'required' => false
+                    'required' => false,
                 )
             )
             ->add(
                 'city',
                 TextType::class,
                 array(
-                    'required' => false
+                    'required' => false,
                 )
             )
             ->add(
@@ -60,8 +60,7 @@ class FormRegistrationType extends AbstractType
                     'label' => 'Upload you img (PNG file)',
                     'required' => false,
                 )
-            )
-        ;
+            );
     }
 
     public function getParent()

@@ -20,62 +20,65 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * @package MainBundle\Forms\FOSUserBundle
  */
-class FormEditType extends AbstractType {
-  public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder
-      ->add(
-        'name',
-        TextType::class,
-        array(
-          'required' => FALSE
-        )
-      )
-      ->add(
-        'soname',
-        TextType::class,
-        array(
-          'required' => FALSE
-        )
-      )
-      ->add(
-        'email',
-        EmailType::class,
-        array(
-          'required' => FALSE
-        )
-      )
-      ->add(
-        'age',
-        TextType::class,
-        array(
-          'required' => FALSE
-        )
-      )
-      ->add(
-        'city',
-        TextType::class,
-        array(
-          'required' => FALSE
-        )
-      )
-      ->add(
-        'img',
-        FileType::class,
-        array(
-          'label' => 'Upload you img (PNG file)',
-          'required' => FALSE,
-          'data_class' => null,
-          'mapped' => false,
-        )
-      )
-    ;
-  }
+class FormEditType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add(
+                'name',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'soname',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'email',
+                EmailType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'age',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'city',
+                TextType::class,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'img',
+                FileType::class,
+                array(
+                    'label' => 'Upload you img (PNG file)',
+                    'required' => false,
+                    'data_class' => null,
+                    'mapped' => false,
+                )
+            );
+    }
 
-  public function getParent() {
-    return 'FOS\UserBundle\Form\Type\ProfileFormType';
-  }
+    public function getParent()
+    {
+        return 'FOS\UserBundle\Form\Type\ProfileFormType';
+    }
 
-  public function getBlockPrefix() {
-    return 'app_user_edit';
-  }
+    public function getBlockPrefix()
+    {
+        return 'app_user_edit';
+    }
 }
