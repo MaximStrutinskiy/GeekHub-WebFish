@@ -15,17 +15,37 @@
 <body>
 
 {# Body top #}
-{% block body_top %}{% endblock %}
+{% block body_top %}
+
+    {# main menu add new template! #}
+    <div style="background-color: tomato" class="col-md-12">
+        <h1>Main Menu</h1>
+        {{ knp_menu_render('MainBundle:Builder:mainMenu') }}
+
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if app.user.roles is iterable %}
+                {% for role in app.user.roles %}
+                    {% if role == 'ROLE_SUPER_ADMIN' or role == 'ROLE_MODERATOR' %}
+                        <a class="on" href="{{ path('sonata_admin_dashboard') }}">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                            Admin room
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <a style="color: white; font-size: 24px" href="{{ path('fos_user_profile_show') }}">Show</a>
+            <a style="color: white; font-size: 24px" href="{{ path('fos_user_profile_edit') }}">Edit</a>
+            <a style="color: white; font-size: 24px" href="{{ path('fos_user_security_logout') }}">Logout</a>
+        {% else %}
+            {{ render(controller('MainBundle:Security:loginMenu')) }}
+        {% endif %}
+    </div>
+    {# main menu add new template! #}
+
+{% endblock %}
 
 {# Body center #}
 {% block body %}
-
-    <div class="col-md-12">
-        <h1>Main Menu</h1>
-        {{ knp_menu_render('MainBundle:Builder:mainMenu') }}
-        {{ render(controller('MainBundle:Security:loginMenu')) }}
-    </div>
-
 {% endblock %}
 
 {# Body footer #}
