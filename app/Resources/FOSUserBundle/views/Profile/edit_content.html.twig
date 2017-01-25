@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ dump(form.vars.value) }}
+    {#{{ dump(form.vars.value) }}#}
 <ul>
   <li>{{ form_row(form.email) }}</li>
   <li>{{ form_row(form.username) }}</li>
@@ -14,7 +14,9 @@
       Add new image - {{ form_row(form.img) }}
     </li>
     <li>
+      {% if form.vars.value.img is not empty %}
       <img src="{{ asset('user_images/' ~ form.vars.value.img ) }}" alt="{{ form.vars.value.username }}'s img"/>
+      {% endif %}
     </li>
   </ul>
 

@@ -50,34 +50,21 @@ class ProfileController extends BaseController {
     if ($form->isSubmitted() && $form->isValid()) {
 
 //      no mapped
-//      $img = $user->getImg();
-//      if ($img !== NULL) {
-//        $img = $user->getImg();
-//        // Generate a unique name for the file before saving it
-//        $fileName = md5(uniqid()) . '.' . $img->getExtension();
-//
-//        // Move the file to the directory where brochures are stored
-//        $img->move(
-//          $this->getParameter('user_images'),
-//          $fileName
-//        );
-//        // Update the 'img' property to store the img file name
-//        // instead of its contents
-//        $user->setImg($fileName);
-//      }
+      $img = $form->get('img')->getData();
+      if ($img !== NULL) {
+        // Generate a unique name for the file before saving it
+        $fileName = md5(uniqid()) . '.' . $img->getExtension();
 
-//      mapped
-//      $img = $this->getForm()->get('img')->getData(); // Mapped false.
-//      if ($img !== NULL) {
-//        $fileName = md5(uniqid()) . '.' . $img->getExtension();
-//        $img->move(
-//          $this->getConfigurationPool()
-//            ->getContainer()
-//            ->getParameter('user_images'),
-//          $fileName
-//        );
-//        $img->setImg($fileName);
-//      }
+        // Move the file to the directory where brochures are stored
+        $img->move(
+          $this->getParameter('user_images'),
+          $fileName
+        );
+
+        // Update the 'img' property to store the img file name
+        // instead of its contents
+        $user->setImg($fileName);
+      }
 
       /** @var $userManager UserManagerInterface */
       $userManager = $this->get('fos_user.user_manager');
