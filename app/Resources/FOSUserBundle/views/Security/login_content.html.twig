@@ -11,20 +11,26 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
     {% endif %}
 
-    <label class="label" for="username">{{ 'security.login.username'|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Name" required="required"/>
+    <div class="user-name">
+        <label class="label" for="username">{{ 'security.login.username'|trans }}</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Name"
+               required="required"/>
+    </div>
+    <div class="user-password">
+        <label class="label" for="password">{{ 'security.login.password'|trans }}</label>
+        <input type="password" id="password" name="_password" required="required" placeholder="Password"/>
+    </div>
+    <div class="user-remember">
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+    <div class="user-action">
+        <input type="submit" id="_submit" name="_submit" value="Login"/>
 
-    <label class="label" for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" placeholder="Password"/>
+        or
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-
-    <input type="submit" id="_submit" name="_submit" value="Login"/>
-
-    or
-
-    <a href="{{ path('fos_user_registration_register') }}">
-        Register
-    </a>
+        <a href="{{ path('fos_user_registration_register') }}">
+            Register
+        </a>
+    </div>
 </form>

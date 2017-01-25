@@ -21,7 +21,7 @@ gulp.task('img', function () {
 //js
 gulp.task('js', function () {
   return gulp.src('web/assets/src/js/**/*.js')
-    .pipe(jsmin())
+    // .pipe(jsmin()) for debug
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(rename('main.min.js'))

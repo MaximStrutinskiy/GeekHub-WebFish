@@ -45,16 +45,12 @@ class RegistrationController extends BaseController
                 $img = $user->getImg();
                 if ($img !== null) {
                     $img = $user->getImg();
-                    // Generate a unique name for the file before saving it
                     $fileName = md5(uniqid()).'.'.$img->getExtension();
 
-                    // Move the file to the directory where brochures are stored
                     $img->move(
                         $this->getParameter('user_images'),
                         $fileName
                     );
-                    // Update the 'img' property to store the img file name
-                    // instead of its contents
                     $user->setImg($fileName);
                 }
 
