@@ -2,70 +2,70 @@
   background-color: $black-light;
 
   .mmenu-container {
-	@include page-container();
+    @include page-container();
   }
 
   // Navigation.
   .mmenu-navigation {
-	@include span(9 of 12);
+    @include span(9 of 12);
   }
 
   // User info.
   .mmenu-user {
-	@include span(last 3 of 12);
-	background: tomato;
-	text-align: center;
-	position: relative;
-	color: $white;
+    @include span(last 3 of 12);
+    background: tomato;
+    text-align: center;
+    position: relative;
+    color: $white;
 
-	#mmenu-user-content {
-	  padding-top: rem(20px);
-	  display: none;
-	  position: absolute;
-	  width: 100%;
+    #mmenu-user-content {
+      padding-top: rem(20px);
+      display: none;
+      position: absolute;
+      width: 100%;
 
-	  .muser-content{
-		position: relative;
-		background-color: $blue-light;
-		padding: rem(25px);
-		border-radius: rem(10px);
+      .muser-content {
+        position: relative;
+        background-color: $blue-light;
+        padding: rem(25px);
+        border-radius: rem(10px);
 
-		&:before {
-		  top: rem(-13px);
-		  left: 50%;
-		  transform: translateX(-50%);
-		  content: '';
-		  position: absolute;
-		  width: 0;
-		  height: 0;
-		  border-left: rem(11px) solid transparent;
-		  border-right: rem(11px) solid transparent;
-		  border-bottom: rem(22px) solid $blue-light;
-		}
-	  }
+        &:before {
+          top: rem(-13px);
+          left: 50%;
+          transform: translateX(-50%);
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-left: rem(11px) solid transparent;
+          border-right: rem(11px) solid transparent;
+          border-bottom: rem(22px) solid $blue-light;
+        }
+      }
 
-	  .user-name,
-	  .user-password,
-	  .user-action,
-	  .user-remember {
-		display: block;
-		text-align: left;
-		padding-bottom: rem(10px);
-	  }
+      .user-name,
+      .user-password,
+      .user-action,
+      .user-remember {
+        display: block;
+        text-align: left;
+        padding-bottom: rem(10px);
+      }
 
-	  .user-name,
-	  .user-password {
-		input {
-		  width: 100%;
-		  background: $white;
-		  border: rem(1px) solid $black-light;
-		  padding: rem(5px) rem(10px);
-		}
+      .user-name,
+      .user-password {
+        input {
+          width: 100%;
+          background: $white;
+          border: rem(1px) solid $black-light;
+          padding: rem(5px) rem(10px);
+        }
 
-		label {
-		  display: none;
-		}
-	  }
-	}
+        label {
+          display: none;
+        }
+      }
+    }
   }
 }
