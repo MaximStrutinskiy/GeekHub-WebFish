@@ -18,6 +18,27 @@
     position: relative;
     color: $white;
 
+    .user-info {
+      padding: rem(15px);
+      text-align: right;
+
+      .user-title,
+      .user-img {
+        display: inline-block;
+      }
+
+      .user-title-no {
+        text-align: center;
+      }
+
+      .user-img {
+        width: rem(42px);
+        height: rem(42px);
+        background: white;
+        border-radius: rem(50px);
+      }
+    }
+
     #mmenu-user-content {
       padding-top: rem(20px);
       display: none;
@@ -59,7 +80,7 @@
           width: 100%;
           background: $white;
           border: rem(1px) solid $black-light;
-          padding: rem(5px) rem(10px);
+          padding: rem(10px) rem(20px);
         }
 
         label {

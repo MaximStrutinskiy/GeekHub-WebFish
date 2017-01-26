@@ -1,9 +1,32 @@
+// Body style.
 body {
+  font-family: $m-light;
   overflow-x: hidden;
 }
 
+// Container style.
 .container-susy {
   @include page-container();
   padding-top: rem(20px);
   padding-bottom: rem(20px);
+}
+
+// Form style.
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 rem(50px) $white inset; /* Change the color to your own background color */
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: $white/*your box-shadow*/
+  , 0 0 0 rem(50px) $white inset;
+}
+
+input{
+  color: $black-light;
+}
+
+// Text Style.
+p{
+  margin: 0;
+  padding: 0;
 }
