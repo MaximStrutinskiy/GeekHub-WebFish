@@ -1,0 +1,13 @@
+@mixin button($c:$black-light, $c-hover:$white, $bc:inherit, $bc-hover:$black-light, $fs:14px, $br:rem(5px)) {
+  color: $c;
+  background-color: $bc;
+  padding: rem(15px) rem(30px);
+  font-size: $fs;
+  border: rem(1px) solid $bc-hover;
+  border-radius: $br;
+
+  &:hover {
+    color: $c-hover;
+    background-color: $bc-hover;
+  }
+}

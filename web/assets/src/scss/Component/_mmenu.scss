@@ -74,6 +74,10 @@
         padding-bottom: rem(10px);
       }
 
+      .user-action{
+        text-align: center;
+      }
+
       .user-name,
       .user-password {
         input {
@@ -86,6 +90,10 @@
         label {
           display: none;
         }
+      }
+
+      input[type=submit]{
+        @include button();
       }
     }
   }
