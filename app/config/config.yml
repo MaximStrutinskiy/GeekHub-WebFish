@@ -120,3 +120,5 @@ knp_menu:
     templating: false
     # the renderer to use, list is also available by default
     default_renderer: twig
+# White october breadcrumbs
+white_october_breadcrumbs: ~
