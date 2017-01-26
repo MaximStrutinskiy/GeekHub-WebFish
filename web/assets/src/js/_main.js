@@ -10,10 +10,10 @@ $(function () {
 				var dropContent = $('#mmenu-user > #mmenu-user-content');
 				$('#mmenu-user').hover(
 					function () {
-						dropContent.addClass('active').fadeIn(300);
+						dropContent.addClass('active').stop(true, true).fadeIn(300);
 					},
 					function () {
-						dropContent.removeClass('active').fadeOut();
+						dropContent.removeClass('active').stop(true, true).fadeOut();
 					}
 				)
 			}

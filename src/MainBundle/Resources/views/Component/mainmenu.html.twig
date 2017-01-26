@@ -5,8 +5,7 @@
         </div>
         <div id="mmenu-user" class="mmenu-user">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <p class="user-title">{{ app.user.username }} <img src="{{ app.user.img }}"
-                                                                   alt="{{ app.user.username }} image"></p>
+                <p class="user-title">{{ app.user.username }} <img src="{{ asset('user_images/' ~ app.user.img)}}"></p>
                 <div id="mmenu-user-content">
                     <div class="muser-content">
                         {% if app.user.roles is iterable %}
