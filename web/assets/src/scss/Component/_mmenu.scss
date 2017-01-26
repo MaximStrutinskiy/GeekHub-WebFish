@@ -13,7 +13,6 @@
   // User info.
   .mmenu-user {
     @include span(last 3 of 12);
-    background: tomato;
     text-align: center;
     position: relative;
     color: $white;
@@ -93,7 +92,22 @@
       }
 
       input[type=submit]{
-        @include button();
+        @include button-active();
+        display: block;
+        width: 100%;
+        margin-bottom: rem(10px);
+      }
+
+      a{
+        display: block;
+        color: $white;
+        padding: rem(10px) rem(25px);
+      }
+
+      a.button-default{
+        @include button-default();
+        display: block;
+        width: 100%;
       }
     }
   }

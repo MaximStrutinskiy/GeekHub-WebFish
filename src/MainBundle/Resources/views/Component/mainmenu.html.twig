@@ -7,7 +7,9 @@
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="user-info">
           <p class="user-title">{{ app.user.username }}</p>
-          <img class="user-img" src="{{ asset('user_images/' ~ app.user.img) }}"/>
+          {% if app.user.img is not empty %}
+            <img class="user-img" src="{{ asset('user_images/' ~ app.user.img) }}"/>
+          {% endif %}
         </div>
         <div id="mmenu-user-content">
           <div class="muser-content">
@@ -21,8 +23,8 @@
                 {% endif %}
               {% endfor %}
             {% endif %}
-            <a href="{{ path('fos_user_profile_show') }}">Show</a>
-            <a href="{{ path('fos_user_profile_edit') }}">Edit</a>
+            <a href="{{ path('fos_user_profile_show') }}">Show information</a>
+            <a href="{{ path('fos_user_profile_edit') }}">Edit profile</a>
             <a href="{{ path('fos_user_security_logout') }}">Logout</a>
           </div>
         </div>

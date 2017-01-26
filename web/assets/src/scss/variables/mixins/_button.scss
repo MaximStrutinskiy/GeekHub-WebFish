@@ -1,13 +1,29 @@
-@mixin button($c:$black-light, $c-hover:$white, $bc:inherit, $bc-hover:$black-light, $fs:14px, $br:rem(5px)) {
+@mixin button-active($c:$white, $c-hover:$black-light, $bc:inherit, $bc-hover:$black-light, $fs:14px, $br:rem(5px)) {
   color: $c;
   background-color: $bc;
   padding: rem(15px) rem(30px);
   font-size: $fs;
-  border: rem(1px) solid $bc-hover;
+  border: rem(1px) solid $black-light;
   border-radius: $br;
 
   &:hover {
-    color: $c-hover;
+    color: $c;
     background-color: $bc-hover;
+    text-decoration: none;
   }
 }
+
+@mixin button-default($c:$white, $c-hover:$black-light, $bc:$black-light, $bc-hover:inherit, $fs:14px, $br:rem(5px)) {
+  color: $c;
+  background-color: $bc;
+  padding: rem(15px) rem(30px);
+  font-size: $fs;
+  border: rem(1px) solid $bc;
+  border-radius: $br;
+
+  &:hover{
+    color: $c;
+    text-decoration: none;
+  }
+}
+
