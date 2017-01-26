@@ -80,6 +80,12 @@ class RegistrationController extends BaseController
             }
         }
 
+        //add breadcrumbs
+        $breadcrumbs = $this
+            ->get('white_october_breadcrumbs')
+            ->addItem('Home', $this->get('router')->generate('home'))
+            ->addItem('Register');
+
         return $this->render(
             'FOSUserBundle:Registration:register.html.twig',
             [
