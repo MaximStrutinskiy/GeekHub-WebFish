@@ -12,6 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MainController extends Controller
 {
 
+  /**
+   * @Route("/", name="home")
+   */
     public function indexAction()
     {
         return $this->render('MainBundle::base.html.twig');
