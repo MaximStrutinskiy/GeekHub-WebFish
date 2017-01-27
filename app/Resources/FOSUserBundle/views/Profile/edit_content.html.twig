@@ -7,6 +7,7 @@
     <ul>
       <li>{{ form_row(form.email) }}</li>
       <li>{{ form_row(form.username) }}</li>
+      <li>{{ form_row(form.age) }}</li>
     </ul>
   </div>
 
@@ -14,7 +15,6 @@
     <ul>
       <li>{{ form_row(form.name) }}</li>
       <li>{{ form_row(form.soname) }}</li>
-      <li>{{ form_row(form.age) }}</li>
       <li>{{ form_row(form.city) }}</li>
     </ul>
   </div>
@@ -38,6 +38,6 @@
   <div>
     {{ form_row(form.current_password) }}
   </div>
-  <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="active"/>
+  <input class="waves-effect waves-light btn active" type="submit" value="{{ 'profile.edit.submit'|trans }}"/>
 </div>
 {{ form_end(form) }}

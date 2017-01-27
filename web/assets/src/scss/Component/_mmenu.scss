@@ -31,8 +31,8 @@
       }
 
       .user-img {
-        width: rem(42px);
-        height: rem(42px);
+        width: rem(24px);
+        height: rem(24px);
         background: white;
         border-radius: rem(50px);
       }
@@ -43,6 +43,7 @@
       display: none;
       position: absolute;
       width: 100%;
+	  z-index: 1000;
 
       .muser-content {
         position: relative;
@@ -64,15 +65,22 @@
         }
       }
 
-      .user-name,
-      .user-password,
-      .user-action,
-      .user-remember {
-        display: block;
-        text-align: left;
-        padding-bottom: rem(10px);
-      }
+      //.user-name,
+      //.user-password,
+      //.user-action,
+      //.user-remember {
+      //  display: block;
+      //  text-align: left;
+      //  padding-bottom: rem(10px);
+      //}
 
+	  input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0 rem(50px) $blue-light inset;
+	  }
+
+	  input:-webkit-autofill:focus {
+		-webkit-box-shadow: $blue-light, 0 0 0 rem(50px) $blue-light inset;
+	  }
       .user-action{
         text-align: center;
       }
@@ -80,34 +88,32 @@
       .user-name,
       .user-password {
         input {
-          width: 100%;
-          background: $white;
-          border: rem(1px) solid $black-light;
-          padding: rem(10px) rem(20px);
+          //width: 100%;
+          //background: $white;
+          //border: rem(1px) solid $black-light;
+          //padding: rem(10px) rem(20px);
+		  text-align: left;
+		  color: $white !important;
         }
 
         label {
-          display: none;
+          //display: none;
+		  text-align: left;
         }
       }
 
       input[type=submit]{
-        @include button-active();
-        display: block;
-        width: 100%;
-        margin-bottom: rem(10px);
+        //@include button-active();
+        //display: block;
+        //width: 100%;
+        //margin-bottom: rem(10px);
+		color: $white;
       }
 
       a{
-        display: block;
+        display: inline-block;
         color: $white;
         padding: rem(10px) rem(25px);
-      }
-
-      a.button-default{
-        @include button-default();
-        display: block;
-        width: 100%;
       }
     }
   }

@@ -1,5 +1,8 @@
 .breadcrumb{
   padding: 0;
+  background: transparent;
+  color: $black-light;
+  font-size: 14px;
 
   .separator{
     padding: 0 rem(10px);

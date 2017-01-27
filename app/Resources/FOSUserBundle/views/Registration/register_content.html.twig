@@ -11,20 +11,20 @@
     </ul>
 </div>
 
-<div class="register_form important_form">
+<div class="register_form not-important_form">
     <h2>Not Important data's</h2>
     <ul>
-        <li>{{ form_row(form.img) }}</li>
         <li>{{ form_row(form.name) }}</li>
         <li>{{ form_row(form.soname) }}</li>
         <li>{{ form_row(form.age) }}</li>
         <li>{{ form_row(form.city) }}</li>
+        <li>{{ form_row(form.img) }}</li>
     </ul>
 </div>
 
-<div>
-    <input type="submit" value="{{ 'registration.submit'|trans }}" class="active"/>
-    <input type="reset" value="Clean"/>
+<div class="user-action">
+    <input class="waves-effect waves-light btn active" type="submit" value="{{ 'registration.submit'|trans }}"/>
+    <input class="waves-effect waves-light btn active clear-form" type="reset" value="Clean"/>
 </div>
 
 {{ form_end(form) }}

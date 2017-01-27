@@ -10,23 +10,25 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
     {% endif %}
 
-    <div class="user-name">
-        <label class="label" for="username">{{ 'security.login.username'|trans }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Name"
-               required="required"/>
+    <div class="input-field user-name ">
+        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}"
+               required="required" autocomplete="off"/>
     </div>
     <div class="user-password">
-        <label class="label" for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" id="password" name="_password" required="required" placeholder="Password"/>
+        <label  for="password">{{ 'security.login.password'|trans }}</label>
+        <input  id="password" type="password" name="_password" required="required" autocomplete="off"/>
+
     </div>
     <div class="user-remember">
         <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
         <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-    </div>
-    <div class="user-action">
-        <input type="submit" id="_submit" name="_submit" value="Login"/>
 
-        <a class="button-default" href="{{ path('fos_user_registration_register') }}">
+    </div>
+    <div class="user-action input-field">
+        <input class="waves-effect waves-light btn" type="submit" id="_submit" name="_submit" value="Login"/>
+
+        <a href="{{ path('fos_user_registration_register') }}">
             Register
         </a>
     </div>
