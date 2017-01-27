@@ -1,4 +1,9 @@
 .breadcrumb{
+  padding: 0;
+
+  .separator{
+    padding: 0 rem(10px);
+  }
 
   li:before{
     display: none;

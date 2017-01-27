@@ -1,50 +1,83 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<h2>Hello {{ user.username }}, it's you personal page.</h2>
-<br>
-<p>User name: {{ user.username }}</p>
-<p>Email: {{ user.email }}</p>
-<br>
-{% if user.img  is empty %}
-    <p>No photo</p>
-{% else %}
-    <p>Photo: <img src="{{ asset('user_images/' ~ user.img ) }}" alt="{{ user.username }}'s img">
-{% endif %}
 
-{% if user.name  is empty %}
-    <p>No Name</p>
-{% else %}
-    <p>Name: {{ user.name }}</p>
-{% endif %}
+<div class="user-content clearfix">
+    <h2>Hello {{ user.username }}, it's you personal page.</h2>
 
-{% if user.soname  is empty %}
-    <p>No Soname</p>
-{% else %}
-    <p>Soname: {{ user.soname }}</p>
-{% endif %}
+    <div class="user-content-left">
+        <ul>
+            <li>User name: {{ user.username }}</li>
+            <li>Email: {{ user.email }}</li>
+        </ul>
+    </div>
 
-{% if user.age  is empty %}
-    <p>No Age</p>
-{% else %}
-    <p>Age: {{ user.age }}</p>
-{% endif %}
+    <div class="user-content-center">
+        <ul>
+            <li>
+                {% if user.name  is empty %}
+                    No Name
+                {% else %}
+                    Name: {{ user.name }}
+                {% endif %}
+            </li>
 
-{% if user.city  is empty %}
-    <p>No City</p>
-{% else %}
-    <p>City: {{ user.city }}</p>
-{% endif %}
+            <li>
+                {% if user.soname  is empty %}
+                    No Soname
+                {% else %}
+                    Soname: {{ user.soname }}
+                {% endif %}
+            </li>
 
-{% if app.user.roles is iterable %}
-    {% for role in app.user.roles %}
-        {% if role == 'ROLE_SUPER_ADMIN' or role == 'ROLE_MODERATOR'%}
-            <a class="on" href="{{ path('sonata_admin_dashboard') }}">
-                <i class="fa fa-medkit" aria-hidden="true"></i>
-                Admin room
-            </a>
+            <li>
+                {% if user.age  is empty %}
+                    No Age
+                {% else %}
+                    Age: {{ user.age }}
+                {% endif %}
+            </li>
+
+            <li>
+                {% if user.city  is empty %}
+                    No City
+                {% else %}
+                    City: {{ user.city }}
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+
+    <div class="user-content-right">
+        {% if user.img  is empty %}
+            No photo
+        {% else %}
+            Photo:
+            <img src="{{ asset('user_images/' ~ user.img ) }}" alt="{{ user.username }}'s img">
         {% endif %}
-    {% endfor %}
-{% endif %}
-<br>
-<a href="{{ path('fos_user_profile_edit') }}"> Edit profile</a>
+    </div>
+</div>
+
+<div class="user-action">
+    {% if app.user.roles is iterable %}
+        {% for role in app.user.roles %}
+            {% if role == 'ROLE_SUPER_ADMIN' or role == 'ROLE_MODERATOR' %}
+                <a class="on" href="{{ path('sonata_admin_dashboard') }}">
+                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                    Admin room
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <a href="{{ path('fos_user_profile_edit') }}">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        Edit profile
+    </a>
+
+    <a href="{{ path('fos_user_change_password') }}">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        Change password
+    </a>
+</div>
+
 
 

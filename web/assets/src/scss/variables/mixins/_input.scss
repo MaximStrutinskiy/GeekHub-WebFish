@@ -1,0 +1,10 @@
+@mixin input-field($w: auto, $c: $black-light, $bc: inherit, $fs: $fs){
+  width: $w;
+  color: $c;
+  background: $bc;
+  font-size: $fs;
+  padding: rem(15px) rem(30px);
+  border: rem(1px) solid $c;
+  border-radius: rem(10px);
+  display: inline-block;
+}

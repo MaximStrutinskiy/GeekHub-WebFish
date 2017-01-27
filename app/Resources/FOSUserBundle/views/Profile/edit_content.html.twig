@@ -1,28 +1,43 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-<ul>
-  <li>{{ form_row(form.email) }}</li>
-  <li>{{ form_row(form.username) }}</li>
-  <li>{{ form_row(form.name) }}</li>
-  <li>{{ form_row(form.soname) }}</li>
-  <li>{{ form_row(form.age) }}</li>
-  <li>{{ form_row(form.city) }}</li>
-  <ul>
-    <li>
-      Add new image - {{ form_row(form.img) }}
-    </li>
-    <li>
-      {% if form.vars.value.img is not empty %}
-      <img src="{{ asset('user_images/' ~ form.vars.value.img ) }}" alt="{{ form.vars.value.username }}'s img"/>
-      {% endif %}
-    </li>
-  </ul>
 
-  <li>{{ form_row(form.current_password) }}</li>
-</ul>
+<div class="user-content clearfix">
+  <div class="user-content-left">
+    <ul>
+      <li>{{ form_row(form.email) }}</li>
+      <li>{{ form_row(form.username) }}</li>
+    </ul>
+  </div>
 
-<div>
+  <div class="user-content-center">
+    <ul>
+      <li>{{ form_row(form.name) }}</li>
+      <li>{{ form_row(form.soname) }}</li>
+      <li>{{ form_row(form.age) }}</li>
+      <li>{{ form_row(form.city) }}</li>
+    </ul>
+  </div>
+
+  <div class="user-content-right">
+    <ul>
+      <li>
+        {% if form.vars.value.img is not empty %}
+          <img src="{{ asset('user_images/' ~ form.vars.value.img ) }}" alt="{{ form.vars.value.username }}'s img"/>
+        {% endif %}
+      </li>
+      <li>
+        Add new image - {{ form_row(form.img) }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="user-action">
+  <div>
+    {{ form_row(form.current_password) }}
+  </div>
   <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="active"/>
 </div>
 {{ form_end(form) }}

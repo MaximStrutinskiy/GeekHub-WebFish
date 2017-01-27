@@ -23,9 +23,18 @@
                 {% endif %}
               {% endfor %}
             {% endif %}
-            <a href="{{ path('fos_user_profile_show') }}">Show information</a>
-            <a href="{{ path('fos_user_profile_edit') }}">Edit profile</a>
-            <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+            <a href="{{ path('fos_user_profile_show') }}">
+              <i class="fa fa-info" aria-hidden="true"></i>
+              Show information
+            </a>
+            <a href="{{ path('fos_user_profile_edit') }}">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              Edit profile
+            </a>
+            <a href="{{ path('fos_user_security_logout') }}">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+              Logout
+            </a>
           </div>
         </div>
       {% else %}

@@ -1,0 +1,76 @@
+#user-content{
+
+  h2{
+    margin: 0;
+  }
+
+  img {
+    max-width: rem(200px);
+    max-height: rem(200px);
+  }
+
+
+  input[type=submit] {
+    @include button-default($c:$white, $c-hover:$white);
+    display: inline-block;
+    width: auto;
+    margin-bottom: rem(10px);
+  }
+
+  #fos_user_change_password_form>div,
+  .user-name,
+  .user-password,
+  .user-remember,
+  li>div,
+  h2,
+  li{
+    margin-bottom: rem(20px);
+  }
+
+  label,
+  input[type="text"],
+  input[type="password"]
+  input[type="email"]{
+    font-size: 14px;
+    text-align: left;
+    margin: 0;
+    color: $black-light;
+  }
+
+  label {
+    padding: 0;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"]{
+    @include input-field();
+    display: block;
+  }
+
+  .user-content-left{
+    @include span(4 of 12);
+  }
+
+  .user-content-center{
+    @include span(4 of 12);
+  }
+
+  .user-content-right{
+    @include span(last 4 of 12);
+  }
+
+  .user-action{
+    padding: rem(25px) 0;
+
+    &>div,
+    a{
+      display: inline-block;
+      margin: 0 rem(10px);
+
+      &:first-child{
+        margin-left: 0;
+      }
+    }
+  }
+}
