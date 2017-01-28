@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     user_images: '%kernel.root_dir%/../web/user_images/'
+    post_images: '%kernel.root_dir%/../web/post_images/'
 
 framework:
     #esi:             ~
@@ -113,6 +114,9 @@ sonata_admin:
 
     title:      WEBFISH
     title_logo: /assets/assets/img/webfish-logo.png
+
+    templates:
+            layout:  MainBundle:SonataAdminBundle/Main:_main.html.twig
 
 # KNPMenuBundle Configuration
 knp_menu:

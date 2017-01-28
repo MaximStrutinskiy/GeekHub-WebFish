@@ -23,19 +23,6 @@ class Post
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @Assert\Image(
-     *     minWidth = 800,
-     *     maxWidth = 3500,
-     *     minHeight = 400,
-     *     maxHeight = 2500,
-     *     maxSize = "5M",
-     *     minWidthMessage="min width 800px.",
-     *     maxWidthMessage="max width 3500px.",
-     *     minHeightMessage="min height 400px.",
-     *     maxHeightMessage="max height 2500px.",
-     *     maxSizeMessage = "Too big img, max size = 5M."
-     * )
      */
     protected $postImg;
 
@@ -140,6 +127,7 @@ class Post
      */
     public function __construct()
     {
+        $this->postDate = new \DateTime();
         $this->postComment = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }

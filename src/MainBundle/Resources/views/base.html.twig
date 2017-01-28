@@ -24,7 +24,9 @@
 {% endblock %}
 
 {# Body footer #}
-{% block body_bottom %}{% endblock %}
+{% block body_bottom %}
+    {% include "MainBundle:Component:footer.html.twig" %}
+{% endblock %}
 
 {# for FosUserBundle #}
 {% block body_user_content %}{% endblock %}

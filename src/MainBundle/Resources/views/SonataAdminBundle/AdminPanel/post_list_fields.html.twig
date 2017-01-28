@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% block field %}
+    <div class="admin-panel-content-image">
+        {% if object.postImg != null %}
+            <img src="{{ asset('post_images/' ~ object.postImg ) }}">
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,3 +1,7 @@
 home:
-    path:     /
+    path: /
     defaults: { _controller: MainBundle:Main:index }
+
+blog:
+    path: /blog
+    defaults: { _controller: MainBundle:Main:blog }

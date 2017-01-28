@@ -11,4 +11,8 @@
   li:before{
     display: none;
   }
+
+  &:last-child{
+	color: $black-light;
+  }
 }

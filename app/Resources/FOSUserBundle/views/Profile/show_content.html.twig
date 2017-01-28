@@ -7,6 +7,14 @@
         <ul>
             <li>User name: {{ user.username }}</li>
             <li>Email: {{ user.email }}</li>
+
+            <li>
+                {% if user.age  is empty %}
+                    No Age
+                {% else %}
+                    Age: {{ user.age }}
+                {% endif %}
+            </li>
         </ul>
     </div>
 
@@ -25,14 +33,6 @@
                     No Soname
                 {% else %}
                     Soname: {{ user.soname }}
-                {% endif %}
-            </li>
-
-            <li>
-                {% if user.age  is empty %}
-                    No Age
-                {% else %}
-                    Age: {{ user.age }}
                 {% endif %}
             </li>
 

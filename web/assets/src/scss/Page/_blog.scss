@@ -1,0 +1,11 @@
+.blog-container{
+  @extend .container-susy;
+
+  .blog-content{
+	@include span(9 of 12);
+  }
+
+  .blog-navigation{
+	@include span(last 3 of 12);
+  }
+}

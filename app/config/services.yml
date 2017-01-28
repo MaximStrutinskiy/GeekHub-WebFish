@@ -24,18 +24,25 @@ services:
           class: MainBundle\Admin\UserAdmin
           arguments: [~, MainBundle\Entity\User, ~]
           tags:
-              - { name: sonata.admin, manager_type: orm, group: User info, label: User }
+              - { name: sonata.admin, manager_type: orm, group: User, label: User }
 
     # Category.
     app.admin.category:
             class: MainBundle\Admin\CategoryAdmin
             arguments: [~, MainBundle\Entity\Category, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Category/Tags info,  label: Category }
+                - { name: sonata.admin, manager_type: orm, group: Category/Tags,  label: Category }
 
     # Tag.
     app.admin.tag:
             class: MainBundle\Admin\TagAdmin
             arguments: [~, MainBundle\Entity\Tag, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Category/Tags info,  label: Tag }
+                - { name: sonata.admin, manager_type: orm, group: Category/Tags,  label: Tag }
+
+    # Post.
+    app.admin.post:
+            class: MainBundle\Admin\PostAdmin
+            arguments: [~, MainBundle\Entity\Post, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Post,  label: Post }

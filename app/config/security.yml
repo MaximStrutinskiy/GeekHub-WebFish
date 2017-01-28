@@ -17,6 +17,9 @@ security:
                 - ROLE_APP_ADMIN_TAG_LIST
                 - ROLE_APP_ADMIN_TAG_VIEW
 
+                - ROLE_APP_ADMIN_POST_LIST
+                - ROLE_APP_ADMIN_POST_VIEW
+
             ROLE_SONATA_MODERATOR_EDITOR:
 #                - ROLE_APP_ADMIN_USER_CREATE
 #                - ROLE_APP_ADMIN_USER_EDIT
@@ -26,6 +29,9 @@ security:
 
                 - ROLE_APP_ADMIN_TAG_CREATE
                 - ROLE_APP_ADMIN_TAG_EDIT
+
+                - ROLE_APP_ADMIN_POST_CREATE
+                - ROLE_APP_ADMIN_POST_EDIT
 
             ROLE_SONATA_MODERATOR_ADMIN:
 #                - ROLE_APP_ADMIN_USER_DELETE

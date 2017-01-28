@@ -1,0 +1,9 @@
+.footer{
+  background: $black-light;
+  color: $white;
+  padding: rem(15px) 0;
+
+  .footer-container{
+	@include page-container();
+  }
+}
