@@ -1,6 +1,7 @@
 <?php
 namespace MainBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -63,9 +64,14 @@ class PostAdmin extends Admin
                 'user',
                 EntityType::class,
                 array(
-                    'label' => 'Author',
+                    'label' => 'Moderator',
                     'class' => 'MainBundle\Entity\User',
-                    'data' => $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser(),
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.roles LIKE :roles')
+                            ->setParameter('roles', '%"'.'ROLE_MODERATOR'.'"%')
+                            ->orderBy('u.id', 'ASC');
+                    },
                 )
             )
             ->add(
