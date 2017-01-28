@@ -65,14 +65,9 @@
         }
       }
 
-      //.user-name,
-      //.user-password,
-      //.user-action,
-      //.user-remember {
-      //  display: block;
-      //  text-align: left;
-      //  padding-bottom: rem(10px);
-      //}
+      .user-remember {
+        text-align: left;
+      }
 
 	  input:-webkit-autofill {
 		-webkit-box-shadow: 0 0 0 rem(50px) $blue-light inset;
@@ -88,25 +83,17 @@
       .user-name,
       .user-password {
         input {
-          //width: 100%;
-          //background: $white;
-          //border: rem(1px) solid $black-light;
-          //padding: rem(10px) rem(20px);
 		  text-align: left;
 		  color: $white !important;
         }
 
         label {
-          //display: none;
+          display: none;
 		  text-align: left;
         }
       }
 
       input[type=submit]{
-        //@include button-active();
-        //display: block;
-        //width: 100%;
-        //margin-bottom: rem(10px);
 		color: $white;
       }
 
