@@ -111,6 +111,9 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
 
+    title:      WEBFISH
+    title_logo: /assets/assets/img/webfish-logo.png
+
 # KNPMenuBundle Configuration
 knp_menu:
     # use "twig: false" to disable the Twig extension and the TwigRenderer
