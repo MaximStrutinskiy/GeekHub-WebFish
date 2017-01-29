@@ -18,6 +18,7 @@
     color: $white;
 
     .user-info {
+	  background: $black;
       padding: rem(15px);
       text-align: right;
 
@@ -47,7 +48,7 @@
 
       .muser-content {
         position: relative;
-        background-color: $blue-light;
+        background-color: $black-dark;
         padding: rem(25px);
         border-radius: rem(10px);
 
@@ -61,7 +62,7 @@
           height: 0;
           border-left: rem(11px) solid transparent;
           border-right: rem(11px) solid transparent;
-          border-bottom: rem(22px) solid $blue-light;
+          border-bottom: rem(22px) solid $black-dark;
         }
       }
 
@@ -70,11 +71,11 @@
       }
 
 	  input:-webkit-autofill {
-		-webkit-box-shadow: 0 0 0 rem(50px) $blue-light inset;
+		-webkit-box-shadow: 0 0 0 rem(50px) $black-dark inset;
 	  }
 
 	  input:-webkit-autofill:focus {
-		-webkit-box-shadow: $blue-light, 0 0 0 rem(50px) $blue-light inset;
+		-webkit-box-shadow: $blue-light, 0 0 0 rem(50px) $black-dark inset;
 	  }
       .user-action{
         text-align: center;
@@ -93,6 +94,12 @@
         }
       }
 
+	  input:-webkit-autofill, 
+	  textarea:-webkit-autofill, 
+	  select:-webkit-autofill{
+		color: $white;
+	  }
+	  
       input[type=submit]{
 		color: $white;
       }

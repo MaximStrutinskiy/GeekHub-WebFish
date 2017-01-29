@@ -74,11 +74,13 @@ class Shop
     protected $shortDescriptions;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=500000, nullable=false)
      *
      * @Assert\Length(
-     *     min=3,
-     *     minMessage="min length > 3.",
+     *      min = 1,
+     *      max = 500000,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
      * )
      */
     protected $longDescriptions;

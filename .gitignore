@@ -17,3 +17,4 @@
 .idea/
 node_modules/
 /web/user_images/*
+/web/post_images/*

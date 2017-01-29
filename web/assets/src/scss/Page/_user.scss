@@ -43,6 +43,10 @@
 	  color: $white;
 	}
 
+	input[type=password]{
+	  color: $black-light;
+	}
+
 	& > div,
 	a {
 	  display: inline-block;

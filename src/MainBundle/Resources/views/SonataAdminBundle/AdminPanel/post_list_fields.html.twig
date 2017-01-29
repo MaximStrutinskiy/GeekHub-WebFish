@@ -2,7 +2,11 @@
 {% block field %}
     <div class="admin-panel-content-image">
         {% if object.postImg != null %}
-            <img src="{{ asset('post_images/' ~ object.postImg ) }}">
+            {% if object.postImg starts with 'http' %}
+                <img src="{{ asset(object.postImg ) }}">
+            {% else %}
+                <img src="{{ asset('post_images/' ~ object.postImg ) }}">
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
