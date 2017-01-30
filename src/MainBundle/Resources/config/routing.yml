@@ -5,3 +5,9 @@ home:
 blog:
     path: /blog
     defaults: { _controller: MainBundle:Main:blog }
+
+blog-post:
+    path:     /blog/post/{id}/{shortTitle}
+    defaults: { _controller: MainBundle:Main:blogInternal }
+    requirements:
+      id: \d+
