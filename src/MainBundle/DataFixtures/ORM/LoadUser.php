@@ -11,75 +11,74 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
  *
  * @package MainBundle\DataFixtures\ORM
  */
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
-{
-    public function load(ObjectManager $manager)
-    {
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
+  public function load(ObjectManager $manager) {
 
-        $users = [
-            [
-                'admin',
-                'admin@admin.com',
-                'admin',
-                'TRUE',
-                ['ROLE_SUPER_ADMIN', 'ROLE_USER'],
-            ],
-            [
-                'moder1',
-                'moder1@moder.com',
-                'moder1',
-                'TRUE',
-                ['ROLE_MODERATOR', 'ROLE_USER'],
-            ],
-            [
-                'moder2',
-                'moder2@moder.com',
-                'moder2',
-                'TRUE',
-                ['ROLE_MODERATOR', 'ROLE_USER'],
-            ],
-            [
-                'user1',
-                'user1@user1.com',
-                'user1',
-                'TRUE',
-                ['ROLE_USER'],
-            ],
-            [
-                'user2',
-                'user2@user2.com',
-                'user2',
-                'TRUE',
-                ['ROLE_USER'],
-            ],
-            [
-                'user3',
-                'user3@user3.com',
-                'user3',
-                'TRUE',
-                ['ROLE_USER'],
-            ],
-        ];
+    $users = [
+      [
+        'admin',
+        'admin@admin.com',
+        'admin',
+        'TRUE',
+        ['ROLE_SUPER_ADMIN', 'ROLE_USER'],
+      ],
+      [
+        'moder1',
+        'moder1@moder.com',
+        'moder1',
+        'TRUE',
+        ['ROLE_MODERATOR', 'ROLE_USER'],
+      ],
+      [
+        'moder2',
+        'moder2@moder.com',
+        'moder2',
+        'TRUE',
+        ['ROLE_MODERATOR', 'ROLE_USER'],
+      ],
+      [
+        'user1',
+        'user1@user1.com',
+        'user1',
+        'TRUE',
+        ['ROLE_USER'],
+      ],
+      [
+        'user2',
+        'user2@user2.com',
+        'user2',
+        'TRUE',
+        ['ROLE_USER'],
+      ],
+      [
+        'user3',
+        'user3@user3.com',
+        'user3',
+        'TRUE',
+        ['ROLE_USER'],
+      ],
+    ];
 
-        foreach ($users as list($userName, $userEmail, $userPassword, $userEnabled, $userRole)) {
-            $tag = new User();
-            $tag->setUsername($userName);
-            $tag->setEmail($userEmail);
-            $tag->setPlainPassword($userPassword);
-            $tag->setEnabled($userEnabled);
+    foreach ($users as list($userName, $userEmail, $userPassword, $userEnabled, $userRole)) {
+      $user = new User();
+      $user->setUsername($userName);
+      $user->setEmail($userEmail);
+      $user->setPlainPassword($userPassword);
+      $user->setEnabled($userEnabled);
 
-            /**@var User $setTags */
-            foreach ($userRole as $userRoles) {
-                $tag->addRole($userRoles);
-            }
+      /**@var User $setTags */
+      foreach ($userRole as $userRoles) {
+        $user->addRole($userRoles);
+      }
 
-            $manager->persist($tag);
-            $manager->flush();
-        }
+      $manager->persist($user);
+      $manager->flush();
+
+      $this->addReference($userName, $user);
     }
+  }
 
-    public function getOrder()
-    {
-        return 3;
-    }
+  public function getOrder() {
+    return 3;
+  }
 }

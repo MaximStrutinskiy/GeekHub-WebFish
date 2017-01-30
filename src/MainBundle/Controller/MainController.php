@@ -30,14 +30,4 @@ class MainController extends Controller {
 
     return $this->render('MainBundle:Page:_blog.html.twig');
   }
-
-  /**
-   * For Fixture bundle
-   */
-  public function selectOneRandomCategory() {
-    $em = $this
-      ->getDoctrine()
-      ->getRepository('MainBundle:Category')
-      ->findRandomCategoryQuery();
-  }
 }

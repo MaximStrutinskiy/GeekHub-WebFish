@@ -17,8 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
 
-  /** @var  ContainerInterface */
-  private $container;
 
   public function load(ObjectManager $manager) {
 
@@ -29,8 +27,16 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
     $faker = Faker::create();
     $postContent = [];
 
-    $randomCategory = new MainController;
-    $randomCategory->selectOneRandomCategory();
+    $userRepository = $manager
+      ->getRepository('MainBundle:User')
+      ->createQueryBuilder('u')
+      ->where('u.role LIKE :name')
+      ->setParameter('name', '%"' . 'ROLE_MODERATOR' . '"%')
+      ->orderBy('u.id', 'RAND')
+      ->setMaxResults(1)
+    ;
+
+//    $tagRepository = $manager->get('doctrine')->getManager();
 
     for ($i = 1; $i <= 20; $i++) {
       $var = [
@@ -38,33 +44,32 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
         $faker->sentence($nbWords = 8, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 20, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 2000, $variableNbWords = TRUE),
+        $userRepository,
         '1',
-        $randomCategory,
+        'Art & Culture',
         $faker->imageUrl($width = 1200, $height = 650),
-        ['Flowers', 'Architecture'],
+        ['Flowers'],
       ];
 
       array_push($postContent, $var);
     }
 
 
-    foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $user, $postStatus, $category, $setTags, $image)) {
+    foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $user, $postStatus, $category, $image, $setTags)) {
       $post = new Post();
       $post->setShortTitle($shortTitle);
       $post->setLongTitle($longTitle);
       $post->setShortDescriptions($shortDescription);
       $post->setLongDescriptions($longDescription);
 
-            $post->setUser($user);
-
+      $post->setUser($this->getReference($user));
       $post->setPostStatus($postStatus);
+      $post->setCategory($this->getReference($category));
 
-            $post->setCategory($this->getReference($category));
-
-            /**@var Post $setTags */
-            foreach ($setTags as $tagArray) {
-                $post->addTag($this->getReference($tagArray));
-            }
+      /**@var Post $setTags */
+      foreach ($setTags as $tag) {
+        $post->addTag($this->getReference($tag));
+      }
 
       $post->setPostImg($image);
       $post->setPostDate(new \DateTime);
@@ -75,17 +80,5 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
 
   public function getOrder() {
     return 4;
-  }
-
-
-  /**
-   * Sets the Container. Need it to create new User from fos_user.user_manager
-   * service
-   *
-   * @param ContainerInterface|null $container A ContainerInterface instance or
-   *   null
-   */
-  public function setContainer(ContainerInterface $container = NULL) {
-    $this->container = $container;
   }
 }
