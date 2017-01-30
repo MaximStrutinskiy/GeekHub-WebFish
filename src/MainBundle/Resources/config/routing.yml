@@ -17,3 +17,9 @@ category:
     defaults: { _controller: MainBundle:Main:showInternalCategory }
     requirements:
       id: \d+
+
+tag:
+    path:     /blog/tag/{id}/{name}
+    defaults: { _controller: MainBundle:Main:showInternalTag }
+    requirements:
+      id: \d+

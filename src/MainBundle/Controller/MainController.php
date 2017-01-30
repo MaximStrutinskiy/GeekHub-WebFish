@@ -79,9 +79,7 @@ class MainController extends Controller
     /**
      * =====CATEGORY======
      */
-    /**
-     * show all category's
-     */
+
     public function showCategoryAction()
     {
         $em = $this->getDoctrine();
@@ -95,10 +93,7 @@ class MainController extends Controller
         );
     }
 
-    /**
-     * show all post with category $id
-     * @param int $id
-     */
+
     public function showInternalCategoryAction($id, Request $request)
     {
         $em = $this->getDoctrine();
@@ -126,6 +121,59 @@ class MainController extends Controller
             "MainBundle:Page:_category_internal.html.twig",
             [
                 'category' => $oneCategory,
+                'posts' => $result,
+            ]
+        );
+    }
+
+    /**
+     * =======TAG========
+     */
+
+
+    public function showTagAction()
+    {
+        $em = $this->getDoctrine();
+        $tagRepository = $em->getRepository("MainBundle:Tag");
+        $allTag = $tagRepository->findAll();
+        return $this->render(
+            'MainBundle:Component:_tag.html.twig',
+            [
+                'tags' => $allTag,
+            ]
+        );
+    }
+
+
+    public function showInternalTagAction($id)
+    {
+        $em = $this->getDoctrine();
+        $tagRepository = $em->getRepository("MainBundle:Tag");
+        $findTagName = array("id" => $id);
+        $tagName = $tagRepository->findOneBy($findTagName);
+        $allTags = $tagRepository->findAll();
+        $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+        $query = $postRepository->findAllPostByTagQuery($tagName);
+
+        //breadcrumbs
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
+        $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
+        $breadcrumbs->addItem($tagName->getName());
+
+        //pagination
+        $paginator = $this->get('knp_paginator');
+        $request = $this->get('request_stack')->getMasterRequest();
+        $result = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            5
+        );
+        return $this->render(
+            "MainBundle:Page:_tag_internal.html.twig",
+            [
+                'setTags' => $allTags,
+                'tag' => $tagName,
                 'posts' => $result,
             ]
         );
