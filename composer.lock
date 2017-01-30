@@ -350,16 +350,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.9",
+            "version": "v2.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e"
+                "reference": "fc376f7a61498e18520cd6fa083752a4ca08072b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e",
-                "reference": "0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fc376f7a61498e18520cd6fa083752a4ca08072b",
+                "reference": "fc376f7a61498e18520cd6fa083752a4ca08072b",
                 "shasum": ""
             },
             "require": {
@@ -417,7 +417,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-01-19 13:27:33"
+            "time": "2017-01-23 23:17:10"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -841,16 +841,16 @@
         },
         {
             "name": "friendsofsymfony/elastica-bundle",
-            "version": "v3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSElasticaBundle.git",
-                "reference": "70ea4d0cb0ebdac011d6dc978bfec59ff5e927bb"
+                "reference": "488d5884dbdfb4545598c6bb257f4afc902bded5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/70ea4d0cb0ebdac011d6dc978bfec59ff5e927bb",
-                "reference": "70ea4d0cb0ebdac011d6dc978bfec59ff5e927bb",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/488d5884dbdfb4545598c6bb257f4afc902bded5",
+                "reference": "488d5884dbdfb4545598c6bb257f4afc902bded5",
                 "shasum": ""
             },
             "require": {
@@ -921,7 +921,7 @@
                 "propel",
                 "search"
             ],
-            "time": "2016-10-04 12:27:23"
+            "time": "2017-01-26 14:50:52"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -929,12 +929,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "41a5d3796710df903c3fa3e1735b206e4858d56f"
+                "reference": "6b8828bcc64d0861b3918e1551947112d58e4d0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/41a5d3796710df903c3fa3e1735b206e4858d56f",
-                "reference": "41a5d3796710df903c3fa3e1735b206e4858d56f",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6b8828bcc64d0861b3918e1551947112d58e4d0c",
+                "reference": "6b8828bcc64d0861b3918e1551947112d58e4d0c",
                 "shasum": ""
             },
             "require": {
@@ -997,7 +997,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-01-20 21:16:10"
+            "time": "2017-01-27 14:24:54"
         },
         {
             "name": "fzaninotto/faker",
@@ -1200,7 +1200,7 @@
             ],
             "authors": [
                 {
-                    "name": "KNPLabs Team",
+                    "name": "KnpLabs Team",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1382,7 +1382,7 @@
             ],
             "authors": [
                 {
-                    "name": "KNPLabs Team",
+                    "name": "KnpLabs Team",
                     "homepage": "http://knplabs.com"
                 },
                 {
