@@ -1,0 +1,7 @@
+<ul class="block-category">
+    {% for category in categories %}
+        <li>
+            <a href="{{ path('category', {'id' : category.id, 'name' : category.name|replace ({' ': '_'})}) }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,104 @@
+<div class="blog-content">
+    {% for post in posts.items %}
+        {% if post.postImg is not empty %}
+            <div class="blog-item blog-item-img">
+                <div class="blog-img">
+                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
+                        <img src="{{ post.postImg }}" alt="{{ post.shortTitle }}"/>
+                    </a>
+                </div>
+                <div class="body-title">
+                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
+                        {{ post.shortTitle }}
+                    </a>
+                </div>
+                <div class="body-descriptions">
+                    <p>{{ post.shortDescriptions }}</p>
+                </div>
+                <div class="body-readmore">
+                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
+                        More</a>
+                </div>
+                <div class="body-footer">
+                    <div class="body-footer-user">
+                        <p>
+                            {% if post.user.img is not empty %}
+                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
+                                {% if (post.user.name and post.user.soname) is not empty %}
+                                    {{ post.user.name }}  {{ post.user.soname }}
+                                {% else %}
+                                    {{ post.user.username }}
+                                {% endif %}
+                            {% else %}
+                                {{ post.user.username }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="body-footer-date">
+                        <p>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ post.postDate | date("M d") }}
+                        </p>
+                    </div>
+                    <div class="blog-footer-category">
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                        <a href="">{{ post.category.name }}</a>
+                    </div>
+                    <div class="body-footer-teg">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        {% for tag in post.tag %}
+                            <a href="#">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="blog-item blog-item-no-img">
+                <div class="body-title">
+                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
+                        {{ post.shortTitle }}
+                    </a>
+                </div>
+                <div class="body-descriptions">
+                    <p>{{ post.shortDescriptions }}</p>
+                </div>
+                <div class="body-readmore">
+                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
+                        More</a>
+                </div>
+                <div class="body-footer">
+                    <div class="body-footer-user">
+                        <p>
+                            {% if post.user.img is not empty %}
+                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
+                                {% if (post.user.name and post.user.soname) is not empty %}
+                                    {{ post.user.name }}  {{ post.user.soname }}
+                                {% else %}
+                                    {{ post.user.username }}
+                                {% endif %}
+                            {% else %}
+                                {{ post.user.username }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="body-footer-date">
+                        <p>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ post.postDate | date("M d") }}
+                        </p>
+                    </div>
+                    <div class="blog-footer-category">
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                        <a href="">{{ post.category.name }}</a>
+                    </div>
+                    <div class="body-footer-teg">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        {% for tag in post.tag %}
+                            <a href="#">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

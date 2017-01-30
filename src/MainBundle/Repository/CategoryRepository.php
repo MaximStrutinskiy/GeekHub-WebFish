@@ -12,17 +12,5 @@ use Doctrine\ORM\Query;
  */
 class CategoryRepository extends EntityRepository
 {
-//    /**
-//     * @param Category
-//     * @return Query
-//     */
-//    public function findRandomCategoryQuery()
-//    {
-//        $qb = $this->createQueryBuilder('c');
-//        $qb
-//            ->select('c.name, RAND()')
-//            ->setMaxResults(1)
-//        ;
-//        return $qb->getQuery();
-//    }
+
 }

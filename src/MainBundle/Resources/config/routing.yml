@@ -11,3 +11,9 @@ blog-post:
     defaults: { _controller: MainBundle:Main:blogInternal }
     requirements:
       id: \d+
+
+category:
+    path:     /blog/category/{id}/{name}
+    defaults: { _controller: MainBundle:Main:showInternalCategory }
+    requirements:
+      id: \d+

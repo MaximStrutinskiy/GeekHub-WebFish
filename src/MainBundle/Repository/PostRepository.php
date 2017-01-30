@@ -3,6 +3,7 @@
 namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * Class PostRepository
@@ -19,4 +20,16 @@ class PostRepository extends EntityRepository
       ->orderBy('p.postDate', 'DESC');
     return $qb->getQuery();
   }
+
+
+    public function findAllPostByCategoryQuery($idCategory)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->where('a.category = :idCategory')
+            ->orderBy('a.postDate', 'DESC')
+            ->setParameter('idCategory', $idCategory)
+        ;
+        return $qb->getQuery();
+    }
 }
