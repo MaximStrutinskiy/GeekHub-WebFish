@@ -53,9 +53,9 @@ class Post {
    *
    * @Assert\Length(
    *     min=3,
-   *     max=255,
+   *     max=2000,
    *     minMessage="min length > 3.",
-   *     maxMessage="max length < 1000.",
+   *     maxMessage="max length < 2000.",
    * )
    */
   protected $shortDescriptions;
