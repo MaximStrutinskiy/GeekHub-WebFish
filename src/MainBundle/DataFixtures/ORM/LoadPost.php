@@ -31,7 +31,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
       $var = [
         $faker->sentence($nbWords = 3, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 8, $variableNbWords = TRUE),
-        $faker->sentence($nbWords = 20, $variableNbWords = TRUE),
+        $faker->sentence($nbWords = 100, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 2000, $variableNbWords = TRUE),
         '1',
         $faker->imageUrl($width = 1200, $height = 650),
@@ -56,7 +56,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
       $categoryIndex = rand(1, 17);
       $post->setCategory($this->getReference("category{$categoryIndex}"));
 
-      $tagIndex = array_rand(array_flip(range(1, 51)), range(1, 5));
+      $tagIndex = array_rand(array_flip(range(1, 51)), 4);
       /**@var Post $setTags */
       foreach ($tagIndex as $tag) {
         $post->addTag($this->getReference("tag{$tag}"));

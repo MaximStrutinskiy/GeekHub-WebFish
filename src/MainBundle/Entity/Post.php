@@ -49,13 +49,13 @@ class Post {
   protected $longTitle;
 
   /**
-   * @ORM\Column(type="string", length=255, nullable=false)
+   * @ORM\Column(type="string", length=2000, nullable=false)
    *
    * @Assert\Length(
    *     min=3,
    *     max=255,
    *     minMessage="min length > 3.",
-   *     maxMessage="max length < 255.",
+   *     maxMessage="max length < 1000.",
    * )
    */
   protected $shortDescriptions;
