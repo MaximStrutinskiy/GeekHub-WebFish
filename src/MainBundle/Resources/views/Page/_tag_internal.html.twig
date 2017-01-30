@@ -1,8 +1,5 @@
 {% extends "MainBundle:Page:_blog.html.twig" %}
 
 {% block bodyContent %}
-    <h2>{{ tag.name }}</h2>
-    <p>Hear you can see all Post with tag {{ tag.name }}, Sure you can see all our tags hear: </p>
-
     {% include 'MainBundle:Component:_post_content.html.twig' %}
 {% endblock %}

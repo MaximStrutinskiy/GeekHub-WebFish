@@ -1,7 +1,7 @@
 <ul class="block-tags">
     {% for tag in tags %}
         <li>
-            <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">
+            <a class="chip" href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">
                 {{ tag.name }}
             </a>
         </li>

@@ -1,11 +1,5 @@
 {% extends "MainBundle:Page:_blog.html.twig" %}
 
 {% block bodyContent %}
-    <h3>{{ category.name }}</h3>
-    <p>{{ category.description }}</p>
-    {% if posts is empty %}
-        No posts in this category
-    {% endif %}
-
     {% include 'MainBundle:Component:_post_content.html.twig' %}
 {% endblock %}

@@ -101,4 +101,10 @@
             </div>
         {% endif %}
     {% endfor %}
+    {% if posts is empty %}
+        <p>No posts whis this settings.</p>
+    {% endif %}
+    <div class="navigation text-center">
+        {{ knp_pagination_render(posts) }}
+    </div>
 </div>

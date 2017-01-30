@@ -75,7 +75,6 @@ class MainController extends Controller
         );
     }
 
-
     /**
      * =====CATEGORY======
      */
@@ -93,7 +92,6 @@ class MainController extends Controller
         );
     }
 
-
     public function showInternalCategoryAction($id, Request $request)
     {
         $em = $this->getDoctrine();
@@ -107,6 +105,7 @@ class MainController extends Controller
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
         $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
+        $breadcrumbs->addItem("Category");
         $breadcrumbs->addItem($oneCategory->getName());
 
         //pagination
@@ -130,7 +129,6 @@ class MainController extends Controller
      * =======TAG========
      */
 
-
     public function showTagAction()
     {
         $em = $this->getDoctrine();
@@ -143,7 +141,6 @@ class MainController extends Controller
             ]
         );
     }
-
 
     public function showInternalTagAction($id)
     {
@@ -159,6 +156,7 @@ class MainController extends Controller
         $breadcrumbs = $this->get('white_october_breadcrumbs');
         $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
         $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
+        $breadcrumbs->addItem("Tag");
         $breadcrumbs->addItem($tagName->getName());
 
         //pagination
