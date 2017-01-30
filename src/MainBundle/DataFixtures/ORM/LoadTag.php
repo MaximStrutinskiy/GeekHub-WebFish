@@ -71,14 +71,16 @@ class LoadTagData extends AbstractFixture implements OrderedFixtureInterface
             'Herbal',
         ];
 
+        $count = 0;
+
         foreach ($tags as &$name) {
             $tag = new Tag();
             $tag->setName($name);
 
             $manager->persist($tag);
             $manager->flush();
-
-            $this->addReference($name, $tag);
+            $count++;
+            $this->addReference("tag{$count}", $tag);
         }
     }
 

@@ -36,15 +36,15 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         ];
 
         //generate addReference($name) $name - name tag
+        $count = 0;
         foreach ($categories as list($name, $description)) {
             $category = new Category();
             $category->setName($name);
             $category->setDescription($description);
-
             $manager->persist($category);
             $manager->flush();
-
-            $this->addReference($name, $category);
+            $count++;
+            $this->addReference("category{$count}", $category);
         }
     }
 

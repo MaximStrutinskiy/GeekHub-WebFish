@@ -27,48 +27,40 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
     $faker = Faker::create();
     $postContent = [];
 
-    $userRepository = $manager
-      ->getRepository('MainBundle:User')
-      ->createQueryBuilder('u')
-      ->where('u.role LIKE :name')
-      ->setParameter('name', '%"' . 'ROLE_MODERATOR' . '"%')
-      ->orderBy('u.id', 'RAND')
-      ->setMaxResults(1)
-    ;
-
-//    $tagRepository = $manager->get('doctrine')->getManager();
-
     for ($i = 1; $i <= 20; $i++) {
       $var = [
         $faker->sentence($nbWords = 3, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 8, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 20, $variableNbWords = TRUE),
         $faker->sentence($nbWords = 2000, $variableNbWords = TRUE),
-        $userRepository,
         '1',
-        'Art & Culture',
         $faker->imageUrl($width = 1200, $height = 650),
-        ['Flowers'],
       ];
 
       array_push($postContent, $var);
     }
 
 
-    foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $user, $postStatus, $category, $image, $setTags)) {
+    foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $postStatus, $image)) {
       $post = new Post();
       $post->setShortTitle($shortTitle);
       $post->setLongTitle($longTitle);
       $post->setShortDescriptions($shortDescription);
       $post->setLongDescriptions($longDescription);
 
-      $post->setUser($this->getReference($user));
+      $moderIndex = rand(1, 2);
+      $post->setUser($this->getReference("moder{$moderIndex}"));
+
       $post->setPostStatus($postStatus);
-      $post->setCategory($this->getReference($category));
+
+      $categoryIndex = rand(1, 17);
+      $post->setCategory($this->getReference("category{$categoryIndex}"));
+
+      $tagIndex = array_rand(array_flip(range(1, 51)), 3);
 
       /**@var Post $setTags */
-      foreach ($setTags as $tag) {
-        $post->addTag($this->getReference($tag));
+      foreach ($tagIndex as $tag) {
+        $post->addTag($this->getReference("tag{$tag}"));
       }
 
       $post->setPostImg($image);
