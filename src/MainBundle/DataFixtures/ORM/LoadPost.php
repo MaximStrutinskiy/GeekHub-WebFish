@@ -15,61 +15,64 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @package MainBundle\DataFixtures\ORM
  */
-class LoadPostData extends AbstractFixture implements OrderedFixtureInterface {
+class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
+{
 
 
-  public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
 
-    //all category in LoadCategoryData.php
-    //all tags in LoadTagData.php
-    //all user in LoadUserData.php
+        //all category in LoadCategoryData.php
+        //all tags in LoadTagData.php
+        //all user in LoadUserData.php
 
-    $faker = Faker::create();
-    $postContent = [];
+        $faker = Faker::create();
+        $postContent = [];
 
-    for ($i = 1; $i <= 20; $i++) {
-      $var = [
-        $faker->sentence($nbWords = 3, $variableNbWords = TRUE),
-        $faker->sentence($nbWords = 8, $variableNbWords = TRUE),
-        $faker->sentence($nbWords = 100, $variableNbWords = TRUE),
-        $faker->sentence($nbWords = 2000, $variableNbWords = TRUE),
-        '1',
-        $faker->imageUrl($width = 1200, $height = 650),
-      ];
+        for ($i = 1; $i <= 20; $i++) {
+            $var = [
+                $faker->sentence($nbWords = 3, $variableNbWords = true),
+                $faker->sentence($nbWords = 8, $variableNbWords = true),
+                $faker->sentence($nbWords = 100, $variableNbWords = true),
+                $faker->sentence($nbWords = 2000, $variableNbWords = true),
+                '1',
+                $faker->imageUrl($width = 1200, $height = 650),
+            ];
 
-      array_push($postContent, $var);
+            array_push($postContent, $var);
+        }
+
+
+        foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $postStatus, $image)) {
+            $post = new Post();
+            $post->setShortTitle($shortTitle);
+            $post->setLongTitle($longTitle);
+            $post->setShortDescriptions($shortDescription);
+            $post->setLongDescriptions($longDescription);
+
+            $moderIndex = rand(1, 2);
+            $post->setUser($this->getReference("moder{$moderIndex}"));
+
+            $post->setPostStatus($postStatus);
+
+            $categoryIndex = rand(1, 17);
+            $post->setCategory($this->getReference("category{$categoryIndex}"));
+
+            $tagIndex = array_rand(array_flip(range(1, 51)), 4);
+            /**@var Post $setTags */
+            foreach ($tagIndex as $tag) {
+                $post->addTag($this->getReference("tag{$tag}"));
+            }
+
+            $post->setPostImg($image);
+            $post->setPostDate(new \DateTime);
+            $manager->persist($post);
+            $manager->flush();
+        }
     }
 
-
-    foreach ($postContent as list($shortTitle, $longTitle, $shortDescription, $longDescription, $postStatus, $image)) {
-      $post = new Post();
-      $post->setShortTitle($shortTitle);
-      $post->setLongTitle($longTitle);
-      $post->setShortDescriptions($shortDescription);
-      $post->setLongDescriptions($longDescription);
-
-      $moderIndex = rand(1, 2);
-      $post->setUser($this->getReference("moder{$moderIndex}"));
-
-      $post->setPostStatus($postStatus);
-
-      $categoryIndex = rand(1, 17);
-      $post->setCategory($this->getReference("category{$categoryIndex}"));
-
-      $tagIndex = array_rand(array_flip(range(1, 51)), 4);
-      /**@var Post $setTags */
-      foreach ($tagIndex as $tag) {
-        $post->addTag($this->getReference("tag{$tag}"));
-      }
-
-      $post->setPostImg($image);
-      $post->setPostDate(new \DateTime);
-      $manager->persist($post);
-      $manager->flush();
+    public function getOrder()
+    {
+        return 4;
     }
-  }
-
-  public function getOrder() {
-    return 4;
-  }
 }
