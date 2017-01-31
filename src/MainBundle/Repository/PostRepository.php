@@ -11,39 +11,47 @@ use MainBundle\Entity\Tag;
  *
  * @package MainBundle\Repository
  */
-class PostRepository extends EntityRepository
-{
-    public function findAllPostsQuery()
-    {
-        $qb = $this->createQueryBuilder('p');
-        $qb
-            ->where('p.postStatus = 1')
-            ->orderBy('p.postDate', 'DESC');
+class PostRepository extends EntityRepository {
+  public function findAllPostsQuery() {
+    $qb = $this->createQueryBuilder('p');
+    $qb
+      ->where('p.postStatus = 1')
+      ->orderBy('p.postDate', 'DESC');
 
-        return $qb->getQuery();
-    }
+    return $qb->getQuery();
+  }
 
+  public function findAllPostByCategoryQuery($idCategory) {
+    $qb = $this->createQueryBuilder('p');
+    $qb
+      ->where('p.category = :idCategory')
+      ->andWhere('p.postStatus = 1')
+      ->orderBy('p.postDate', 'DESC')
+      ->setParameter('idCategory', $idCategory);
 
-    public function findAllPostByCategoryQuery($idCategory)
-    {
-        $qb = $this->createQueryBuilder('a');
-        $qb
-            ->where('a.category = :idCategory')
-            ->orderBy('a.postDate', 'DESC')
-            ->setParameter('idCategory', $idCategory);
+    return $qb->getQuery();
+  }
 
-        return $qb->getQuery();
-    }
+  public function findCountPostsWithCategory($id) {
 
-    public function findAllPostByTagQuery(Tag $idTag)
-    {
-        $qb = $this->createQueryBuilder('a');
-        $qb
-            ->join('a.tag', 't')
-            ->where('t = :idTag')
-            ->orderBy('a.postDate', 'DESC')
-            ->setParameter(':idTag', $idTag)
-        ;
-        return $qb->getQuery();
-    }
+    $qb = $this->createQueryBuilder('p');
+    $qb
+      ->where('p.category = :idCategory')
+      ->andWhere('p.postStatus = 1')
+      ->setParameter('idCategory', $id)
+      ->select('COUNT(p) AS postCount')
+    ;
+    return $qb->getQuery()->getResult();
+  }
+
+  public function findAllPostByTagQuery(Tag $idTag) {
+    $qb = $this->createQueryBuilder('p');
+    $qb
+      ->join('p.tag', 'idTag')
+      ->where('idTag = :idTag')
+      ->andWhere('p.postStatus = 1')
+      ->orderBy('p.postDate', 'DESC')
+      ->setParameter(':idTag', $idTag);
+    return $qb->getQuery();
+  }
 }

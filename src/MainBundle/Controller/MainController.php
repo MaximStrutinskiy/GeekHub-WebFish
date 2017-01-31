@@ -125,6 +125,19 @@ class MainController extends Controller
         );
     }
 
+
+  public function showCountCategoryAction($id, Request $request) {
+    $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+    $result = $categoryRepository->findCountPostsWithCategory($id);
+
+    return $this->render(
+      'MainBundle:Component:_count_category.html.twig',
+      [
+        'count_categories' => $result,
+      ]
+    );
+  }
+
     /**
      * =======TAG========
      */
