@@ -74,10 +74,14 @@ class MainController extends Controller
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($comment);
-          $em->flush();
-//          return $this->redirectToRoute('blog-post',$post->getId(), $post->getShortTitle());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute(
+                'blog-post',
+                array('id' => $post->getId(), 'shortTitle' => $post->getShortTitle())
+            );
         }
 
 
@@ -99,6 +103,7 @@ class MainController extends Controller
         $em = $this->getDoctrine();
         $categoryRepository = $em->getRepository("MainBundle:Category");
         $categories = $categoryRepository->findAll();
+
         return $this->render(
             'MainBundle:Component:_category.html.twig',
             [
@@ -131,6 +136,7 @@ class MainController extends Controller
             $request->query->getInt('page', 1),
             5
         );
+
         return $this->render(
             "MainBundle:Page:_category_internal.html.twig",
             [
@@ -141,17 +147,18 @@ class MainController extends Controller
     }
 
 
-  public function showCountCategoryAction($id, Request $request) {
-    $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-    $result = $categoryRepository->findCountPostsWithCategory($id);
+    public function showCountCategoryAction($id, Request $request)
+    {
+        $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+        $result = $categoryRepository->findCountPostsWithCategory($id);
 
-    return $this->render(
-      'MainBundle:Component:_count_category.html.twig',
-      [
-        'count_categories' => $result,
-      ]
-    );
-  }
+        return $this->render(
+            'MainBundle:Component:_count_category.html.twig',
+            [
+                'count_categories' => $result,
+            ]
+        );
+    }
 
     /**
      * =======TAG========
@@ -162,6 +169,7 @@ class MainController extends Controller
         $em = $this->getDoctrine();
         $tagRepository = $em->getRepository("MainBundle:Tag");
         $allTag = $tagRepository->findAll();
+
         return $this->render(
             'MainBundle:Component:_tag.html.twig',
             [
@@ -195,6 +203,7 @@ class MainController extends Controller
             $request->query->getInt('page', 1),
             5
         );
+
         return $this->render(
             "MainBundle:Page:_tag_internal.html.twig",
             [
