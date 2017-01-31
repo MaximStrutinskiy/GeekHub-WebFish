@@ -29,7 +29,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
         $faker = Faker::create();
         $postContent = [];
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             $var = [
                 $faker->sentence($nbWords = 3, $variableNbWords = true),
                 $faker->sentence($nbWords = 8, $variableNbWords = true),

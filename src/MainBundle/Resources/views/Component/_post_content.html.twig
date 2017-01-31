@@ -102,10 +102,10 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(posts) }}
+        </div>
     {% else %}
-        <p>No posts whis this settings.</p>
+        <p>No posts with this settings.</p>
     {% endif %}
-    <div class="navigation text-center">
-        {{ knp_pagination_render(posts) }}
-    </div>
 </div>

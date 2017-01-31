@@ -2,6 +2,8 @@
 
 namespace MainBundle\Controller;
 
+use MainBundle\Entity\Comment;
+use MainBundle\Forms\FormCommentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -55,7 +57,7 @@ class MainController extends Controller
     /**
      * show internal post
      */
-    public function blogInternalAction($id)
+    public function blogInternalAction($id, Request $request)
     {
         $em = $this->getDoctrine();
         $postRepository = $em->getRepository("MainBundle:Post");
@@ -67,10 +69,23 @@ class MainController extends Controller
         $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
         $breadcrumbs->addItem($post->getShortTitle());
 
+        //add comments for post
+        $comment = new Comment();
+        $form = $this->createForm(FormCommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($comment);
+          $em->flush();
+//          return $this->redirectToRoute('blog-post',$post->getId(), $post->getShortTitle());
+        }
+
+
         return $this->render(
             "MainBundle:Page:_internal_blog.html.twig",
             [
                 'post' => $post,
+                'form_comment' => $form->createView(),
             ]
         );
     }
