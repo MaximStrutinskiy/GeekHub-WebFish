@@ -32,17 +32,37 @@ class PostRepository extends EntityRepository {
     return $qb->getQuery();
   }
 
-  public function findCountPostsWithCategory($id) {
+  public function findCountPostsWithCategory() {
 
     $qb = $this->createQueryBuilder('p');
     $qb
-      ->where('p.category = :idCategory')
-      ->andWhere('p.postStatus = 1')
-      ->setParameter('idCategory', $id)
-      ->select('COUNT(p) AS postCount')
-    ;
-    return $qb->getQuery()->getResult();
+      ->select('COUNT (p) AS post_count, c.name')
+//      ->where('p.postStatus = 1')
+      ->join('p.category', 'c.name')
+      ->groupBy('c.id');
+    return (int) $qb->getQuery()->getResult();
   }
+
+->createQueryBuilder()
+->addSelect('category')
+->from('AcmeVideoBundle:Video', 'video')
+->leftJoin('video.category', 'category')
+->groupBy('category.id')
+->having('COUNT(video.id) > 1000')
+->orderBy('category.name', 'ASC')
+->getQuery();
+//  public function findCountForCategories() {
+//    return (int) $this->createQueryBuilder('n')
+//      ->select('COUNT AS articles_count, c.slug')
+//      ->join('n.category', 'c')
+//      ->groupBy('c.id')
+//      ->getQuery()
+//      ->getResult();
+//      }
+//      [['slug' => 'category-name', 'articles_count' => 25]
+SELECT f FROM EMMyFriendsBundle:Friend f WHERE f.name = " '.$param ' "
+SELECT f FROM EMMyFriendsBundle:Friend f WHERE f.name = " '.$param ' "
+
 
   public function findAllPostByTagQuery(Tag $idTag) {
     $qb = $this->createQueryBuilder('p');

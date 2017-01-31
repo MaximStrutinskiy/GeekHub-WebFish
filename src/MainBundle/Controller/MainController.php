@@ -10,183 +10,172 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  * @package MainBundle\Controller
  */
-class MainController extends Controller
-{
+class MainController extends Controller {
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexAction()
-    {
-        return $this->render('MainBundle::base.html.twig');
-    }
+  /**
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function indexAction() {
+    return $this->render('MainBundle::base.html.twig');
+  }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function blogAction()
-    {
-        $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-        $query = $postRepository->findAllPostsQuery();
+  /**
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function blogAction() {
+    $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+    $query = $postRepository->findAllPostsQuery();
 
-        //add breadcrumbs
-        $breadcrumbs = $this
-            ->get('white_october_breadcrumbs')
-            ->addItem('Home', $this->get('router')->generate('home'))
-            ->addItem('Blog');
+    //add breadcrumbs
+    $breadcrumbs = $this
+      ->get('white_october_breadcrumbs')
+      ->addItem('Home', $this->get('router')->generate('home'))
+      ->addItem('Blog');
 
-        //pagination
-        $pagination = $this->get('knp_paginator');
-        $request = $this->get('request_stack')->getMasterRequest();
-        $result = $pagination->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            5
-        );
-
-        return $this->render(
-            'MainBundle:Page:_blog.html.twig',
-            [
-                'posts' => $result,
-            ]
-        );
-    }
-
-    /**
-     * show internal post
-     */
-    public function blogInternalAction($id)
-    {
-        $em = $this->getDoctrine();
-        $postRepository = $em->getRepository("MainBundle:Post");
-        $post = $postRepository->find($id);
-
-        //add breadcrumbs
-        $breadcrumbs = $this->get('white_october_breadcrumbs');
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
-        $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
-        $breadcrumbs->addItem($post->getShortTitle());
-
-        return $this->render(
-            "MainBundle:Page:_internal_blog.html.twig",
-            [
-                'post' => $post,
-            ]
-        );
-    }
-
-    /**
-     * =====CATEGORY======
-     */
-
-    public function showCategoryAction()
-    {
-        $em = $this->getDoctrine();
-        $categoryRepository = $em->getRepository("MainBundle:Category");
-        $categories = $categoryRepository->findAll();
-        return $this->render(
-            'MainBundle:Component:_category.html.twig',
-            [
-                'categories' => $categories,
-            ]
-        );
-    }
-
-    public function showInternalCategoryAction($id, Request $request)
-    {
-        $em = $this->getDoctrine();
-        $categoryRepository = $em->getRepository("MainBundle:Category");
-        $findCategoryName = array("id" => $id,);
-        $oneCategory = $categoryRepository->findOneBy($findCategoryName);
-        $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-        $query = $postRepository->findAllPostByCategoryQuery($id);
-
-        //breadcrumbs
-        $breadcrumbs = $this->get('white_october_breadcrumbs');
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
-        $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
-        $breadcrumbs->addItem("Category");
-        $breadcrumbs->addItem($oneCategory->getName());
-
-        //pagination
-        $pagination = $this->get('knp_paginator');
-        $request = $this->get('request_stack')->getMasterRequest();
-        $result = $pagination->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            5
-        );
-        return $this->render(
-            "MainBundle:Page:_category_internal.html.twig",
-            [
-                'category' => $oneCategory,
-                'posts' => $result,
-            ]
-        );
-    }
-
-
-  public function showCountCategoryAction($id, Request $request) {
-    $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-    $result = $categoryRepository->findCountPostsWithCategory($id);
+    //pagination
+    $pagination = $this->get('knp_paginator');
+    $request = $this->get('request_stack')->getMasterRequest();
+    $result = $pagination->paginate(
+      $query,
+      $request->query->getInt('page', 1),
+      5
+    );
 
     return $this->render(
-      'MainBundle:Component:_count_category.html.twig',
+      'MainBundle:Page:_blog.html.twig',
       [
-        'count_categories' => $result,
+        'posts' => $result,
       ]
     );
   }
 
-    /**
-     * =======TAG========
-     */
+  /**
+   * show internal post
+   */
+  public function blogInternalAction($id) {
+    $em = $this->getDoctrine();
+    $postRepository = $em->getRepository("MainBundle:Post");
+    $post = $postRepository->find($id);
 
-    public function showTagAction()
-    {
-        $em = $this->getDoctrine();
-        $tagRepository = $em->getRepository("MainBundle:Tag");
-        $allTag = $tagRepository->findAll();
-        return $this->render(
-            'MainBundle:Component:_tag.html.twig',
-            [
-                'tags' => $allTag,
-            ]
-        );
-    }
+    //add breadcrumbs
+    $breadcrumbs = $this
+      ->get('white_october_breadcrumbs')
+      ->addItem("Home", $this->get("router")->generate("home"))
+      ->addItem("Blog", $this->get("router")->generate("blog"))
+      ->addItem($post->getShortTitle());
 
-    public function showInternalTagAction($id)
-    {
-        $em = $this->getDoctrine();
-        $tagRepository = $em->getRepository("MainBundle:Tag");
-        $findTagName = array("id" => $id);
-        $tagName = $tagRepository->findOneBy($findTagName);
-        $allTags = $tagRepository->findAll();
-        $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-        $query = $postRepository->findAllPostByTagQuery($tagName);
+    return $this->render(
+      "MainBundle:Page:_internal_blog.html.twig",
+      [
+        'post' => $post,
+      ]
+    );
+  }
 
-        //breadcrumbs
-        $breadcrumbs = $this->get('white_october_breadcrumbs');
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
-        $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
-        $breadcrumbs->addItem("Tag");
-        $breadcrumbs->addItem($tagName->getName());
+  /**
+   * =====CATEGORY======
+   */
 
-        //pagination
-        $paginator = $this->get('knp_paginator');
-        $request = $this->get('request_stack')->getMasterRequest();
-        $result = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            5
-        );
-        return $this->render(
-            "MainBundle:Page:_tag_internal.html.twig",
-            [
-                'setTags' => $allTags,
-                'tag' => $tagName,
-                'posts' => $result,
-            ]
-        );
-    }
+  public function showCategoryAction(Request $request) {
+    $em = $this->getDoctrine();
+    $postRepository = $em->getRepository("MainBundle:Post");
+    $result = $postRepository->findCountPostsWithCategory();
+
+    return $this->render(
+      "MainBundle:Component:_category.html.twig",
+      [
+        "categories" => $result,
+      ]
+    );
+  }
+
+  public function showInternalCategoryAction($id, Request $request) {
+    $em = $this->getDoctrine();
+    $categoryRepository = $em->getRepository("MainBundle:Category");
+    $findCategoryName = array("id" => $id,);
+    $oneCategory = $categoryRepository->findOneBy($findCategoryName);
+    $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+    $query = $postRepository->findAllPostByCategoryQuery($id);
+
+    //breadcrumbs
+    $breadcrumbs = $this
+      ->get('white_october_breadcrumbs')
+      ->addItem("Home", $this->get("router")->generate("home"))
+      ->addItem("Blog", $this->get("router")->generate("blog"))
+      ->addItem("Category")
+      ->addItem($oneCategory->getName());
+
+    //pagination
+    $pagination = $this->get('knp_paginator');
+    $request = $this->get('request_stack')->getMasterRequest();
+    $result = $pagination->paginate(
+      $query,
+      $request->query->getInt('page', 1),
+      5
+    );
+    return $this->render(
+      "MainBundle:Page:_category_internal.html.twig",
+      [
+        'category' => $oneCategory,
+        'posts' => $result,
+      ]
+    );
+  }
+
+
+//  public function showCountCategoryAction($id, Request $request) {
+//    $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+//
+//
+//  }
+
+  /**
+   * =======TAG========
+   */
+
+  public function showTagAction() {
+    $em = $this->getDoctrine();
+    $tagRepository = $em->getRepository("MainBundle:Tag");
+    $allTag = $tagRepository->findAll();
+    return $this->render(
+      'MainBundle:Component:_tag.html.twig',
+      [
+        'tags' => $allTag,
+      ]
+    );
+  }
+
+  public function showInternalTagAction($id) {
+    $em = $this->getDoctrine();
+    $tagRepository = $em->getRepository("MainBundle:Tag");
+    $findTagName = array("id" => $id);
+    $tagName = $tagRepository->findOneBy($findTagName);
+    $allTags = $tagRepository->findAll();
+    $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+    $query = $postRepository->findAllPostByTagQuery($tagName);
+
+    //breadcrumbs
+    $breadcrumbs = $this->get('white_october_breadcrumbs');
+    $breadcrumbs->addItem("Home", $this->get("router")->generate("home"));
+    $breadcrumbs->addItem("Blog", $this->get("router")->generate("blog"));
+    $breadcrumbs->addItem("Tag");
+    $breadcrumbs->addItem($tagName->getName());
+
+    //pagination
+    $paginator = $this->get('knp_paginator');
+    $request = $this->get('request_stack')->getMasterRequest();
+    $result = $paginator->paginate(
+      $query,
+      $request->query->getInt('page', 1),
+      5
+    );
+    return $this->render(
+      "MainBundle:Page:_tag_internal.html.twig",
+      [
+        'setTags' => $allTags,
+        'tag' => $tagName,
+        'posts' => $result,
+      ]
+    );
+  }
 }
