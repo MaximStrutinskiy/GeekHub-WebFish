@@ -11,5 +11,17 @@ use MainBundle\Entity\Category;
  *
  * @package MainBundle\Repository
  */
-class CategoryRepository extends EntityRepository {
+class CategoryRepository extends EntityRepository
+{
+
+    public function findAllComments($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.post = :idPost')
+            ->setParameter('idPost', $id)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
 }

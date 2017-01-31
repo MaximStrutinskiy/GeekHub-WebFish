@@ -3,6 +3,7 @@
 namespace MainBundle\Controller;
 
 use MainBundle\Entity\Comment;
+use MainBundle\Entity\Post;
 use MainBundle\Forms\FormCommentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -57,11 +58,14 @@ class MainController extends Controller
     /**
      * show internal post
      */
-    public function blogInternalAction($id, Request $request)
+    public function blogInternalAction($id, Request $request, Post $post)
     {
         $em = $this->getDoctrine();
         $postRepository = $em->getRepository("MainBundle:Post");
         $post = $postRepository->find($id);
+
+        $commentRepository = $em->getRepository("MainBundle:Category");
+        $commentPost = $commentRepository->findAllComments($id);
 
         //add breadcrumbs
         $breadcrumbs = $this->get('white_october_breadcrumbs');
@@ -71,6 +75,10 @@ class MainController extends Controller
 
         //add comments for post
         $comment = new Comment();
+        $comment
+            ->setPost($post)
+            ->addUser($this->getUser());;
+
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -90,6 +98,7 @@ class MainController extends Controller
             [
                 'post' => $post,
                 'form_comment' => $form->createView(),
+                'show_comment' => $commentPost,
             ]
         );
     }
