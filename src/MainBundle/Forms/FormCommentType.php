@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 /**
  * Class FormInfo
  * Use BlogBundle\Entity\Info
@@ -32,10 +33,24 @@ class FormCommentType extends AbstractType
             )
             ->add(
                 'send',
-                SubmitType::class
+                SubmitType::class,
+                array(
+                    'attr' => array(
+                        'class' => 'waves-effect waves-light btn'
+                    )
+                )
             )
-            ->add('clean', ResetType::class);
+            ->add(
+                'clean',
+                ResetType::class,
+                array(
+                    'attr' => array(
+                        'class' => 'waves-effect waves-light btn'
+                    )
+                )
+            );
     }
+
     /**
      * @param OptionsResolver $resolver
      */

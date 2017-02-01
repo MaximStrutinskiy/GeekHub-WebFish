@@ -1,7 +1,54 @@
-.blog-comment{
+.blog-comment {
 
-  .blog-comment-item{
-    margin-bottom: rem(25px);
+  .blog-comment-item {
+	margin-bottom: rem(25px);
+	background: $white-coffee;
+	border: rem(1px) solid $blue-light;
+	padding: rem(10px);
+  }
 
+  .blog-comment-item-content {
+	margin-bottom: rem(20px);
+  }
+
+  .blog-comment-item-info {
+
+	.blog-cii-name,
+	.blog-cii-date {
+	  display: inline-block;
+	  padding-right: rem(25px);
+
+	  &:last-child {
+		padding-right: 0;
+	  }
+	}
+
+	img {
+	  max-width: rem(32px);
+	  max-height: rem(32px);
+	}
   }
 }
+
+// Comment form.
+.blog-item-comment-form {
+  padding-top: rem(25px);
+
+  .input-text {
+	margin-bottom: rem(25px);
+
+	textarea{
+	  border: rem(1px) solid $black-light;
+	  padding: rem(10px);
+	  min-height: rem(150px);
+	}
+  }
+  .form-buttons {
+	& > div {
+	  display: inline-block;
+	  margin-right: rem(25px);
+	}
+  }
+}
+
+
