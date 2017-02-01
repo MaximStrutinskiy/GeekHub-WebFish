@@ -96,21 +96,40 @@
     {% endif %}
 
     {% if show_comment is not empty %}
-      <div class="blog-item-comments">
-
-        {% for comment in show_comment %}
-          comment - {{ comment.commentText }}
-          user info - {{ dump(comment.user.owner)}}
-        {% endfor %}
+      <div class="blog-comment">
+        <div class="blog-item-comments">
+          {% for comment in show_comment %}
+            <div class="blog-comment-item">
+              <p>comment - {{ comment.commentText }}</p>
+              {% for user in comment.user.owner.user %}
+                {% if user.img is not empty %}
+                  <img src="/user_images/{{ user.img }}" alt="{{ user.username }}">
+                  {% if (user.name and user.soname) is not empty %}
+                    {{ user.name }}  {{ user.soname }}
+                  {% else %}
+                    {{ user.username }}
+                  {% endif %}
+                {% else %}
+                  {% if (user.name and user.soname) is not empty %}
+                    {{ user.name }}  {{ user.soname }}
+                  {% else %}
+                    {{ user.username }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
 
-    <div class="blog-item-comment-form">
-      {{ form_start(form_comment) }}
-      <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
-      <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
-      {{ form_end(form_comment) }}
-    </div>
-
+    {% if form_comment is not empty %}
+      <div class="blog-item-comment-form">
+        {{ form_start(form_comment) }}
+        <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
+        <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
+        {{ form_end(form_comment) }}
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
