@@ -108,16 +108,16 @@ class MainController extends Controller
      * =====CATEGORY======
      */
 
-    public function showCategoryAction()
+    public function showCategoryAction(Request $request)
     {
         $em = $this->getDoctrine();
-        $categoryRepository = $em->getRepository("MainBundle:Category");
-        $categories = $categoryRepository->findAll();
+        $postRepository = $em->getRepository("MainBundle:Post");
+        $result = $postRepository->findCountPostsWithCategoryResult();
 
         return $this->render(
-            'MainBundle:Component:_category.html.twig',
+            "MainBundle:Component:_category.html.twig",
             [
-                'categories' => $categories,
+                "categories" => $result,
             ]
         );
     }
@@ -152,20 +152,6 @@ class MainController extends Controller
             [
                 'category' => $oneCategory,
                 'posts' => $result,
-            ]
-        );
-    }
-
-
-    public function showCountCategoryAction($id, Request $request)
-    {
-        $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-        $result = $categoryRepository->findCountPostsWithCategory($id);
-
-        return $this->render(
-            'MainBundle:Component:_count_category.html.twig',
-            [
-                'count_categories' => $result,
             ]
         );
     }
