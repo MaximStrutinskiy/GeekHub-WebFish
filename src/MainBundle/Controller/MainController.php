@@ -74,11 +74,12 @@ class MainController extends Controller
         $breadcrumbs->addItem($post->getShortTitle());
 
         //add comments for post
-        // task - check user info
         $comment = new Comment();
-        $comment
-            ->setPost($post)
-            ->addUser($this->getUser());
+        if ($this->getUser() !== null && $this->getUser() !== null) {
+            $comment
+                ->setPost($post)
+                ->addUser($this->getUser());
+        }
 
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);

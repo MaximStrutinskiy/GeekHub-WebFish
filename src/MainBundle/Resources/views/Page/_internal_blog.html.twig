@@ -94,7 +94,6 @@
                 </div>
             </div>
         {% endif %}
-
         {% if show_comment is not empty %}
             <div class="blog-comment">
                 <div class="blog-item-comments">
@@ -142,7 +141,6 @@
                 </div>
             </div>
         {% endif %}
-
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {% if form_comment is not empty %}
                 <div class="blog-item-comment-form">
@@ -153,8 +151,9 @@
                 </div>
             {% endif %}
         {% else %}
-            <div class="blog-item-comment-form">
-                Login or Register
+            <div class="blog-item-comment-form text-center">
+                <p><a href="{{ path('fos_user_security_login') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">Register</a></p>
+                <p>Sorry, but send comments can authorized users</p>
             </div>
         {% endif %}
     </div>
