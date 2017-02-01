@@ -95,9 +95,22 @@
       </div>
     {% endif %}
 
-    {{ form_start(form_comment) }}
-    <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
-    <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
-    {{ form_end(form_comment) }}
+    {% if show_comment is not empty %}
+      <div class="blog-item-comments">
+
+        {% for comment in show_comment %}
+          comment - {{ comment.commentText }}
+          user info - {{ dump(comment.user.owner)}}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="blog-item-comment-form">
+      {{ form_start(form_comment) }}
+      <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
+      <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
+      {{ form_end(form_comment) }}
+    </div>
+
   </div>
 {% endblock %}

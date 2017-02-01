@@ -64,7 +64,7 @@ class MainController extends Controller
         $postRepository = $em->getRepository("MainBundle:Post");
         $post = $postRepository->find($id);
 
-        $commentRepository = $em->getRepository("MainBundle:Category");
+        $commentRepository = $em->getRepository("MainBundle:Comment");
         $commentPost = $commentRepository->findAllComments($id);
 
         //add breadcrumbs
