@@ -11,67 +11,55 @@ use MainBundle\Entity\Tag;
  *
  * @package MainBundle\Repository
  */
-class PostRepository extends EntityRepository {
-  public function findAllPostsQuery() {
-    $qb = $this->createQueryBuilder('p');
-    $qb
-      ->where('p.postStatus = 1')
-      ->orderBy('p.postDate', 'DESC');
+class PostRepository extends EntityRepository
+{
+    public function findAllPostsQuery()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where('p.postStatus = 1')
+            ->orderBy('p.postDate', 'DESC');
 
-    return $qb->getQuery();
-  }
+        return $qb->getQuery();
+    }
 
-  public function findAllPostByCategoryQuery($idCategory) {
-    $qb = $this->createQueryBuilder('p');
-    $qb
-      ->where('p.category = :idCategory')
-      ->andWhere('p.postStatus = 1')
-      ->orderBy('p.postDate', 'DESC')
-      ->setParameter('idCategory', $idCategory);
+    public function findAllPostByCategoryQuery($idCategory)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where('p.category = :idCategory')
+            ->andWhere('p.postStatus = :postStatus')
+            ->orderBy('p.postDate', 'DESC')
+            ->setParameter('idCategory', $idCategory)
+            ->setParameter('postStatus', true);
 
-    return $qb->getQuery();
-  }
+        return $qb->getQuery();
+    }
 
-  public function findCountPostsWithCategory() {
+    public function findCountPostsWithCategoryResult()
+    {
 
-    $qb = $this->createQueryBuilder('p');
-    $qb
-      ->select('COUNT (p) AS post_count, c.name')
-//      ->where('p.postStatus = 1')
-      ->join('p.category', 'c.name')
-      ->groupBy('c.id');
-    return (int) $qb->getQuery()->getResult();
-  }
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->select('COUNT (p) AS post_count, c.name, c.id')
+            ->where('p.postStatus = :postStatus')
+            ->innerJoin('p.category', 'c')
+            ->groupBy('c.id')
+            ->setParameter('postStatus', true);
 
-->createQueryBuilder()
-->addSelect('category')
-->from('AcmeVideoBundle:Video', 'video')
-->leftJoin('video.category', 'category')
-->groupBy('category.id')
-->having('COUNT(video.id) > 1000')
-->orderBy('category.name', 'ASC')
-->getQuery();
-//  public function findCountForCategories() {
-//    return (int) $this->createQueryBuilder('n')
-//      ->select('COUNT AS articles_count, c.slug')
-//      ->join('n.category', 'c')
-//      ->groupBy('c.id')
-//      ->getQuery()
-//      ->getResult();
-//      }
-//      [['slug' => 'category-name', 'articles_count' => 25]
-SELECT f FROM EMMyFriendsBundle:Friend f WHERE f.name = " '.$param ' "
-SELECT f FROM EMMyFriendsBundle:Friend f WHERE f.name = " '.$param ' "
+        return $qb->getQuery()->getResult();
+    }
 
+    public function findAllPostByTagQuery(Tag $idTag)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->join('p.tag', 'idTag')
+            ->where('idTag = :idTag')
+            ->andWhere('p.postStatus = 1')
+            ->orderBy('p.postDate', 'DESC')
+            ->setParameter(':idTag', $idTag);
 
-  public function findAllPostByTagQuery(Tag $idTag) {
-    $qb = $this->createQueryBuilder('p');
-    $qb
-      ->join('p.tag', 'idTag')
-      ->where('idTag = :idTag')
-      ->andWhere('p.postStatus = 1')
-      ->orderBy('p.postDate', 'DESC')
-      ->setParameter(':idTag', $idTag);
-    return $qb->getQuery();
-  }
+        return $qb->getQuery();
+    }
 }

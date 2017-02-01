@@ -64,12 +64,12 @@ class MainController extends Controller {
       ->addItem("Blog", $this->get("router")->generate("blog"))
       ->addItem($post->getShortTitle());
 
-    return $this->render(
-      "MainBundle:Page:_internal_blog.html.twig",
-      [
-        'post' => $post,
-      ]
-    );
+      return $this->render(
+          "MainBundle:Page:_internal_blog.html.twig",
+          [
+              'post' => $post,
+          ]
+      );
   }
 
   /**
@@ -79,7 +79,7 @@ class MainController extends Controller {
   public function showCategoryAction(Request $request) {
     $em = $this->getDoctrine();
     $postRepository = $em->getRepository("MainBundle:Post");
-    $result = $postRepository->findCountPostsWithCategory();
+    $result = $postRepository->findCountPostsWithCategoryResult();
 
     return $this->render(
       "MainBundle:Component:_category.html.twig",
@@ -121,13 +121,6 @@ class MainController extends Controller {
       ]
     );
   }
-
-
-//  public function showCountCategoryAction($id, Request $request) {
-//    $categoryRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
-//
-//
-//  }
 
   /**
    * =======TAG========

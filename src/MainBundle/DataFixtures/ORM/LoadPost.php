@@ -38,7 +38,6 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
                 '1',
                 $faker->imageUrl($width = 1200, $height = 650),
             ];
-
             array_push($postContent, $var);
         }
 
