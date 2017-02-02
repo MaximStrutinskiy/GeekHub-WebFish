@@ -127,12 +127,27 @@ class Post {
   protected $user;
 
   /**
+   * Many Post have Many Likes.
+   * Used function __construct().
+   *
+   * @ORM\ManyToMany(targetEntity="Like")
+   * @ORM\JoinTable(name="post_like",
+   *      joinColumns={@ORM\JoinColumn(name="post_id",
+   *   referencedColumnName="id")},
+   *   inverseJoinColumns={@ORM\JoinColumn(name="like_id",
+   *   referencedColumnName="id", unique=false)}
+   *      )
+   */
+  protected $like;
+
+  /**
    * Post constructor.
    */
   public function __construct() {
     $this->postDate = new \DateTime();
     $this->postComment = new \Doctrine\Common\Collections\ArrayCollection();
     $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->like = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
