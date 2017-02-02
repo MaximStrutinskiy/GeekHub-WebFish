@@ -1,10 +1,14 @@
-<ul class="block-category">
-  {% for category in categories %}
-    <li>
-      <a href="{{ path('category', {'id' : category.id, 'name' : category.name|replace ({' ': '_'})}) }}">
-        {{ category.name }}
-        ({{ category.post_count }})
-      </a>
-    </li>
-  {% endfor %}
-</ul>
+{% if categories is not empty %}
+  <ul class="block-category">
+    {% for category in categories %}
+      <li>
+        <a href="{{ path('category', {'id' : category.id, 'name' : category.name|replace ({' ': '_'})}) }}">
+          {{ category.name }}
+          ({{ category.post_count }})
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No categories</p>
+{% endif %}

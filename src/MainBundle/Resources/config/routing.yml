@@ -4,22 +4,22 @@ home:
 
 blog:
     path: /blog
-    defaults: { _controller: MainBundle:Main:blog }
+    defaults: { _controller: MainBundle:Blog:blog }
 
 blog-post:
     path:     /blog/post/{id}/{shortTitle}
-    defaults: { _controller: MainBundle:Main:blogInternal }
+    defaults: { _controller: MainBundle:Blog:blogInternal }
     requirements:
       id: \d+
 
 category:
     path:     /blog/category/{id}/{name}
-    defaults: { _controller: MainBundle:Main:showInternalCategory }
+    defaults: { _controller: MainBundle:Category:showInternalCategory }
     requirements:
       id: \d+
 
 tag:
     path:     /blog/tag/{id}/{name}
-    defaults: { _controller: MainBundle:Main:showInternalTag }
+    defaults: { _controller: MainBundle:Tag:showInternalTag }
     requirements:
       id: \d+
