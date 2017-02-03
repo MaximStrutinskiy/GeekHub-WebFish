@@ -1,14 +1,14 @@
 .like-block {
-  display: block;
+  display: inline-block;
 
-  .blog-like-form.active {
+  .blog-like-form {
 
     form {
       height: rem(20px);
       overflow: hidden;
 
       button {
-        padding: 5px 10px;
+        padding: rem(5px) rem(10px);
         width: auto;
         position: relative;
         background: none;
@@ -22,12 +22,12 @@
           z-index: 9;
           position: absolute;
           content: "";
-          left: 10px;
+          left: rem(10px);
           top: 0;
-          width: 10px;
-          height: 16px;
-          background: $blue;
-          border-radius: 50px 50px 0 0;
+          width: rem(10px);
+          height: rem(16px);
+		  background: $grey;
+          border-radius: rem(50px) rem(50px) 0 0;
           transform: rotate(-45deg);
           transform-origin: 0 100%;
         }
@@ -39,6 +39,19 @@
         }
       }
     }
+  }
+
+  .blog-like-form.active {
+	form {
+
+	  button {
+
+		&:before,
+		&:after {
+		  background: $blue;
+		}
+	  }
+	}
   }
 
   .blog-like-form.active,

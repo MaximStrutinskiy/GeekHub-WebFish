@@ -74,7 +74,7 @@
 	.body-footer-user,
 	.body-footer-date,
 	.blog-footer-category,
-	.body-footer-teg {
+	.body-footer-teg{
 	  vertical-align: middle;
 	  display: inline-block;
 	  padding-right: rem(25px);
@@ -83,6 +83,11 @@
 	  a {
 		color: $grey;
 	  }
+	}
+	
+	.body-footer-teg{
+	  display: block;
+	  margin-top: rem(10px);
 	}
 
 	.body-footer-user {
