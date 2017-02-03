@@ -1,4 +1,5 @@
 <div class="blog-content">
+    {{ dump() }}
     {% if posts is not empty %}
         {% for post in posts.items %}
             {% if post.postImg is not empty %}
@@ -16,34 +17,57 @@
                     <div class="body-descriptions">
                         <p>{{ post.shortDescriptions }}</p>
                     </div>
-                    <div class="body-readmore">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
-                            More</a>
-                    </div>
                     <div class="body-footer">
                         <div class="body-footer-user">
-                            <p>
-                                {% if post.user.img is not empty %}
-                                    <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
-                                    {% if (post.user.name and post.user.soname) is not empty %}
-                                        {{ post.user.name }}  {{ post.user.soname }}
-                                    {% else %}
-                                        {{ post.user.username }}
-                                    {% endif %}
+                            {% if post.user.img is not empty %}
+                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
+                                {% if (post.user.name and post.user.soname) is not empty %}
+                                    {{ post.user.name }}  {{ post.user.soname }}
                                 {% else %}
                                     {{ post.user.username }}
                                 {% endif %}
-                            </p>
+                            {% else %}
+                                {{ post.user.username }}
+                            {% endif %}
                         </div>
                         <div class="body-footer-date">
-                            <p>
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                {{ post.postDate | date("M d") }}
-                            </p>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ post.postDate | date("M d") }}
                         </div>
                         <div class="blog-footer-category">
                             <i class="fa fa-folder-o" aria-hidden="true"></i>
                             <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
+                        </div>
+                        <div class="like-block">
+                            {#{% if form_like is not empty %}#}
+                                {#{% if show_status_like == 1 %}#}
+                                    {#<div class="blog-like-form active">#}
+                                        {#{{ form_start(form_like) }}#}
+                                        {#{{ form_row(form_like.send) }}#}
+                                        {#{{ form_end(form_like) }}#}
+                                    {#</div>#}
+                                {#{% endif %}#}
+
+                                {#{% if show_status_like == 0 %}#}
+                                    {#<div class="blog-like-form">#}
+                                        {#{{ form_start(form_like) }}#}
+                                        {#{{ form_row(form_like.send) }}#}
+                                        {#{{ form_end(form_like) }}#}
+                                    {#</div>#}
+                                {#{% endif %}#}
+                            {#{% endif %}#}
+
+                            {#<div class="blog-like-form active">#}
+                                {#{{ form_start(form_like) }}#}
+                                {#{{ form_row(form_like.send) }}#}
+                                {#{{ form_end(form_like) }}#}
+                            {#</div>#}
+
+                            {#<div class="blog-like-count">#}
+                                {#{% for like in show_count_like %}#}
+                                    {#{{ like.like_count }}#}
+                                {#{% endfor %}#}
+                            {#</div>#}
                         </div>
                         <div class="body-footer-teg">
                             <i class="fa fa-tags" aria-hidden="true"></i>
@@ -51,6 +75,7 @@
                                 <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
                             {% endfor %}
                         </div>
+
                     </div>
                 </div>
             {% else %}
@@ -63,34 +88,57 @@
                     <div class="body-descriptions">
                         <p>{{ post.shortDescriptions }}</p>
                     </div>
-                    <div class="body-readmore">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
-                            More</a>
-                    </div>
                     <div class="body-footer">
                         <div class="body-footer-user">
-                            <p>
-                                {% if post.user.img is not empty %}
-                                    <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
-                                    {% if (post.user.name and post.user.soname) is not empty %}
-                                        {{ post.user.name }}  {{ post.user.soname }}
-                                    {% else %}
-                                        {{ post.user.username }}
-                                    {% endif %}
+                            {% if post.user.img is not empty %}
+                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
+                                {% if (post.user.name and post.user.soname) is not empty %}
+                                    {{ post.user.name }}  {{ post.user.soname }}
                                 {% else %}
                                     {{ post.user.username }}
                                 {% endif %}
-                            </p>
+                            {% else %}
+                                {{ post.user.username }}
+                            {% endif %}
                         </div>
                         <div class="body-footer-date">
-                            <p>
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                {{ post.postDate | date("M d") }}
-                            </p>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            {{ post.postDate | date("M d") }}
                         </div>
                         <div class="blog-footer-category">
                             <i class="fa fa-folder-o" aria-hidden="true"></i>
                             <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
+                        </div>
+                        <div class="like-block">
+                            {#{% if form_like is not empty %}#}
+                                {#{% if show_status_like == 1 %}#}
+                                    {#<div class="blog-like-form active">#}
+                                        {#{{ form_start(form_like) }}#}
+                                        {#{{ form_row(form_like.send) }}#}
+                                        {#{{ form_end(form_like) }}#}
+                                    {#</div>#}
+                                {#{% endif %}#}
+
+                                {#{% if show_status_like == 0 %}#}
+                                    {#<div class="blog-like-form">#}
+                                        {#{{ form_start(form_like) }}#}
+                                        {#{{ form_row(form_like.send) }}#}
+                                        {#{{ form_end(form_like) }}#}
+                                    {#</div>#}
+                                {#{% endif %}#}
+                            {#{% endif %}#}
+
+                            {#<div class="blog-like-form active">#}
+                                {#{{ form_start(form_like) }}#}
+                                {#{{ form_row(form_like.send) }}#}
+                                {#{{ form_end(form_like) }}#}
+                            {#</div>#}
+
+                            {#<div class="blog-like-count">#}
+                                {#{% for like in show_count_like %}#}
+                                    {#{{ like.like_count }}#}
+                                {#{% endfor %}#}
+                            </div>
                         </div>
                         <div class="body-footer-teg">
                             <i class="fa fa-tags" aria-hidden="true"></i>
