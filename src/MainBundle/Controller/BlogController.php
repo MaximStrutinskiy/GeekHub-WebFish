@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alpha
- * Date: 02.02.17
- * Time: 17:36
- */
 
 namespace MainBundle\Controller;
 
 use MainBundle\Entity\Comment;
+use MainBundle\Entity\Like;
 use MainBundle\Entity\Post;
 use MainBundle\Forms\FormCommentType;
+use MainBundle\Forms\FormLikeType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -62,16 +58,17 @@ class BlogController extends Controller {
       ->addItem("Blog", $this->get("router")->generate("blog"))
       ->addItem($post->getShortTitle());
 
+    // Comment
     $comment = new Comment();
-    if ($this->getUser() !== NULL && $this->getUser() !== NULL) {
+    if ($this->getUser() !== NULL && $post !== NULL) {
       $comment
         ->setPost($post)
         ->addUser($this->getUser());
     }
 
-    $form = $this->createForm(FormCommentType::class, $comment);
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
+    $commentForm = $this->createForm(FormCommentType::class, $comment);
+    $commentForm->handleRequest($request);
+    if ($commentForm->isSubmitted() && $commentForm->isValid()) {
       $em = $this->getDoctrine()->getManager();
       $em->persist($comment);
       $em->flush();
@@ -84,15 +81,79 @@ class BlogController extends Controller {
         )
       );
     }
+//    // Comment
+
+    // Like
+    // check if user push like in post
+    $em = $this->getDoctrine();
+    $likeRepository = $em->getRepository("MainBundle:Like");
+
+    $countPostLikes = $likeRepository->getCountPostLikesID($post);
+    $likeCheck = $likeRepository->checkUserPostLike($post, $this->getUser());
+
+    $likeForm = []; // remove
+    $statusLike = 0;
+
+    if ($likeCheck == NULL) {
+      $statusLike = 0;
+      $like = new Like();
+      if ($this->getUser() !== NULL && $post !== NULL) {
+        $like
+          ->setPost($post)
+          ->setUser($this->getUser());
+      }
+
+      $likeForm = $this->createForm(FormLikeType::class, $like);
+      $likeForm->handleRequest($request);
+      if ($likeForm->isSubmitted()) {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($like);
+        $em->flush();
+
+        // Add ajax
+        return $this->redirectToRoute(
+          'blog-post',
+          array(
+            'id' => $post->getId(),
+            'shortTitle' => $post->getShortTitle()
+          )
+        );
+      }
+    }
+    else {
+      $statusLike = 1;
+      $likeForm = $this->createForm(FormLikeType::class);
+      $likeForm->handleRequest($request);
+      if ($likeForm->isSubmitted()) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($likeCheck as $likeChecks) {
+          $em->remove($likeChecks);
+        }
+        $em->flush();
+
+        // Add ajax
+        return $this->redirectToRoute(
+          'blog-post',
+          array(
+            'id' => $post->getId(),
+            'shortTitle' => $post->getShortTitle()
+          )
+        );
+      }
+      // remove likes from posts
+    }
+    // Like
 
     return $this->render(
       "MainBundle:Page:_internal_blog.html.twig",
       [
         'post' => $post,
-        'form_comment' => $form->createView(),
+        'form_comment' => $commentForm->createView(),
+        'form_like' => $likeForm->createView(),
         'show_comment' => $commentPost,
+        'show_count_like' => $countPostLikes,
+        'show_status_like' => $statusLike,
       ]
     );
   }
-
 }

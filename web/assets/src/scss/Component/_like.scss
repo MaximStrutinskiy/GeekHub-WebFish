@@ -1,0 +1,51 @@
+.like-block {
+  display: block;
+
+  .blog-like-form.active {
+
+    form {
+      height: rem(20px);
+      overflow: hidden;
+
+      button {
+        padding: 5px 10px;
+        width: auto;
+        position: relative;
+        background: none;
+        display: block;
+        text-indent: -9999em;
+        text-transform: uppercase;
+        border: none;
+
+        &:before,
+        &:after {
+          z-index: 9;
+          position: absolute;
+          content: "";
+          left: 10px;
+          top: 0;
+          width: 10px;
+          height: 16px;
+          background: $blue;
+          border-radius: 50px 50px 0 0;
+          transform: rotate(-45deg);
+          transform-origin: 0 100%;
+        }
+
+        &:after {
+          left: 0;
+          transform: rotate(45deg);
+          transform-origin: 100% 100%;
+        }
+      }
+    }
+  }
+
+  .blog-like-form.active,
+  .blog-like-form,
+  .blog-like-count {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+

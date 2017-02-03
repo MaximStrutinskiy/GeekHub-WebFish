@@ -10,4 +10,23 @@ namespace MainBundle\Repository;
  */
 class LikeRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getCountPostLikesID($id_post) {
+    $qb = $this->createQueryBuilder('l');
+    $qb
+      ->select('COUNT (l) AS like_count')
+      ->where('l.post = :id_post')
+      ->setParameter('id_post', $id_post);
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function checkUserPostLike($id_post, $id_user) {
+    $qb = $this->createQueryBuilder('l');
+    $qb
+      ->where('l.post = :idPost')
+      ->andWhere('l.user = :idUser')
+      ->setParameter('idPost', $id_post)
+      ->setParameter('idUser', $id_user);
+    return $qb->getQuery()->getResult();
+  }
 }

@@ -38,7 +38,6 @@ class PostRepository extends EntityRepository
 
     public function findCountPostsWithCategoryResult()
     {
-
         $qb = $this->createQueryBuilder('p');
         $qb
             ->select('COUNT (p) AS post_count, c.name, c.id')
