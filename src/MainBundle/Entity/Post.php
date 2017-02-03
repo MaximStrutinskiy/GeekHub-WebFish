@@ -28,7 +28,6 @@ class Post {
 
   /**
    * @ORM\Column(type="string", length=75, nullable=false)
-   *
    * @Assert\Length(
    *     min=3,
    *     max=75,
@@ -40,7 +39,6 @@ class Post {
 
   /**
    * @ORM\Column(type="string", nullable=false)
-   *
    * @Assert\Length(
    *     min=3,
    *     minMessage="min length > 3.",
@@ -50,7 +48,6 @@ class Post {
 
   /**
    * @ORM\Column(type="string", length=2000, nullable=false)
-   *
    * @Assert\Length(
    *     min=3,
    *     max=2000,
@@ -74,16 +71,10 @@ class Post {
 
   /**
    * @ORM\Column(type="datetime")
-   *
    * @Assert\DateTime()
    * @Assert\LessThanOrEqual("now")
    */
   protected $postDate;
-
-  /**
-   * @ORM\Column(type="integer", nullable=true)
-   */
-  protected $postLike;
 
   /**
    * @ORM\Column(type="integer", nullable=false)
@@ -93,7 +84,6 @@ class Post {
   /**
    * Many Post have Many Tags.
    * Used function __construct().
-   *
    * @ORM\ManyToMany(targetEntity="Tag")
    * @ORM\JoinTable(name="post_tags",
    *      joinColumns={@ORM\JoinColumn(name="post_id",
@@ -114,7 +104,6 @@ class Post {
   /**
    * One Post has Many Comments.
    * Used function __construct().
-   *
    * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
    */
   protected $postComment;
@@ -127,18 +116,12 @@ class Post {
   protected $user;
 
   /**
-   * Many Post have Many Likes.
+   * One Post has Many Likes.
    * Used function __construct().
    *
-   * @ORM\ManyToMany(targetEntity="Like")
-   * @ORM\JoinTable(name="post_like",
-   *      joinColumns={@ORM\JoinColumn(name="post_id",
-   *   referencedColumnName="id")},
-   *   inverseJoinColumns={@ORM\JoinColumn(name="like_id",
-   *   referencedColumnName="id", unique=false)}
-   *      )
+   * @ORM\OneToMany(targetEntity="Like", mappedBy="post")
    */
-  protected $like;
+  protected $postLike;
 
   /**
    * Post constructor.
@@ -147,7 +130,7 @@ class Post {
     $this->postDate = new \DateTime();
     $this->postComment = new \Doctrine\Common\Collections\ArrayCollection();
     $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->like = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->postLike = new \Doctrine\Common\Collections\ArrayCollection();
   }
 
   /**
@@ -461,5 +444,27 @@ class Post {
    */
   public function removeUser(\MainBundle\Entity\User $user) {
     $this->user->removeElement($user);
+  }
+
+  /**
+   * Add postLike
+   *
+   * @param \MainBundle\Entity\Like $postLike
+   *
+   * @return Post
+   */
+  public function addPostLike(\MainBundle\Entity\Like $postLike) {
+    $this->postLike[] = $postLike;
+
+    return $this;
+  }
+
+  /**
+   * Remove postLike
+   *
+   * @param \MainBundle\Entity\Like $postLike
+   */
+  public function removePostLike(\MainBundle\Entity\Like $postLike) {
+    $this->postLike->removeElement($postLike);
   }
 }
