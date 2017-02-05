@@ -19,7 +19,7 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine();
         $postRepository = $em->getRepository('MainBundle:Post');
-        $query = $postRepository->findAllPostsQuery();
+        $query = $postRepository->findPostsWithCountLikeQuery();
 //        $post = $postRepository->findAllPostsQuery()->getResult();
         $breadcrumbs = $this
             ->get('white_october_breadcrumbs')
@@ -32,6 +32,7 @@ class BlogController extends Controller
             $request->query->getInt('page', 1),
             5
         );
+
 //        // Like
         return $this->render(
             'MainBundle:Page:_blog.html.twig',
@@ -41,9 +42,6 @@ class BlogController extends Controller
         );
     }
 
-    /**
-     * show internal post
-     */
     public function blogInternalAction($id, Request $request, Post $post)
     {
         $em = $this->getDoctrine();
@@ -98,7 +96,6 @@ class BlogController extends Controller
                     ->setPost($post)
                     ->setUser($this->getUser());
             }
-
             $likeForm = $this->createForm(FormLikeType::class, $like);
             $likeForm->handleRequest($request);
             if ($likeForm->isSubmitted()) {

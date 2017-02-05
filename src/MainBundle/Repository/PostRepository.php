@@ -4,6 +4,7 @@ namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use MainBundle\Entity\Like;
 use MainBundle\Entity\Tag;
 
 /**
@@ -13,12 +14,30 @@ use MainBundle\Entity\Tag;
  */
 class PostRepository extends EntityRepository
 {
-    public function findAllPostsQuery()
+    public function findPostsQuery()
     {
         $qb = $this->createQueryBuilder('p');
         $qb
-            ->where('p.postStatus = 1')
-            ->orderBy('p.postDate', 'DESC');
+            ->where('p.postStatus = :postStatus')
+            ->orderBy('p.postDate', 'DESC')
+            ->setParameter('postStatus', true);
+        ;
+
+        return $qb->getQuery();
+    }
+
+    public function findPostsWithCountLikeQuery()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->select('p', 'p, COUNT (l) AS count_post_like')
+            ->where('p.postStatus = :postStatus')
+            ->leftJoin('p.postLike', 'l')
+            ->groupBy('p.id')
+            ->orderBy('p.id', 'DESC')
+            ->setParameter('postStatus', true);
+        ;
+
 
         return $qb->getQuery();
     }
@@ -55,9 +74,10 @@ class PostRepository extends EntityRepository
         $qb
             ->join('p.tag', 'idTag')
             ->where('idTag = :idTag')
-            ->andWhere('p.postStatus = 1')
+            ->andWhere('p.postStatus = :postStatus')
             ->orderBy('p.postDate', 'DESC')
-            ->setParameter(':idTag', $idTag);
+            ->setParameter(':idTag', $idTag)
+            ->setParameter('postStatus', true);
 
         return $qb->getQuery();
     }
