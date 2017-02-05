@@ -17,6 +17,9 @@
                     <div class="body-descriptions">
                         <p>{{ post.shortDescriptions }}</p>
                     </div>
+                    <div class="body-readmore">
+                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read More</a>
+                    </div>
                     <div class="body-footer">
                         <div class="body-footer-user">
                             {% if post.user.img is not empty %}
@@ -87,6 +90,9 @@
                     </div>
                     <div class="body-descriptions">
                         <p>{{ post.shortDescriptions }}</p>
+                    </div>
+                    <div class="body-readmore">
+                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read More</a>
                     </div>
                     <div class="body-footer">
                         <div class="body-footer-user">

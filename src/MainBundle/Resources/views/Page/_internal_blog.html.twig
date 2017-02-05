@@ -1,6 +1,7 @@
 {% extends "MainBundle:Page:_blog.html.twig" %}
 
 {% block bodyContent %}
+    {{ dump() }}
     <div class="blog-content">
         {% if post.postImg is not empty %}
             <div class="blog-item blog-item-img">

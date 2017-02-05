@@ -69,7 +69,7 @@ class User extends BaseUser {
    * One User has Many Likes.
    * Used function __construct().
    *
-   * @ORM\OneToMany(targetEntity="Like", mappedBy="post")
+   * @ORM\OneToMany(targetEntity="Like", mappedBy="user")
    */
   protected $like;
 

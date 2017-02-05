@@ -9,25 +9,22 @@ use MainBundle\Forms\FormCommentType;
 use MainBundle\Forms\FormLikeType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BlogController extends Controller
 {
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function blogAction()
     {
         $em = $this->getDoctrine();
         $postRepository = $em->getRepository('MainBundle:Post');
         $query = $postRepository->findAllPostsQuery();
-        $post = $postRepository->findAllPostsQuery()->getResult();
-
+//        $post = $postRepository->findAllPostsQuery()->getResult();
         $breadcrumbs = $this
             ->get('white_october_breadcrumbs')
             ->addItem('Home', $this->get('router')->generate('home'))
             ->addItem('Blog');
-
         $pagination = $this->get('knp_paginator');
         $request = $this->get('request_stack')->getMasterRequest();
         $result = $pagination->paginate(
@@ -35,71 +32,11 @@ class BlogController extends Controller
             $request->query->getInt('page', 1),
             5
         );
-
-        // Like
-        $em = $this->getDoctrine();
-        $likeRepository = $em->getRepository("MainBundle:Like");
-
-        $countPostLikes = $likeRepository->getCountPostLikesID($post);
-        $likeCheck = $likeRepository->checkUserPostLike($post, $this->getUser());
-
-        if ($likeCheck == null) {
-            $statusLike = 0;
-            $like = new Like();
-            if ($this->getUser() !== null && $post !== null) {
-                $like
-                    ->setPost($post)
-                    ->setUser($this->getUser());
-            }
-
-            $likeForm = $this->createForm(FormLikeType::class, $like);
-            $likeForm->handleRequest($request);
-            if ($likeForm->isSubmitted()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($like);
-                $em->flush();
-
-                // Add ajax
-                return $this->redirectToRoute(
-                    'blog-post',
-                    array(
-                        'id' => $post->getId(),
-                        'shortTitle' => $post->getShortTitle(),
-                    )
-                );
-            }
-        } else {
-            $statusLike = 1;
-            $likeForm = $this->createForm(FormLikeType::class);
-            $likeForm->handleRequest($request);
-            if ($likeForm->isSubmitted()) {
-                $em = $this->getDoctrine()->getManager();
-                foreach ($likeCheck as $likeChecks) {
-                    $em->remove($likeChecks);
-                }
-                $em->flush();
-
-                // Add ajax
-                return $this->redirectToRoute(
-                    'blog-post',
-                    array(
-                        'id' => $post->getId(),
-                        'shortTitle' => $post->getShortTitle(),
-                    )
-                );
-            }
-            // remove likes from posts
-        }
-
-        // Like
-
+//        // Like
         return $this->render(
             'MainBundle:Page:_blog.html.twig',
             [
                 'posts' => $result,
-                'form_like' => $likeForm->createView(),
-                'show_count_like' => $countPostLikes,
-                'show_status_like' => $statusLike,
             ]
         );
     }
@@ -145,14 +82,13 @@ class BlogController extends Controller
                 )
             );
         }
-        // Comment
 
         // Like
         $em = $this->getDoctrine();
         $likeRepository = $em->getRepository("MainBundle:Like");
 
-        $countPostLikes = $likeRepository->getCountPostLikesID($post);
-        $likeCheck = $likeRepository->checkUserPostLike($post, $this->getUser());
+        $countPostLikes = $likeRepository->getCountPostLikesIDResult($post);
+        $likeCheck = $likeRepository->checkUserPostLikeResult($post, $this->getUser());
 
         if ($likeCheck == null) {
             $statusLike = 0;
@@ -199,10 +135,7 @@ class BlogController extends Controller
                     )
                 );
             }
-            // remove likes from posts
         }
-
-        // Like
 
         return $this->render(
             "MainBundle:Page:_internal_blog.html.twig",
