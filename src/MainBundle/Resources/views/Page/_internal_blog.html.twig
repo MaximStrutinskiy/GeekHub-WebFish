@@ -32,8 +32,8 @@
                         {% endif %}
                     </div>
                     <div class="body-footer-date">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            {{ post.postDate | date("M d") }}
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        {{ post.postDate | date("M d") }}
                     </div>
                     <div class="blog-footer-category">
                         <i class="fa fa-folder-o" aria-hidden="true"></i>
@@ -103,8 +103,8 @@
                         {% endif %}
                     </div>
                     <div class="body-footer-date">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            {{ post.postDate | date("M d") }}
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        {{ post.postDate | date("M d") }}
                     </div>
                     <div class="blog-footer-category">
                         <i class="fa fa-folder-o" aria-hidden="true"></i>
@@ -173,7 +173,7 @@
                                         {% endif %}
                                         <div class="blog-cii-date">
                                             <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            {{ comment.postDate | date("Y:M:d:h:m") }}
+                                            {{ comment.postDate | date("d M:h-i-s") }}
                                         </div>
                                     {% else %}
                                         {% if (user.name and user.soname) is not empty %}
@@ -187,7 +187,7 @@
                                         {% endif %}
                                         <div class="blog-cii-date">
                                             <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            {{ comment.postDate | date("Y:M:d:h:m") }}
+                                            {{ comment.postDate.date | date("d M:h-i-s") }}
                                         </div>
                                     {% endif %}
                                 {% endfor %}

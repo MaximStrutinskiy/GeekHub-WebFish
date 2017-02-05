@@ -20,7 +20,6 @@ class BlogController extends Controller
         $em = $this->getDoctrine();
         $postRepository = $em->getRepository('MainBundle:Post');
         $query = $postRepository->findPostsWithCountLikeQuery();
-//        $post = $postRepository->findAllPostsQuery()->getResult();
         $breadcrumbs = $this
             ->get('white_october_breadcrumbs')
             ->addItem('Home', $this->get('router')->generate('home'))
@@ -33,7 +32,6 @@ class BlogController extends Controller
             5
         );
 
-//        // Like
         return $this->render(
             'MainBundle:Page:_blog.html.twig',
             [

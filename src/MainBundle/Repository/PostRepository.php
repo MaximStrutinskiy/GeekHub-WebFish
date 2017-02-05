@@ -20,8 +20,7 @@ class PostRepository extends EntityRepository
         $qb
             ->where('p.postStatus = :postStatus')
             ->orderBy('p.postDate', 'DESC')
-            ->setParameter('postStatus', true);
-        ;
+            ->setParameter('postStatus', true);;
 
         return $qb->getQuery();
     }
@@ -35,9 +34,7 @@ class PostRepository extends EntityRepository
             ->leftJoin('p.postLike', 'l')
             ->groupBy('p.id')
             ->orderBy('p.id', 'DESC')
-            ->setParameter('postStatus', true);
-        ;
-
+            ->setParameter('postStatus', true);;
 
         return $qb->getQuery();
     }
