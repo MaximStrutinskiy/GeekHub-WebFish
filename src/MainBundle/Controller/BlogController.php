@@ -95,6 +95,7 @@ class BlogController extends Controller
         $countPostLikes = $likeRepository->getCountPostLikesIDResult($post_id);
         $likeCheck = $likeRepository->checkUserPostLikeResult($post_id, $this->getUser());
 
+
         if ($likeCheck == null) {
             $statusLike = 0;
             $like = new Like();
@@ -124,6 +125,7 @@ class BlogController extends Controller
         }
 
         return $this->render(
+            "MainBundle:Component:_like.html.twig",
             [
                 'form_like' => $likeForm->createView(),
                 'show_count_like' => $countPostLikes,

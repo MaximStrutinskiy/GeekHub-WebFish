@@ -1,0 +1,26 @@
+{{ dump() }}
+<div class="like-block">
+    {% if form_like is not empty %}
+        {% if show_status_like == 1 %}
+            <div class="blog-like-form active">
+                {{ form_start(form_like) }}
+                {{ form_row(form_like.send) }}
+                {{ form_end(form_like) }}
+            </div>
+        {% endif %}
+
+        {% if show_status_like == 0 %}
+            <div class="blog-like-form">
+                {{ form_start(form_like) }}
+                {{ form_row(form_like.send) }}
+                {{ form_end(form_like) }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="blog-like-count">
+        {% for like in show_count_like %}
+            {{ like.like_count }}
+        {% endfor %}
+    </div>
+</div>

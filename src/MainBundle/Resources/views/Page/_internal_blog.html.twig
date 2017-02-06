@@ -1,7 +1,6 @@
 {% extends "MainBundle:Page:_blog.html.twig" %}
 
 {% block bodyContent %}
-    {{ dump() }}
     {{ render(controller('MainBundle:Blog:blogLike', {'post_id':post.id} )) }}
     <div class="blog-content">
         {#{% if post.postImg is not empty %}#}
