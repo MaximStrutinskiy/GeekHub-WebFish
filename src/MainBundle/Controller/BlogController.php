@@ -9,8 +9,6 @@ use MainBundle\Forms\FormCommentType;
 use MainBundle\Forms\FormLikeType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BlogController extends Controller
 {
@@ -79,19 +77,30 @@ class BlogController extends Controller
             );
         }
 
-        // Like
+        return $this->render(
+            "MainBundle:Page:_internal_blog.html.twig",
+            [
+                'post' => $post,
+                'form_comment' => $commentForm->createView(),
+                'show_comment' => $commentPost,
+            ]
+        );
+    }
+
+    public function blogLikeAction($post_id, Request $request)
+    {
         $em = $this->getDoctrine();
         $likeRepository = $em->getRepository("MainBundle:Like");
 
-        $countPostLikes = $likeRepository->getCountPostLikesIDResult($post);
-        $likeCheck = $likeRepository->checkUserPostLikeResult($post, $this->getUser());
+        $countPostLikes = $likeRepository->getCountPostLikesIDResult($post_id);
+        $likeCheck = $likeRepository->checkUserPostLikeResult($post_id, $this->getUser());
 
         if ($likeCheck == null) {
             $statusLike = 0;
             $like = new Like();
-            if ($this->getUser() !== null && $post !== null) {
+            if ($this->getUser() !== null && $post_id !== null) {
                 $like
-                    ->setPost($post)
+                    ->setPost($post_id)
                     ->setUser($this->getUser());
             }
             $likeForm = $this->createForm(FormLikeType::class, $like);
@@ -100,15 +109,6 @@ class BlogController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($like);
                 $em->flush();
-
-                // Add ajax
-                return $this->redirectToRoute(
-                    'blog-post',
-                    array(
-                        'id' => $post->getId(),
-                        'shortTitle' => $post->getShortTitle(),
-                    )
-                );
             }
         } else {
             $statusLike = 1;
@@ -120,25 +120,12 @@ class BlogController extends Controller
                     $em->remove($likeChecks);
                 }
                 $em->flush();
-
-                // Add ajax
-                return $this->redirectToRoute(
-                    'blog-post',
-                    array(
-                        'id' => $post->getId(),
-                        'shortTitle' => $post->getShortTitle(),
-                    )
-                );
             }
         }
 
         return $this->render(
-            "MainBundle:Page:_internal_blog.html.twig",
             [
-                'post' => $post,
-                'form_comment' => $commentForm->createView(),
                 'form_like' => $likeForm->createView(),
-                'show_comment' => $commentPost,
                 'show_count_like' => $countPostLikes,
                 'show_status_like' => $statusLike,
             ]
