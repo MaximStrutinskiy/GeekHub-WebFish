@@ -37,10 +37,9 @@ class FormLikeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => 'MainBundle\Entity\Like',
-            ]
-        );
+        $resolver->setDefaults([
+            'csrf_protection' => true,
+            'method' => 'POST',
+        ]);
     }
 }

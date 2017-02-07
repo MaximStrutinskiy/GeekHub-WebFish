@@ -23,3 +23,10 @@ tag:
     defaults: { _controller: MainBundle:Tag:showInternalTag }
     requirements:
       id: \d+
+
+blog-post-like:
+    path:     /blog/like/{id}
+    defaults: { _controller: MainBundle:Blog:blogLike }
+    requirements:
+      id: \d+
+      method: POST
