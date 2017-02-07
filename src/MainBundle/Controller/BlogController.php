@@ -9,6 +9,7 @@ use MainBundle\Forms\FormCommentType;
 use MainBundle\Forms\FormLikeType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends Controller {
 
@@ -84,57 +85,62 @@ class BlogController extends Controller {
     );
   }
 
-  public function blogLikeAction($post_id, Request $request) {
-    $em = $this->getDoctrine();
+  public function blogLikeAction(Request $request, $id)
+  {
+    $em = $this->getDoctrine()->getManager();
     $likeRepository = $em->getRepository("MainBundle:Like");
     $postRepository = $em->getRepository("MainBundle:Post");
+    $post = $postRepository->find($id);
 
-    $countPostLikes = $likeRepository->getCountPostLikesIDResult($post_id);
-    $likeCheck = $likeRepository->checkUserPostLikeResult($post_id, $this->getUser());
-    $post = $postRepository->find($post_id);
+    if (!$post) {
+      throw $this->createNotFoundException();
+    }
 
-    $request = $this->get('request_stack')->getMasterRequest();
-    if ($likeCheck == null) {
-      $statusLike = 0;
-      $like = new Like();
+    if (($user = $this->getUser()) === null) {
+      // TODO: render read-only view of posts likes
+      return new Response('');
+    }
 
-      if ($this->getUser() !== null && $post_id !== null && $post !== null) {
+    $like = $likeRepository->findOneBy([
+      'post' => $post,
+      'user' => $user,
+    ]);
+    $likeForm = $this->get('form.factory')->createNamed('blog_post_like_' . $id, FormLikeType::class, null, [
+      'action' => $this->generateUrl('blog-post-like', [
+        'id' => $id,
+      ])
+    ]);
+    $likeForm->handleRequest($request);
+
+    if ($likeForm->isSubmitted() && $likeForm->isValid()) {
+      if ($like == null) {
+        $like = new Like();
         $like
-          ->setPost($post)
-          ->setUser($this->getUser());
-      }
-      $likeForm = $this->createForm(FormLikeType::class, $like);
-      $likeForm->handleRequest($request);
-      if ($likeForm->isSubmitted()) {
-        $em = $this->getDoctrine()->getManager();
+            ->setPost($post)
+            ->setUser($this->getUser())
+        ;
         $em->persist($like);
-        $em->flush();
-
-//        return $this->forward($request->getUri());
+      } else {
+        $em->remove($like);
       }
-    }
-    else {
-      $statusLike = 1;
-      $likeForm = $this->createForm(FormLikeType::class);
-      $likeForm->handleRequest($request);
-      if ($likeForm->isSubmitted()) {
-        $em = $this->getDoctrine()->getManager();
-        foreach ($likeCheck as $likeChecks) {
-          $em->remove($likeChecks);
-        }
-        $em->flush();
 
-//        return $this->forward($request->getUri());
-      }
+      $em->flush();
+
+      return $this->redirect(
+          $request->headers->has('referer')
+              ? $request->headers->get('referer')
+              : $this->generateUrl('blog')
+      );
     }
+
 
     return $this->render(
       "MainBundle:Component:_like.html.twig",
       [
-        'post_id' => $post_id,
+        'post_id' => $id,
         'form_like' => $likeForm->createView(),
-        'show_count_like' => $countPostLikes,
-        'show_status_like' => $statusLike,
+        'like_count' => $likeRepository->getCountByPost($post),
+        'show_status_like' => $like === null,
       ]
     );
   }

@@ -44,7 +44,7 @@
                         </div>
 
 
-                            {{ render(controller('MainBundle:Blog:blogLike', {'post_id':post.id} )) }}
+                            {{ render(controller('MainBundle:Blog:blogLike', {'id': post.id} )) }}
                             {#{% if form_like is not empty %}#}
                             {#{% if show_status_like == 1 %}#}
                             {#<div class="blog-like-form active">#}
