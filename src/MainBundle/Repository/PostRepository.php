@@ -19,7 +19,7 @@ class PostRepository extends EntityRepository
         $qb = $this->createQueryBuilder('p');
         $qb
             ->where('p.postStatus = :postStatus')
-            ->orderBy('p.postDate', 'DESC')
+            ->orderBy('p.id', 'DESC')
             ->setParameter('postStatus', true);;
 
         return $qb->getQuery();
