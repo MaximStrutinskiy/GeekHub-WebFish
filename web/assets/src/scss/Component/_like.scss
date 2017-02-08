@@ -26,7 +26,7 @@
           top: rem(4px);
           width: rem(7px);
           height: rem(11px);
-		  background: $grey;
+          background: $grey;
           border-radius: rem(50px) rem(50px) 0 0;
           transform: rotate(-45deg);
           transform-origin: 0 100%;
@@ -39,19 +39,55 @@
         }
       }
     }
+
+    &.active {
+
+      form {
+
+        button {
+
+          &:before,
+          &:after {
+            background: $blue;
+          }
+        }
+      }
+    }
   }
 
-  .blog-like-form.active {
-	form {
+  .blog-like-default{
+    display: inline-block;
+    height: rem(20px);
+    overflow: hidden;
+    padding: rem(5px) rem(10px);
+    width: auto;
+    position: relative;
+    background: none;
+    text-indent: -9999em;
+    text-transform: uppercase;
+    border: none;
+    vertical-align: bottom;
 
-	  button {
+    &:before,
+    &:after {
+      z-index: 9;
+      position: absolute;
+      content: "";
+      left: rem(7px);
+      top: rem(4px);
+      width: rem(7px);
+      height: rem(11px);
+      background: $grey;
+      border-radius: rem(50px) rem(50px) 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
 
-		&:before,
-		&:after {
-		  background: $blue;
-		}
-	  }
-	}
+    &:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
   }
 
   .blog-like-form.active,

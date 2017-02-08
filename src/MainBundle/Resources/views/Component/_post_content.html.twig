@@ -51,7 +51,6 @@
               <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
             {% endfor %}
           </div>
-
         </div>
       </div>
     {% endfor %}

@@ -1,15 +1,15 @@
-.pagination{
+.pagination {
 
-  span{
-	padding: rem(5px);
+  span {
+    padding: rem(5px);
   }
 
-  a{
-	color: $black-light;
+  a {
+    color: $black-light;
   }
 
-  .current{
-	background: $blue-light;
-	color: $white;
+  .current {
+    background: $blue-light;
+    color: $white;
   }
 }

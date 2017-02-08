@@ -1,8 +1,11 @@
 <div class="like-block">
-{% if form_like is defined and form_like is not empty %}
+  {% if form_like is defined and form_like is not empty %}
     <div class="blog-like-form{% if show_status_like is empty %} active{% endif %}">
-        {{ form(form_like) }}
+      {{ form(form_like) }}
     </div>
-{% endif %}
-    <div class="blog-like-count">{{ like_count }}</div>
+  {% endif %}
+  {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div class="blog-like-default"></div>
+  {% endif %}
+  <div class="blog-like-count">{{ like_count }}</div>
 </div>

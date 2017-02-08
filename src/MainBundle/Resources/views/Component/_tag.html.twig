@@ -2,8 +2,8 @@
   {% if tags is not empty %}
     {% for tag in tags %}
       <li>
-        <a class="chip" href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">
-          {{ tag.name }}
+        <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">
+          {{ tag.name }};
         </a>
       </li>
     {% endfor %}

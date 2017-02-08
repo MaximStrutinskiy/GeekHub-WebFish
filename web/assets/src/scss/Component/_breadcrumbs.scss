@@ -1,18 +1,18 @@
-.breadcrumb{
+.breadcrumb {
   padding: 0;
   background: transparent;
   color: $black-light;
   font-size: 14px;
 
-  .separator{
+  .separator {
     padding: 0 rem(10px);
   }
 
-  li:before{
+  li:before {
     display: none;
   }
 
-  &:last-child{
-	color: $black-light;
+  &:last-child {
+    color: $black-light;
   }
 }

@@ -100,8 +100,13 @@ class BlogController extends Controller
         }
 
         if (($user = $this->getUser()) === null) {
-            // TODO: render read-only view of posts likes
-            return new Response('');
+
+            return $this->render(
+              "MainBundle:Component:_like.html.twig",
+              [
+                'like_count' => $likeRepository->getCountByPost($post),
+              ]
+            );
         }
 
         $like = $likeRepository->findOneBy(

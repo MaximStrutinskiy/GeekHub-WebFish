@@ -18,7 +18,7 @@
     color: $white;
 
     .user-info {
-	  background: $black;
+      background: $black;
       padding: rem(15px);
       text-align: right;
 
@@ -42,7 +42,7 @@
       display: none;
       position: absolute;
       width: 100%;
-	  z-index: 1000;
+      z-index: 1000;
 
       .muser-content {
         position: relative;
@@ -54,41 +54,41 @@
         text-align: left;
       }
 
-	  input:-webkit-autofill {
-		-webkit-box-shadow: 0 0 0 rem(50px) $black-dark inset;
-	  }
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 rem(50px) $black-dark inset;
+      }
 
-	  input:-webkit-autofill:focus {
-		-webkit-box-shadow: $blue-light, 0 0 0 rem(50px) $black-dark inset;
-	  }
-      .user-action{
+      input:-webkit-autofill:focus {
+        -webkit-box-shadow: $blue-light, 0 0 0 rem(50px) $black-dark inset;
+      }
+      .user-action {
         text-align: center;
       }
 
       .user-name,
       .user-password {
         input {
-		  text-align: left;
-		  color: $white !important;
+          text-align: left;
+          color: $white !important;
         }
 
         label {
           display: none;
-		  text-align: left;
+          text-align: left;
         }
       }
 
-	  input:-webkit-autofill, 
-	  textarea:-webkit-autofill, 
-	  select:-webkit-autofill{
-		color: $white;
-	  }
-	  
-      input[type=submit]{
-		color: $white;
+      input:-webkit-autofill,
+      textarea:-webkit-autofill,
+      select:-webkit-autofill {
+        color: $white;
       }
 
-      a{
+      input[type=submit] {
+        color: $white;
+      }
+
+      a {
         display: inline-block;
         color: $white;
         padding: rem(10px) rem(25px);

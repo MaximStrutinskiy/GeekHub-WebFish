@@ -1,17 +1,17 @@
 {% extends "MainBundle::base.html.twig" %}
 
 {% block body %}
-    <div class="blog-container">
-        <div class="blog-breadcrumbs">
-            {{ wo_render_breadcrumbs() }}
-        </div>
-        <div class="clearfix">
-            {% block bodyContent %}
-                {% include 'MainBundle:Component:_post_content.html.twig' %}
-            {% endblock %}
-            {% block bodyNavigation %}
-                {% include 'MainBundle:Component:_navigation.html.twig' %}
-            {% endblock %}
-        </div>
+  <div class="blog-container">
+    <div class="blog-breadcrumbs">
+      {{ wo_render_breadcrumbs() }}
     </div>
+    <div class="clearfix">
+      {% block bodyContent %}
+        {% include 'MainBundle:Component:_post_content.html.twig' %}
+      {% endblock %}
+      {% block bodyNavigation %}
+        {% include 'MainBundle:Component:_navigation.html.twig' %}
+      {% endblock %}
+    </div>
+  </div>
 {% endblock %}

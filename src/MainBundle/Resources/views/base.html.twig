@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {#add meta tegs#}
-    {% include "MainBundle:Main:_meta.html.twig" %}
-    {% block meta %}{% endblock %}
+  {#add meta tegs#}
+  {% include "MainBundle:Main:_meta.html.twig" %}
+  {% block meta %}{% endblock %}
 
-    {#add title#}
-    <title>WebFish {% block title %}/ Welcome!{% endblock %}</title>
+  {#add title#}
+  <title>WebFish {% block title %}/ Welcome!{% endblock %}</title>
 
-    {#add styles#}
-    {% include "MainBundle:Main:_style.html.twig" %}
-    {% block stylesheets %}{% endblock %}
+  {#add styles#}
+  {% include "MainBundle:Main:_style.html.twig" %}
+  {% block stylesheets %}{% endblock %}
 </head>
 <body>
 
 {# Body top #}
 {% block body_top %}
-    {% include "MainBundle:Component:_mainmenu.html.twig" %}
+  {% include "MainBundle:Component:_mainmenu.html.twig" %}
 {% endblock %}
 
 {# Body center #}
@@ -25,7 +25,7 @@
 
 {# Body footer #}
 {% block body_bottom %}
-    {% include "MainBundle:Component:_footer.html.twig" %}
+  {% include "MainBundle:Component:_footer.html.twig" %}
 {% endblock %}
 
 {# for FosUserBundle #}

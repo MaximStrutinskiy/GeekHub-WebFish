@@ -1,4 +1,4 @@
-@mixin input-field($w: auto, $c: $black-light, $bc: inherit, $fs: $fs){
+@mixin input-field($w: auto, $c: $black-light, $bc: inherit, $fs: $fs) {
   width: $w;
   color: $c;
   background: $bc;
