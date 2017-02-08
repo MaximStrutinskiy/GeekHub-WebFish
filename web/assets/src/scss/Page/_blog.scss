@@ -2,115 +2,128 @@
   @extend .container-susy;
 
   .blog-content {
-	@include span(9 of 12);
+    @include span(9 of 12);
   }
 
   .blog-navigation {
-	@include span(last 3 of 12);
+    @include span(last 3 of 12);
   }
 
-  // Content.
-
   .blog-item {
-	margin-bottom: rem(55px);
-	position: relative;
+    margin-bottom: rem(55px);
+    position: relative;
 
-	.blog-img,
-	.body-title,
-	.body-descriptions,
-	.body-readmore,
-	.body-footer {
-	  padding-bottom: rem(15px);
-	}
+    .blog-img,
+    .body-title,
+    .body-descriptions,
+    .body-readmore,
+    .body-footer {
+      padding-bottom: rem(15px);
+    }
 
-	.blog-img {
+    .blog-img {
 
-	  img {
-		width: 100%;
-	  }
-	}
+      img {
+        width: 100%;
+      }
+    }
 
-	.body-title {
+    .body-title {
 
-	  a {
-		font-size: 24px;
-		color: $black-light;
-		text-transform: uppercase;
-	  }
-	}
+      a {
+        font-size: 24px;
+        color: $black-light;
+        text-transform: uppercase;
+      }
+    }
 
-	.body-descriptions {
-	  color: $grey;
-	}
+    .body-descriptions {
+      color: $grey;
+    }
 
-	.body-readmore {
-	  text-align: right;
+    .body-readmore {
+      text-align: right;
 
-	  a {
-		position: relative;
-		padding-right: rem(25px);
-		display: block;
-		text-transform: uppercase;
-		color: $grey;
-		font-size: 14px;
+      a {
+        position: relative;
+        padding-right: rem(25px);
+        display: block;
+        text-transform: uppercase;
+        color: $grey;
+        font-size: 14px;
 
-		&:hover {
-		  text-decoration: none;
-		}
+        &:hover {
+          text-decoration: none;
+        }
 
-		&:before {
-		  content: '';
-		  position: absolute;
-		  top: 50%;
-		  right: 0;
-		  transform: translateY(-50%);
-		  width: rem(22px);
-		  height: rem(1px);
-		  background-color: $grey;
-		}
-	  }
-	}
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          width: rem(22px);
+          height: rem(1px);
+          background-color: $grey;
+        }
+      }
+    }
 
-	.body-footer-user,
-	.body-footer-date,
-	.blog-footer-category,
-	.body-footer-teg{
-	  vertical-align: middle;
-	  display: inline-block;
-	  padding-right: rem(25px);
-	  color: $grey;
+    .body-footer-user,
+    .body-footer-date,
+    .blog-footer-category,
+    .body-footer-teg {
+      vertical-align: middle;
+      display: inline-block;
+      padding-right: rem(25px);
+      color: $grey;
 
-	  a {
-		color: $grey;
-	  }
-	}
-	
-	.body-footer-teg{
-	  display: block;
-	  margin-top: rem(10px);
-	}
+      a {
+        color: $grey;
+      }
+    }
 
-	.body-footer-user {
+    .body-footer-teg {
+      display: block;
+      margin-top: rem(10px);
+    }
 
-	  img {
-		max-width: rem(32px);
-		max-height: rem(32px);
-	  }
-	}
+    .body-footer-user {
+
+      img {
+        max-width: rem(32px);
+        max-height: rem(32px);
+      }
+    }
+  }
+
+  .blog-item-not-img{
+    background: $white-coffee;
+    padding: rem(10px);
   }
 
   // Navigation
-  .blog-navigation{
+  .blog-navigation {
 
-	.blog-search,
-	.blog-category,
-	.blog-teg{
-	  margin-bottom: rem(30px);
+    .blog-search,
+    .blog-category,
+    .blog-teg {
+      margin-bottom: rem(30px);
+      ul > li a {
+        color: $grey;
+      }
 
-	  .blog-nav-title{
-		text-transform: uppercase;
-		padding-bottom:10px;
-	  }
-	}
+      .blog-nav-title {
+        text-transform: uppercase;
+        padding-bottom: rem(10px);
+        font-weight: bold;
+      }
+    }
+
+    .chip{
+      background-color: transparent;
+      border: rem(2px) solid $white-coffee;
+      line-height: 29px;
+    }
   }
 }

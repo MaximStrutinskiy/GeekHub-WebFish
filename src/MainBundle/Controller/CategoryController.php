@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CategoryController extends Controller {
 
   public function showCategoryAction(Request $request) {
-    $em = $this->getDoctrine();
+    $em = $this->getDoctrine()->getManager();
     $postRepository = $em->getRepository("MainBundle:Post");
     $result = $postRepository->findCountPostsWithCategoryResult();
 
@@ -28,11 +28,13 @@ class CategoryController extends Controller {
   }
 
   public function showInternalCategoryAction($id, Request $request) {
-    $em = $this->getDoctrine();
+    $em = $this->getDoctrine()->getManager();
     $categoryRepository = $em->getRepository("MainBundle:Category");
+    $postRepository = $em->getRepository('MainBundle:Post');
+
     $categoryId = array("id" => $id,);
     $categoryName = $categoryRepository->findOneBy($categoryId);
-    $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
+
     $query = $postRepository->findAllPostByCategoryQuery($id);
 
     $breadcrumbs = $this

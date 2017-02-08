@@ -43,7 +43,7 @@ a:hover {
   background: $black-light;
 
   &:hover {
-	background: lighten($black-light, 10%);
+    background: lighten($black-light, 10%);
   }
 }
 
@@ -126,14 +126,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 // Tags
-.block-tags{
+.block-tags {
 
-  li{
-	display: inline-block;
-	
-	.chip{
-	  background-color: $black-light;
-	  color: $white;
-	}
-  };
+  li {
+    display: inline-block;
+
+    .chip {
+      color: $white;
+    }
+  }
 }

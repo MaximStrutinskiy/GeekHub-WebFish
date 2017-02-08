@@ -1,17 +1,17 @@
 #user-content {
 
   h2 {
-	margin: 0;
+    margin: 0;
   }
 
   img {
-	max-width: rem(200px);
-	max-height: rem(200px);
+    max-width: rem(200px);
+    max-height: rem(200px);
   }
 
   input[type=submit] {
-	color: $white;
-	margin-bottom: rem(10px);
+    color: $white;
+    margin-bottom: rem(10px);
   }
 
   #fos_user_change_password_form > div,
@@ -21,54 +21,54 @@
   li > div,
   h2,
   li {
-	margin-bottom: rem(20px);
+    margin-bottom: rem(20px);
   }
 
   //profile
   .user-content-left {
-	@include span(4 of 12);
+    @include span(4 of 12);
   }
 
   .user-content-center {
-	@include span(4 of 12);
+    @include span(4 of 12);
   }
 
   .user-content-right {
-	@include span(last 4 of 12);
+    @include span(last 4 of 12);
   }
 
   .user-action {
 
-	input {
-	  color: $white;
-	}
+    input {
+      color: $white;
+    }
 
-	input[type=password]{
-	  color: $black-light;
-	}
+    input[type=password] {
+      color: $black-light;
+    }
 
-	& > div,
-	a {
-	  display: inline-block;
-	  padding: rem(10px) rem(25px);
-	  margin: 0 rem(10px);
+    & > div,
+    a {
+      display: inline-block;
+      padding: rem(10px) rem(25px);
+      margin: 0 rem(10px);
 
-	  &:first-child {
-		margin-left: 0;
-		padding-left: 0;
-	  }
-	}
+      &:first-child {
+        margin-left: 0;
+        padding-left: 0;
+      }
+    }
   }
 
   .waves-input-wrapper {
-	vertical-align: middle;
+    vertical-align: middle;
   }
 
   //register
   .register_form.important_form {
-	@include span(6 of 12);
+    @include span(6 of 12);
   }
   .register_form.not-important_form {
-	@include span(last 6 of 12);
+    @include span(last 6 of 12);
   }
 }

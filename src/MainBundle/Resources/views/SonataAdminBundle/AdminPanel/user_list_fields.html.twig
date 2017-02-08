@@ -1,13 +1,9 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    <div class="admin-panel-content-image">
-        {% if object.img != null %}
-            {% if object.img starts with 'http' %}
-                <img src="{{ asset(object.img ) }}">
-            {% else %}
-                <img src="{{ asset('user_images/' ~ object.img ) }}">
-            {% endif %}
-        {% endif %}
-    </div>
+  <div class="admin-panel-content-image">
+    {% if object.img != null %}
+      <img src="{% if object.img starts with 'http' %} {{ asset(object.img ) }} {% else %} {{ asset('user_images/' ~ object.img ) }} {% endif %}">
+    {% endif %}
+  </div>
 {% endblock %}

@@ -41,7 +41,7 @@ class BlogController extends Controller
 
     public function blogInternalAction( Request $request, Post $post, $id)
     {
-        $em = $this->getDoctrine();
+        $em = $this->getDoctrine()->getManager();
         $postRepository = $em->getRepository("MainBundle:Post");
         $post = $postRepository->find($id);
 

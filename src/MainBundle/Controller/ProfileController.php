@@ -111,7 +111,6 @@ class ProfileController extends BaseController
         return $this->render(
             'FOSUserBundle:Profile:edit.html.twig',
             array(
-                'asdsadasdasdasdsadsadas' => 'asdasdasdasdsadsadsadasd',
                 'form' => $form->createView(),
             )
         );

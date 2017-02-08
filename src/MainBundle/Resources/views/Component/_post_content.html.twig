@@ -1,140 +1,64 @@
 <div class="blog-content">
-    {% if posts is not empty %}
+  {% if posts is not empty %}
 
-        {% for post in posts.items %}
-            {% if post.postImg is not empty %}
-                <div class="blog-item blog-item-img">
-                    <div class="blog-img">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
-                            <img src="{{ post.postImg }}" alt="{{ post.shortTitle }}"/>
-                        </a>
-                    </div>
-                    <div class="body-title">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
-                            {{ post.shortTitle }}
-                        </a>
-                    </div>
-                    <div class="body-descriptions">
-                        <p>{{ post.shortDescriptions }}</p>
-                    </div>
-                    <div class="body-readmore">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
-                            More</a>
-                    </div>
-                    <div class="body-footer">
-                        <div class="body-footer-user">
-                            {% if post.user.img is not empty %}
-                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
-                                {% if (post.user.name and post.user.soname) is not empty %}
-                                    {{ post.user.name }}  {{ post.user.soname }}
-                                {% else %}
-                                    {{ post.user.username }}
-                                {% endif %}
-                            {% else %}
-                                {{ post.user.username }}
-                            {% endif %}
-                        </div>
-                        <div class="body-footer-date">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            {{ post.postDate | date("M d") }}
-                        </div>
-                        <div class="blog-footer-category">
-                            <i class="fa fa-folder-o" aria-hidden="true"></i>
-                            <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
-                        </div>
+    {% for post in posts.items %}
 
-
-                            {{ render(controller('MainBundle:Blog:blogLike', {'id': post.id} )) }}
-                            {#{% if form_like is not empty %}#}
-                            {#{% if show_status_like == 1 %}#}
-                            {#<div class="blog-like-form active">#}
-                            {#{{ form_start(form_like) }}#}
-                            {#{{ form_row(form_like.send) }}#}
-                            {#{{ form_end(form_like) }}#}
-                            {#</div>#}
-                            {#{% endif %}#}
-
-                            {#{% if show_status_like == 0 %}#}
-                            {#<div class="blog-like-form">#}
-                            {#{{ form_start(form_like) }}#}
-                            {#{{ form_row(form_like.send) }}#}
-                            {#{{ form_end(form_like) }}#}
-                            {#</div>#}
-                            {#{% endif %}#}
-                            {#{% endif %}#}
-
-                            {#<div class="blog-like-form active">#}
-                            {#{{ form_start(form_like) }}#}
-                            {#{{ form_row(form_like.send) }}#}
-                            {#{{ form_end(form_like) }}#}
-                            {#</div>#}
-
-                            {#<div class="blog-like-count">#}
-                                {#{{ post.count_post_like }}#}
-                            {#</div>#}
-
-
-                        <div class="body-footer-teg">
-                            <i class="fa fa-tags" aria-hidden="true"></i>
-                            {% for tag in post.tag %}
-                                <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
-                            {% endfor %}
-                        </div>
-
-                    </div>
-                </div>
-            {% else %}
-                <div class="blog-item blog-item-no-img">
-                    <div class="body-title">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
-                            {{ post.shortTitle }}
-                        </a>
-                    </div>
-                    <div class="body-descriptions">
-                        <p>{{ post.shortDescriptions }}</p>
-                    </div>
-                    <div class="body-readmore">
-                        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
-                            More</a>
-                    </div>
-                    <div class="body-footer">
-                        <div class="body-footer-user">
-                            {% if post.user.img is not empty %}
-                                <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
-                                {% if (post.user.name and post.user.soname) is not empty %}
-                                    {{ post.user.name }}  {{ post.user.soname }}
-                                {% else %}
-                                    {{ post.user.username }}
-                                {% endif %}
-                            {% else %}
-                                {{ post.user.username }}
-                            {% endif %}
-                        </div>
-                        <div class="body-footer-date">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            {{ post.postDate | date("M d") }}
-                        </div>
-                        <div class="blog-footer-category">
-                            <i class="fa fa-folder-o" aria-hidden="true"></i>
-                            <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
-                        </div>
-
-                            {{ render(controller('MainBundle:Blog:blogLike', {'post_id':post.id} )) }}
-
-                        <div class="body-footer-teg">
-                            <i class="fa fa-tags" aria-hidden="true"></i>
-                            {% for tag in post.tag %}
-                                <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        <div class="navigation text-center">
-            {{ knp_pagination_render(posts) }}
+      <div class="blog-item blog-item-{% if post.postImg is empty %}not-{% endif %}img">
+        {% if post.postImg is not empty %}
+          <div class="blog-img">
+            <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
+              <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}" alt="{{ post.shortTitle }}">
+            </a>
+          </div>
+        {% endif %}
+        <div class="body-title">
+          <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
+            {{ post.shortTitle }}
+          </a>
         </div>
-    {% else %}
-        <p>No posts with this settings.</p>
-    {% endif %}
+        <div class="body-descriptions">
+          <p>{{ post.shortDescriptions }}</p>
+        </div>
+        <div class="body-readmore">
+          <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
+            More</a>
+        </div>
+        <div class="body-footer">
+          <div class="body-footer-user">
+            {% if post.user.img is not empty %}
+              <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
+              {% if (post.user.name and post.user.soname) is not empty %}
+                {{ post.user.name }}  {{ post.user.soname }}
+              {% else %}
+                {{ post.user.username }}
+              {% endif %}
+            {% else %}
+              {{ post.user.username }}
+            {% endif %}
+          </div>
+          <div class="body-footer-date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{ post.postDate | date("M d") }}
+          </div>
+          <div class="blog-footer-category">
+            <i class="fa fa-folder-o" aria-hidden="true"></i>
+            <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
+          </div>
+          {{ render(controller('MainBundle:Blog:blogLike', {'id': post.id} )) }}
+          <div class="body-footer-teg">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            {% for tag in post.tag %}
+              <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+    <div class="navigation text-center">
+      {{ knp_pagination_render(posts) }}
+    </div>
+  {% else %}
+    <p>No posts with this settings.</p>
+  {% endif %}
 </div>

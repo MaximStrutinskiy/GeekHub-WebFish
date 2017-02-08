@@ -20,7 +20,7 @@ class TagController extends Controller {
   }
 
   public function showInternalTagAction($id) {
-    $em = $this->getDoctrine();
+    $em = $this->getDoctrine()->getManager();
     $tagRepository = $em->getRepository("MainBundle:Tag");
     $tagId = array("id" => $id);
     $tagName = $tagRepository->findOneBy($tagId);

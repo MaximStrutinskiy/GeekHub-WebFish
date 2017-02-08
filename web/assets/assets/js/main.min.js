@@ -5,7 +5,6 @@ $(function () {
     var dropMenuId = document.getElementById('mmenu-user');
     if (dropMenuId) {
       function dropDownMenu() {
-        // var dropButton = $('#mmenu-user');
         var dropContent = $('#mmenu-user > #mmenu-user-content');
         $('#mmenu-user').hover(
           function () {
@@ -16,6 +15,7 @@ $(function () {
           }
         )
       }
+
       dropDownMenu();
     }
 
