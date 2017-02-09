@@ -59,42 +59,29 @@
         <div class="blog-item-comments">
           {% for comment in show_comment %}
             <div class="blog-comment-item">
-              <div class="blog-comment-item-content">
-                <p>comment - {{ comment.commentText }}</p>
-              </div>
-              <div class="blog-comment-item-info">
-                {% for user in comment.user.owner.user %}
+              {% for user in comment.user.owner.user %}
+                <div class="blog-comment-item-info {% if user.img is empty %}no-image{% endif %}">
                   {% if user.img is not empty %}
                     <img src="/user_images/{{ user.img }}" alt="{{ user.username }}">
-                    {% if (user.name and user.soname) is not empty %}
-                      <div class="blog-cii-name">
-                        {{ user.name }}  {{ user.soname }}
-                      </div>
-                    {% else %}
-                      <div class="blog-cii-name">
-                        {{ user.username }}
-                      </div>
-                    {% endif %}
-                    <div class="blog-cii-date">
-                      <i class="fa fa-clock-o" aria-hidden="true"></i>
-                      {{ comment.postDate | date("d M:h-i-s") }}
-                    </div>
-                  {% else %}
-                    {% if (user.name and user.soname) is not empty %}
-                      <div class="blog-cii-name">
-                        {{ user.name }}  {{ user.soname }}
-                      </div>
-                    {% else %}
-                      <div class="blog-cii-name">
-                        {{ user.username }}
-                      </div>
-                    {% endif %}
-                    <div class="blog-cii-date">
-                      <i class="fa fa-clock-o" aria-hidden="true"></i>
-                      {{ comment.postDate.date | date("d M:h-i-s") }}
-                    </div>
                   {% endif %}
-                {% endfor %}
+                  <div class="blog-cii-name">
+                    {% if (user.name and user.soname) is not empty %}
+                      {{ user.name }}  {{ user.soname }}
+                    {% else %}
+                      {{ user.username }}
+                    {% endif %}
+                  </div>
+                  <div class="blog-cii-date">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    {{ comment.postDate | date("d M:h-i-s") }}
+                  </div>
+                  <div class="blog-cii-id">
+                    #{{ comment.id }}
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="blog-comment-item-content">
+                <p>{{ comment.commentText }}</p>
               </div>
             </div>
           {% endfor %}
