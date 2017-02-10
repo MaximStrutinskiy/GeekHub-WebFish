@@ -29,6 +29,7 @@ class FormCommentType extends AbstractType
                 TextareaType::class,
                 array(
                     'attr' => array('placeholder' => 'Enter your commit'),
+                    'label' => false,
                 )
             )
             ->add(

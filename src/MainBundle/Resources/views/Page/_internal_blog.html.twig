@@ -58,9 +58,9 @@
       <div class="blog-comment">
         <div class="blog-item-comments">
           {% for comment in show_comment %}
-            <div class="blog-comment-item">
-              {% for user in comment.user.owner.user %}
-                <div class="blog-comment-item-info {% if user.img is empty %}no-image{% endif %}">
+            {% for user in comment.user.owner.user %}
+              <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
+                <div class="blog-comment-item-info">
                   {% if user.img is not empty %}
                     <img src="/user_images/{{ user.img }}" alt="{{ user.username }}">
                   {% endif %}
@@ -79,11 +79,12 @@
                     #{{ comment.id }}
                   </div>
                 </div>
-              {% endfor %}
-              <div class="blog-comment-item-content">
-                <p>{{ comment.commentText }}</p>
+                <div class="blog-comment-item-content">
+                  <p>{{ comment.commentText }}</p>
+                </div>
               </div>
-            </div>
+
+            {% endfor %}
           {% endfor %}
         </div>
       </div>
@@ -91,6 +92,12 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       {% if form_comment is not empty %}
         <div class="blog-item-comment-form">
+          <p>Hello {% if (app.user.name and app.user.soname) is not empty %}
+              {{ app.user.name }}  {{ app.user.soname }}
+            {% else %}
+              {{ app.user.username }}
+            {% endif %}
+          </p>
           {{ form_start(form_comment) }}
           <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
           <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
