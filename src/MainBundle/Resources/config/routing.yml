@@ -24,7 +24,6 @@ tag:
     requirements:
       id: \d+
 
-#http://webfish/app_dev.php/blog/like/100 - WTF?
 blog-post-like:
     path:     /blog/like/{id}
     defaults: { _controller: MainBundle:Blog:blogLike }
