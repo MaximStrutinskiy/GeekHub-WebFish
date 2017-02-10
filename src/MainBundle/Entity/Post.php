@@ -91,6 +91,11 @@ class Post {
    *   inverseJoinColumns={@ORM\JoinColumn(name="tag_id",
    *   referencedColumnName="id", unique=false)}
    *      )
+   *
+   * @Assert\Count(
+   *      min = 1,
+   *      minMessage = "Post must have 1 or more tags",
+   * )
    */
   protected $tag;
 
