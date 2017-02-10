@@ -17,7 +17,7 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $postRepository = $em->getRepository('MainBundle:Post');
-        $query = $postRepository->findPostsQuery();
+        $query = $postRepository->findPostsWithCountCommentQuery();
         $breadcrumbs = $this
             ->get('white_october_breadcrumbs')
             ->addItem('Home', $this->get('router')->generate('home'))
@@ -43,6 +43,7 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $postRepository = $em->getRepository("MainBundle:Post");
         $post = $postRepository->find($id);
+        $postCountComment = $postRepository->findCountPostsWithCommentResult($id);
 
         $commentRepository = $em->getRepository("MainBundle:Comment");
         $commentPost = $commentRepository->findAllComments($id);
@@ -83,6 +84,7 @@ class BlogController extends Controller
                 'post' => $post,
                 'form_comment' => $commentForm->createView(),
                 'show_comment' => $commentPost,
+                'postCountComment' => $postCountComment->getResult(),
             ]
         );
     }

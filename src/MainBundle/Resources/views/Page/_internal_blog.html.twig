@@ -57,6 +57,11 @@
     {% if show_comment is not empty %}
       <div class="blog-comment">
         <div class="blog-item-comments">
+          {% if postCountComment.0.count_post_comments is not empty %}
+          <div class="blog-comment-count">
+            <p>Comment - {{ postCountComment.0.count_post_comments }}</p>
+          </div>
+          {% endif %}
           {% for comment in show_comment %}
             {% for user in comment.user.owner.user %}
               <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
@@ -92,11 +97,12 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       {% if form_comment is not empty %}
         <div class="blog-item-comment-form">
-          <p>Hello {% if (app.user.name and app.user.soname) is not empty %}
+          <p>Hello
+            {% if (app.user.name and app.user.soname) is not empty %}
               {{ app.user.name }}  {{ app.user.soname }}
             {% else %}
               {{ app.user.username }}
-            {% endif %}
+            {% endif %}, enter you comment hear
           </p>
           {{ form_start(form_comment) }}
           <div class="input-text">{{ form_row(form_comment.commentText) }}</div>

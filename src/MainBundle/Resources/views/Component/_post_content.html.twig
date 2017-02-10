@@ -2,52 +2,57 @@
   {% if posts is not empty %}
 
     {% for post in posts.items %}
-
-      <div class="blog-item blog-item-{% if post.postImg is empty %}not-{% endif %}img">
-        {% if post.postImg is not empty %}
+      <div class="blog-item blog-item-{% if post.0.postImg is empty %}not-{% endif %}img">
+        {% if post.0.postImg is not empty %}
           <div class="blog-img">
-            <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
-              <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}" alt="{{ post.shortTitle }}">
+            <a href="{{ path('blog-post', {'id' : post.0.id, 'shortTitle' : post.0.shortTitle|replace ({' ': '_'})}) }} ">
+              <img src="{% if post.0.postImg starts with 'http' %} {{ asset(post.0.postImg ) }} {% else %} {{ asset('post_images/' ~ post.0.postImg ) }} {% endif %}" alt="{{ post.0.shortTitle }}">
             </a>
           </div>
         {% endif %}
         <div class="body-title">
-          <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
-            {{ post.shortTitle }}
+          <a href="{{ path('blog-post', {'id' : post.0.id, 'shortTitle' : post.0.shortTitle|replace ({' ': '_'})}) }}">
+            {{ post.0.shortTitle }}
           </a>
         </div>
         <div class="body-descriptions">
-          <p>{{ post.shortDescriptions }}</p>
+          <p>{{ post.0.shortDescriptions }}</p>
         </div>
         <div class="body-readmore">
-          <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">Read
+          <a href="{{ path('blog-post', {'id' : post.0.id, 'shortTitle' : post.0.shortTitle|replace ({' ': '_'})}) }}">Read
             More</a>
         </div>
         <div class="body-footer">
           <div class="body-footer-user">
-            {% if post.user.img is not empty %}
-              <img src="/user_images/{{ post.user.img }}" alt="{{ post.user.username }}">
-              {% if (post.user.name and post.user.soname) is not empty %}
-                {{ post.user.name }}  {{ post.user.soname }}
+            {% if post.0.user.img is not empty %}
+              <img src="/user_images/{{ post.0.user.img }}" alt="{{ post.0.user.username }}">
+              {% if (post.0.user.name and post.0.user.soname) is not empty %}
+                {{ post.0.user.name }}  {{ post.0.user.soname }}
               {% else %}
-                {{ post.user.username }}
+                {{ post.0.user.username }}
               {% endif %}
             {% else %}
-              {{ post.user.username }}
+              {{ post.0.user.username }}
             {% endif %}
           </div>
           <div class="body-footer-date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{ post.postDate | date("M d") }}
+            {{ post.0.postDate | date("M d") }}
           </div>
           <div class="blog-footer-category">
             <i class="fa fa-folder-o" aria-hidden="true"></i>
-            <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
+            <a href="{{ path('category', {'id' : post.0.category.id, 'name' : post.0.category.name|replace ({' ': '_'})}) }}">{{ post.0.category.name }}</a>
           </div>
-          {{ render(controller('MainBundle:Blog:blogLike', {'id': post.id} )) }}
+          {{ render(controller('MainBundle:Blog:blogLike', {'id': post.0.id} )) }}
+          <div class="blog-footer-comment">
+            <a href="{{ path('blog-post', {'id' : post.0.id, 'shortTitle' : post.0.shortTitle|replace ({' ': '_'})}) }}">
+              <i class="fa fa-commenting-o" aria-hidden="true"></i>
+              {{ post.count_post_comments }}
+            </a>
+          </div>
           <div class="body-footer-teg">
             <i class="fa fa-tags" aria-hidden="true"></i>
-            {% for tag in post.tag %}
+            {% for tag in post.0.tag %}
               <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
             {% endfor %}
           </div>

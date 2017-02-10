@@ -48,6 +48,15 @@
       padding-left: 0;
     }
   }
+
+  .blog-comment-count{
+    border-bottom: rem(1px) solid $grey;
+
+    p{
+      text-transform: uppercase;
+      padding-bottom: rem(10px);
+    }
+  }
 }
 
 // Comment form.

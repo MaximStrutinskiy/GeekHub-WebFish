@@ -20,9 +20,23 @@ class PostRepository extends EntityRepository
         $qb
             ->where('p.postStatus = :postStatus')
             ->orderBy('p.id', 'DESC')
-            ->setParameter('postStatus', true);;
+            ->setParameter('postStatus', true);
 
         return $qb->getQuery();
+    }
+
+    public function findPostsWithCountCommentQuery()
+    {
+      $qb = $this->createQueryBuilder('p');
+      $qb
+        ->select('p', 'p, COUNT (c) AS count_post_comments')
+        ->where('p.postStatus = :postStatus')
+        ->leftJoin('p.postComment', 'c')
+        ->groupBy('p.id')
+        ->orderBy('p.id', 'DESC')
+        ->setParameter('postStatus', true);
+
+      return $qb->getQuery();
     }
 
     public function findPostsWithCountLikeQuery()
@@ -34,7 +48,7 @@ class PostRepository extends EntityRepository
             ->leftJoin('p.postLike', 'l')
             ->groupBy('p.id')
             ->orderBy('p.id', 'DESC')
-            ->setParameter('postStatus', true);;
+            ->setParameter('postStatus', true);
 
         return $qb->getQuery();
     }
@@ -63,6 +77,22 @@ class PostRepository extends EntityRepository
             ->setParameter('postStatus', true);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findCountPostsWithCommentResult($id)
+    {
+      $qb = $this->createQueryBuilder('p');
+      $qb
+        ->select('p', 'p, COUNT (c) AS count_post_comments')
+        ->where('p.postStatus = :postStatus')
+        ->andWhere('p.id = :postId')
+        ->leftJoin('p.postComment', 'c')
+        ->groupBy('p.id')
+        ->orderBy('p.id', 'DESC')
+        ->setParameter('postStatus', TRUE)
+        ->setParameter('postId', $id);
+
+      return $qb->getQuery();
     }
 
     public function findAllPostByTagQuery(Tag $idTag)
