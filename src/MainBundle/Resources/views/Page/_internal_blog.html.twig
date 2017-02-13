@@ -21,15 +21,12 @@
       <div class="body-footer">
         <div class="body-footer-user">
           {% if post.user.img is not empty %}
-
             <img src="{% if post.user.img starts with 'http' %} {{ asset(post.user.img ) }} {% else %} {{ asset('user_images/' ~ post.user.img ) }} {% endif %}" alt="{{ post.user.username }}">
-
             {% if (post.user.name and post.user.soname) is not empty %}
               {{ post.user.name }}  {{ post.user.soname }}
             {% else %}
               {{ post.user.username }}
             {% endif %}
-
           {% else %}
             {{ post.user.username }}
           {% endif %}
@@ -51,15 +48,14 @@
             <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
           {% endfor %}
         </div>
-
       </div>
     </div>
     {% if show_comment is not empty %}
       <div class="blog-comment">
         <div class="blog-item-comments">
-          {% if postCountComment.0.count_post_comments is not empty %}
+          {% if count_comment.0.count_post_comments is not empty %}
           <div class="blog-comment-count">
-            <p>Comment - {{ postCountComment.0.count_post_comments }}</p>
+            <p>Comment - {{ count_comment.0.count_post_comments }}</p>
           </div>
           {% endif %}
           {% for comment in show_comment %}
@@ -82,6 +78,14 @@
                   </div>
                   <div class="blog-cii-id">
                     #{{ comment.id }}
+
+                    <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                      <span>Edit</span>
+                    </a>
+
+                    {#<a href="{{ path('space_blog_comment_delete', { 'slug': post.slug }) }}/delete/{{ comment.id }}">#}
+                      {#<span class="label label-danger">Delete</span>#}
+                    {#</a>#}
                   </div>
                 </div>
                 <div class="blog-comment-item-content">

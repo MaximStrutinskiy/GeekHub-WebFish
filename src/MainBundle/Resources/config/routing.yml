@@ -30,3 +30,9 @@ blog-post-like:
     requirements:
       id: \d+
       method: POST
+
+blog_comment_edit:
+    path:     /blog/post/{id}/{shortTitle}/{commentId}
+    defaults: { _controller: MainBundle:Comment:edit }
+    requirements:
+        commentId: \d+
