@@ -54,11 +54,10 @@
       <div class="blog-comment">
         <div class="blog-item-comments">
           {% if count_comment.0.count_post_comments is not empty %}
-          <div class="blog-comment-count">
-            <p>Comment - {{ count_comment.0.count_post_comments }}</p>
-          </div>
+            <div class="blog-comment-count">
+              <p>Comment - {{ count_comment.0.count_post_comments }}</p>
+            </div>
           {% endif %}
-          {{ dump() }}
           {% for comment in show_comment %}
             {% for user in comment.user.owner.user %}
               <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
@@ -80,11 +79,10 @@
                   <div class="blog-cii-id">
                     #{{ comment.id }}
                     <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                      <span>Edit</span>
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-
                     <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                      <span>Delete</span>
+                      <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                   </div>
                 </div>

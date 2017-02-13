@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller {
 
+  // see blog like action !! code review
   public function editAction(Request $request, Post $post, $id, $commentId) {
     $em = $this->getDoctrine()->getManager();
     $postRepository = $em->getRepository("MainBundle:Post");
@@ -34,7 +35,6 @@ class CommentController extends Controller {
       $em = $this->getDoctrine()->getManager();
       $em->persist($comment);
       $em->flush();
-      $this->addFlash('success', 'Comment was successfully updated!');
       return $this->redirect($this->generateUrl('blog-post', [
         'id' => $post->getId(),
         'shortTitle' => $post->getShortTitle(),
