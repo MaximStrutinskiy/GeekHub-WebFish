@@ -19,9 +19,9 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        //all category in LoadCategoryData.php
-        //all tags in LoadTagData.php
-        //all user in LoadUserData.php
+        //category's in LoadCategoryData.php
+        //tags in LoadTagData.php
+        //users in LoadUserData.php
         $faker = Faker::create();
         $postContent = [];
         for ($i = 1; $i <= 100; $i++) {
@@ -47,7 +47,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             $post->setPostStatus($postStatus);
             $categoryIndex = rand(1, 17);
             $post->setCategory($this->getReference("category{$categoryIndex}"));
-            $tagIndex = array_rand(array_flip(range(1, 51)), 4);
+            $tagIndex = array_rand(array_flip(range(1, 44)), 4);
             /**@var Post $setTags */
             foreach ($tagIndex as $tag) {
                 $post->addTag($this->getReference("tag{$tag}"));

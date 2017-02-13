@@ -1,6 +1,6 @@
 <div class="blog-content">
   {% if posts is not empty %}
-
+    {#{{ dump() }}#}
     {% for post in posts.items %}
       <div class="blog-item blog-item-{% if post.0.postImg is empty %}not-{% endif %}img">
         {% if post.0.postImg is not empty %}

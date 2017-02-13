@@ -24,7 +24,6 @@ class TagController extends Controller {
     $tagRepository = $em->getRepository("MainBundle:Tag");
     $tagId = array("id" => $id);
     $tagName = $tagRepository->findOneBy($tagId);
-    $allTags = $tagRepository->findAll();
 
     $postRepository = $this->getDoctrine()->getRepository('MainBundle:Post');
     $query = $postRepository->findAllPostByTagQuery($tagName);
@@ -47,7 +46,6 @@ class TagController extends Controller {
     return $this->render(
       "MainBundle:Page:_tag_internal.html.twig",
       [
-        'setTags' => $allTags,
         'tag' => $tagName,
         'posts' => $result,
       ]
