@@ -36,3 +36,9 @@ blog_comment_edit:
     defaults: { _controller: MainBundle:Comment:edit }
     requirements:
         commentId: \d+
+
+blog_comment_delete:
+    path:    /blog/post/{id}/{shortTitle}/delete/{commentId}
+    defaults: { _controller: MainBundle:Comment:delete }
+    requirements:
+        comment_id: \d+

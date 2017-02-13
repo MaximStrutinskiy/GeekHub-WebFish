@@ -48,4 +48,22 @@ class CommentController extends Controller {
       'count_comment' => $postCountComment->getResult(),
     ]);
   }
+
+  public function deleteAction(Request $request, $id, $commentId) {
+    $em = $this->getDoctrine()->getManager();
+    $postRepository = $em->getRepository('MainBundle:Post');
+    $commentRepository = $em->getRepository('MainBundle:Comment');
+
+    $post = $postRepository->find($id);
+    $comment = $commentRepository->find($commentId);
+
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($comment);
+    $em->flush();
+    $this->addFlash('success', 'Comment was successfully deleted!');
+    return $this->redirect($this->generateUrl('blog-post', [
+      'id' => $post->getId(),
+      'shortTitle' => $post->getShortTitle(),
+    ]));
+  }
 }

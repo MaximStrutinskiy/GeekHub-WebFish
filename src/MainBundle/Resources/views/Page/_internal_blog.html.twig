@@ -58,6 +58,7 @@
             <p>Comment - {{ count_comment.0.count_post_comments }}</p>
           </div>
           {% endif %}
+          {{ dump() }}
           {% for comment in show_comment %}
             {% for user in comment.user.owner.user %}
               <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
@@ -78,14 +79,13 @@
                   </div>
                   <div class="blog-cii-id">
                     #{{ comment.id }}
-
                     <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
                       <span>Edit</span>
                     </a>
 
-                    {#<a href="{{ path('space_blog_comment_delete', { 'slug': post.slug }) }}/delete/{{ comment.id }}">#}
-                      {#<span class="label label-danger">Delete</span>#}
-                    {#</a>#}
+                    <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                      <span>Delete</span>
+                    </a>
                   </div>
                 </div>
                 <div class="blog-comment-item-content">

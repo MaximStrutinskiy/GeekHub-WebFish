@@ -84,7 +84,7 @@ class BlogController extends Controller
                 'post' => $post,
                 'form_comment' => $commentForm->createView(),
                 'show_comment' => $commentPost,
-                'postCountComment' => $postCountComment->getResult(),
+                'count_comment' => $postCountComment->getResult(),
             ]
         );
     }
