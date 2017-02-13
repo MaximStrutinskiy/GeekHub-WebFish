@@ -5,6 +5,14 @@ parameters:
 
 services:
 
+# Voter.
+    app.comment_voter:
+        class: MainBundle\Voter\CommentVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
+
 # FOSUserBundle.
     # Registration.
     app.form.registration:
