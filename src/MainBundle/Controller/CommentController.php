@@ -32,9 +32,7 @@ class CommentController extends Controller
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
 
-        // Add voters
         $this->denyAccessUnlessGranted('edit_comment', $comment);
-        // Add voters
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
@@ -73,9 +71,7 @@ class CommentController extends Controller
         $post = $postRepository->find($id);
         $comment = $commentRepository->find($commentId);
 
-        // Add voters
         $this->denyAccessUnlessGranted('delete_comment', $comment);
-        // Add voters
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($comment);
