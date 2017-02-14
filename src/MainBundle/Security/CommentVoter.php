@@ -12,73 +12,81 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  *
  * @package MainBundle\Security
  */
-class CommentVoter extends Voter {
+class CommentVoter extends Voter
+{
 
-  const VIEW = 'view_comment';
-  const EDIT = 'edit_comment';
-  const DELETE = 'delete_comment';
+    const VIEW = 'view_comment';
+    const EDIT = 'edit_comment';
+    const DELETE = 'delete_comment';
 
-  protected function supports($attribute, $subject) {
-    if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
-      return FALSE;
+    protected function supports($attribute, $subject)
+    {
+        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
+            return false;
+        }
+
+        if (!$subject instanceof Comment) {
+            return false;
+        }
+
+        return true;
     }
 
-    if (!$subject instanceof Comment) {
-      return FALSE;
-    }
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    {
+        $user = $token->getUser();
 
-    return TRUE;
-  }
-
-  protected function voteOnAttribute($attribute, $subject, TokenInterface $token) {
-    $user = $token->getUser();
-
-    if (!$user instanceof User) {
-      return FALSE;
-    }
+        if (!$user instanceof User) {
+            return false;
+        }
 
 // you know $subject is a Comment object, thanks to supports
-    /** @var Comment $comment */
-    $comment = $subject;
+        /** @var Comment $comment */
+        $comment = $subject;
 
-    switch ($attribute) {
-      case self::VIEW:
-        return $this->canView($comment, $user);
-      case self::EDIT:
-        return $this->canEdit($comment, $user);
-      case self::DELETE:
-        return $this->canDelete($comment, $user);
+        switch ($attribute) {
+            case self::VIEW:
+                return $this->canView($comment, $user);
+            case self::EDIT:
+                return $this->canEdit($comment, $user);
+            case self::DELETE:
+                return $this->canDelete($comment, $user);
+        }
+
+        throw new \LogicException('This code should not be reached!');
     }
 
-    throw new \LogicException('This code should not be reached!');
-  }
-
-  private function canView(Comment $comment, User $user) {
-    return $this->currentUserRights($comment, $user);
-  }
-
-  private function canEdit(Comment $comment, User $user) {
-    return $this->currentUserRights($comment, $user);
-  }
-
-  private function canDelete(Comment $comment, User $user) {
-    return $this->currentUserRights($comment, $user);
-  }
-
-  private function currentUserRights(Comment $comment, User $user) {
-    foreach ($user->getRoles() as $role) {
-      if ('ROLE_SUPER_ADMIN' === $role || 'ROLE_MODERATOR' === $role) {
-        return TRUE;
-      }
+    private function canView(Comment $comment, User $user)
+    {
+        return $this->currentUserRights($comment, $user);
     }
 
-    $getCommentUser = $comment->getUser()->get('0');
-    $getCommentUserId = $getCommentUser->getId();
-    $getLoginUser = $user->getId();
-
-    if ($getCommentUserId === $getLoginUser) {
-      return TRUE;
+    private function canEdit(Comment $comment, User $user)
+    {
+        return $this->currentUserRights($comment, $user);
     }
-    return FALSE;
-  }
+
+    private function canDelete(Comment $comment, User $user)
+    {
+        return $this->currentUserRights($comment, $user);
+    }
+
+    private function currentUserRights(Comment $comment, User $user)
+    {
+        foreach ($user->getRoles() as $role) {
+            if ('ROLE_SUPER_ADMIN' === $role || 'ROLE_MODERATOR' === $role) {
+                return true;
+            }
+        }
+
+        $getCommentUser = $comment->getUser()->get('0');
+        $getCommentUserId = $getCommentUser->getId();
+        $getLoginUser = $user->getId();
+
+        if ($getCommentUserId === $getLoginUser) {
+            return true;
+        }
+
+        return false;
+    }
 }
