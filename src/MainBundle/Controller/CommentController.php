@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller {
 
-  // see blog like action !! code review
+  // Check blog like action !! code review
   public function editAction(Request $request, Post $post, $id, $commentId) {
     $em = $this->getDoctrine()->getManager();
     $postRepository = $em->getRepository("MainBundle:Post");
@@ -30,6 +30,11 @@ class CommentController extends Controller {
     $comment->setPost($post);
     $form = $this->createForm(FormCommentType::class, $comment);
     $form->handleRequest($request);
+
+    // Add voters
+    $this->denyAccessUnlessGranted('edit', $comment);
+    // Add voters
+
     if ($form->isSubmitted() && $form->isValid()) {
       $comment = $form->getData();
       $em = $this->getDoctrine()->getManager();
@@ -57,10 +62,14 @@ class CommentController extends Controller {
     $post = $postRepository->find($id);
     $comment = $commentRepository->find($commentId);
 
+    // Add voters
+    $this->denyAccessUnlessGranted('delete', $comment);
+    // Add voters
+
     $em = $this->getDoctrine()->getManager();
     $em->remove($comment);
     $em->flush();
-    $this->addFlash('success', 'Comment was successfully deleted!');
+
     return $this->redirect($this->generateUrl('blog-post', [
       'id' => $post->getId(),
       'shortTitle' => $post->getShortTitle(),

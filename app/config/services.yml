@@ -5,14 +5,6 @@ parameters:
 
 services:
 
-# Voter.
-    app.comment_voter:
-        class: MainBundle\Voter\CommentVoter
-        tags:
-            - { name: security.voter }
-        # small performance boost
-        public: false
-
 # FOSUserBundle.
     # Registration.
     app.form.registration:
@@ -54,3 +46,10 @@ services:
             arguments: [~, MainBundle\Entity\Post, ~]
             tags:
                 - { name: sonata.admin, manager_type: orm, group: Post,  label: Post }
+# Voter
+    app.comment_voter:
+        class: MainBundle\Security\CommentVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
