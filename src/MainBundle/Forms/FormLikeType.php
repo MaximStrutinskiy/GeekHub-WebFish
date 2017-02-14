@@ -26,8 +26,8 @@ class FormLikeType extends AbstractType
                 SubmitType::class,
                 array(
                     'attr' => array(
-                        'class' => 'like-button'
-                    )
+                        'class' => 'like-button',
+                    ),
                 )
             );
     }
@@ -37,9 +37,11 @@ class FormLikeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'csrf_protection' => true,
-            'method' => 'POST',
-        ]);
+        $resolver->setDefaults(
+            [
+                'csrf_protection' => true,
+                'method' => 'POST',
+            ]
+        );
     }
 }

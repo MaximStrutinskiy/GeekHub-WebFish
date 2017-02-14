@@ -37,8 +37,8 @@ class FormCommentType extends AbstractType
                 SubmitType::class,
                 array(
                     'attr' => array(
-                        'class' => 'waves-effect waves-light btn'
-                    )
+                        'class' => 'waves-effect waves-light btn',
+                    ),
                 )
             )
             ->add(
@@ -46,8 +46,8 @@ class FormCommentType extends AbstractType
                 ResetType::class,
                 array(
                     'attr' => array(
-                        'class' => 'waves-effect waves-light btn'
-                    )
+                        'class' => 'waves-effect waves-light btn',
+                    ),
                 )
             );
     }

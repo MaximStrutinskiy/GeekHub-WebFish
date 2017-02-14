@@ -12,7 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Entity(repositoryClass="MainBundle\Repository\subCategoryRepository")
  **/
-class subCategory{
+class subCategory
+{
 
     /**
      * @ORM\Column(type="integer")

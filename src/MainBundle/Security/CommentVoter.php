@@ -14,9 +14,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class CommentVoter extends Voter {
 
-  const VIEW = 'view';
-  const EDIT = 'edit';
-  const DELETE = 'delete';
+  const VIEW = 'view_comment';
+  const EDIT = 'edit_comment';
+  const DELETE = 'delete_comment';
 
   protected function supports($attribute, $subject) {
     if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
@@ -71,7 +71,12 @@ class CommentVoter extends Voter {
         return TRUE;
       }
     }
-    if ($comment->getUser() === $user) {
+
+    $getCommentUser = $comment->getUser()->get('0');
+    $getCommentUserId = $getCommentUser->getId();
+    $getLoginUser = $user->getId();
+
+    if ($getCommentUserId === $getLoginUser) {
       return TRUE;
     }
     return FALSE;

@@ -12,30 +12,31 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="likes")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\LikeRepository")
  **/
-class Like {
+class Like
+{
 
-  /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  protected $id;
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-  /**
-   * Many Likes have Many User.
-   *
-   * @ORM\ManyToOne(targetEntity="User", inversedBy="like")
-   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-   */
-  protected $user;
+    /**
+     * Many Likes have Many User.
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="like")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
-  /**
-   * Many Likes have One Post.
-   *
-   * @ORM\ManyToOne(targetEntity="Post", inversedBy="postLike")
-   * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-   */
-  protected $post;
+    /**
+     * Many Likes have One Post.
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="postLike")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     */
+    protected $post;
 
 
     /**

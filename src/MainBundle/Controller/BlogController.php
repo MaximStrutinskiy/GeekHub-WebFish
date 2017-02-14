@@ -38,7 +38,7 @@ class BlogController extends Controller
         );
     }
 
-    public function blogInternalAction( Request $request, Post $post, $id)
+    public function blogInternalAction(Request $request, Post $post, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $postRepository = $em->getRepository("MainBundle:Post");
@@ -103,10 +103,10 @@ class BlogController extends Controller
         if (($user = $this->getUser()) === null) {
 
             return $this->render(
-              "MainBundle:Component:_like.html.twig",
-              [
-                'like_count' => $likeRepository->getCountByPost($post),
-              ]
+                "MainBundle:Component:_like.html.twig",
+                [
+                    'like_count' => $likeRepository->getCountByPost($post),
+                ]
             );
         }
 
