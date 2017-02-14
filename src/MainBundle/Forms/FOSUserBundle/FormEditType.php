@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alpha
- * Date: 24.01.17
- * Time: 15:27
- */
 
 namespace MainBundle\Forms\FOSUserBundle;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
