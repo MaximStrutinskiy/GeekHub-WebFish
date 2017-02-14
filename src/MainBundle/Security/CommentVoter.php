@@ -103,7 +103,7 @@ class CommentVoter extends Voter {
    */
   private function currentUserRights(Comment $comment, User $user) {
     foreach ($user->getRoles() as $role) {
-      if ('ROLE_ADMIN' === $role || 'ROLE_MODERATOR' === $role) {
+      if ('ROLE_SUPER_ADMIN' === $role || 'ROLE_MODERATOR' === $role) {
         return TRUE;
       }
     }
