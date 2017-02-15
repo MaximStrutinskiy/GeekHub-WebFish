@@ -59,7 +59,7 @@ class BlogController extends Controller
         if ($this->getUser() !== null && $post !== null) {
             $comment
                 ->setPost($post)
-                ->addUser($this->getUser());
+                ->setUser($this->getUser());
         }
 
         $commentForm = $this->createForm(FormCommentType::class, $comment);

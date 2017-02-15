@@ -59,17 +59,16 @@
             </div>
           {% endif %}
           {% for comment in show_comment %}
-            {% for user in comment.user.owner.user %}
-              <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
+              <div class="blog-comment-item {% if comment.user.img is empty %}no-image{% endif %}">
                 <div class="blog-comment-item-info">
-                  {% if user.img is not empty %}
-                    <img src="/user_images/{{ user.img }}" alt="{{ user.username }}">
+                  {% if comment.user.img is not empty %}
+                    <img src="/user_images/{{ comment.user.img }}" alt="{{ comment.user.username }}">
                   {% endif %}
                   <div class="blog-cii-name">
-                    {% if (user.name and user.soname) is not empty %}
-                      {{ user.name }}  {{ user.soname }}
+                    {% if (comment.user.name and comment.user.soname) is not empty %}
+                      {{ comment.user.name }}  {{ comment.user.soname }}
                     {% else %}
-                      {{ user.username }}
+                      {{ comment.user.username }}
                     {% endif %}
                   </div>
                   <div class="blog-cii-date">
@@ -92,7 +91,6 @@
                   <p>{{ comment.commentText }}</p>
                 </div>
               </div>
-            {% endfor %}
           {% endfor %}
         </div>
       </div>
