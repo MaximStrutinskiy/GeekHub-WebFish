@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "83159c226a02923450be8264249fd326",
-    "content-hash": "736906d6b0658b5fbaaf28492afb0484",
+    "hash": "3ab8027d93fffe9e7af4bd61708cb541",
+    "content-hash": "2d0cd473157e9f8b7dc1d2c5be149080",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1090,30 +1090,29 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.26",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "983dd85d6860f87fb7dffd0d9f7ad1462e20a09d"
+                "reference": "149d60342f759bad5bb78ab404d74ce3c9febff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/983dd85d6860f87fb7dffd0d9f7ad1462e20a09d",
-                "reference": "983dd85d6860f87fb7dffd0d9f7ad1462e20a09d",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/149d60342f759bad5bb78ab404d74ce3c9febff1",
+                "reference": "149d60342f759bad5bb78ab404d74ce3c9febff1",
                 "shasum": ""
             },
             "require": {
                 "behat/transliterator": "~1.0",
                 "doctrine/common": "~2.4",
-                "php": ">=5.3.2"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "doctrine/common": ">=2.5.0",
-                "doctrine/mongodb-odm": ">=1.0.2",
+                "doctrine/mongodb-odm": "~1.0",
                 "doctrine/orm": ">=2.5.0",
-                "phpunit/phpunit": "~4.4",
-                "phpunit/phpunit-mock-objects": "~2.3",
-                "symfony/yaml": "~2.6"
+                "phpunit/phpunit": "*",
+                "symfony/yaml": "~2.6|~3.0"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
@@ -1122,7 +1121,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -1165,7 +1164,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-12-21 13:46:54"
+            "time": "2016-11-10 15:20:55"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -3519,7 +3518,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "gedmo/doctrine-extensions": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

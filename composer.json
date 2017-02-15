@@ -37,7 +37,7 @@
     "whiteoctober/breadcrumbs-bundle": "^1.2",
     "friendsofsymfony/elastica-bundle": "^3.2",
     "fzaninotto/faker": "^1.6",
-    "gedmo/doctrine-extensions": "^2.4"
+    "gedmo/doctrine-extensions": "dev-master"
   },
   "require-dev": {
     "sensio/generator-bundle": "^3.0",

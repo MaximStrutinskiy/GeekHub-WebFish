@@ -4,9 +4,8 @@ namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Gedmo\Tree\Entity\Repository\NestedTreeRepositoryTrait;
+use Gedmo\Tree\Traits\Repository\ORM\NestedTreeRepositoryTrait;
 use Doctrine\ORM\Mapping\ClassMetadata;
-
 /**
  * Class CommentRepository
  *
