@@ -2,7 +2,10 @@
 
 namespace MainBundle\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepositoryTrait;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * Class CommentRepository
@@ -11,6 +14,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+
+  use NestedTreeRepositoryTrait; // or MaterializedPathRepositoryTrait or ClosureTreeRepositoryTrait.
+
+  public function __construct(EntityManager $em, ClassMetadata $class) {
+    parent::__construct($em, $class);
+
+    $this->initializeTreeRepository($em, $class);
+  }
+
   public function findAllComments($id) {
     $qb = $this->createQueryBuilder('c');
     $qb

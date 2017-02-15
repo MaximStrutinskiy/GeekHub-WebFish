@@ -4,10 +4,12 @@ namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Comment
  *
+ * @Gedmo\Tree(type="nested")
  * @package MainBundle\Entity
  * @ORM\Table(name="comment")
  * @ORM\Entity()
@@ -38,6 +40,48 @@ class Comment
      * @ORM\Column(type="datetime")
      */
     protected $postDate;
+
+//
+  /**
+   * @Gedmo\TreeLeft
+   * @ORM\Column(type="integer")
+   */
+  private $lft;
+
+  /**
+   * @Gedmo\TreeLevel
+   * @ORM\Column(type="integer")
+   */
+  private $lvl;
+
+  /**
+   * @Gedmo\TreeRight
+   * @ORM\Column(type="integer")
+   */
+  private $rgt;
+
+  /**
+   * @Gedmo\TreeRoot
+   * @ORM\ManyToOne(targetEntity="Category")
+   * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+   */
+  private $root;
+
+  /**
+   * @Gedmo\TreeParent
+   * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+   * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+   */
+  private $parent;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+   * @ORM\OrderBy({"lft" = "ASC"})
+   */
+  private $children;
+
+
+//
 
     /**
      * Many Comments have One Post.
@@ -211,5 +255,159 @@ class Comment
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     *
+     * @return Comment
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     *
+     * @return Comment
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     *
+     * @return Comment
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param \MainBundle\Entity\Category $root
+     *
+     * @return Comment
+     */
+    public function setRoot(\MainBundle\Entity\Category $root = null)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get root
+     *
+     * @return \MainBundle\Entity\Category
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \MainBundle\Entity\Category $parent
+     *
+     * @return Comment
+     */
+    public function setParent(\MainBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \MainBundle\Entity\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \MainBundle\Entity\Category $child
+     *
+     * @return Comment
+     */
+    public function addChild(\MainBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \MainBundle\Entity\Category $child
+     */
+    public function removeChild(\MainBundle\Entity\Category $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
