@@ -2,6 +2,7 @@
 
 namespace MainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -12,103 +13,84 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @package MainBundle\Entity
  * @ORM\Table(name="comment")
  * @ORM\Entity()
+ * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\CommentRepository")
  **/
-class Comment
-{
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @Assert\Length(
-     *     min=1,
-     *     max=20000,
-     *     minMessage="Comment to short.",
-     *     maxMessage="Comment is to long, max length 20000.",
-     * )
-     */
-    protected $commentText;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected $postDate;
-
-//
+class Comment {
   /**
-   * @Gedmo\TreeLeft
    * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
    */
-  private $lft;
+  protected $id;
 
   /**
-   * @Gedmo\TreeLevel
-   * @ORM\Column(type="integer")
+   * @ORM\Column(type="string")
+   *
+   * @Assert\Length(
+   *     min=1,
+   *     max=20000,
+   *     minMessage="Comment to short.",
+   *     maxMessage="Comment is to long, max length 20000.",
+   * )
    */
-  private $lvl;
+  protected $commentText;
 
   /**
-   * @Gedmo\TreeRight
-   * @ORM\Column(type="integer")
+   * @ORM\Column(type="datetime")
    */
-  private $rgt;
+  protected $postDate;
 
   /**
-   * @Gedmo\TreeRoot
-   * @ORM\ManyToOne(targetEntity="Comment")
-   * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
-   */
-  private $root;
-
-  /**
+   * @var Category
+   *
    * @Gedmo\TreeParent
-   * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
+   * @ORM\ManyToOne(
+   *      targetEntity="MainBundle\Entity\Comment",
+   *      inversedBy="children"
+   * )
    * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
    */
   private $parent;
 
   /**
-   * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
-   * @ORM\OrderBy({"lft" = "ASC"})
+   * @var Category[]
+   *
+   * @ORM\OneToMany(
+   *      targetEntity="MainBundle\Entity\Comment",
+   *      mappedBy="parent"
+   * )
+   * @ORM\OrderBy({"left" = "ASC"})
    */
   private $children;
 
+  /**
+   * Many Comments have One Post.
+   *
+   * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
+   * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+   */
+  protected $post;
 
-////
+  /**
+   * Many Comments have One Shop.
+   *
+   * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
+   * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+   */
+  protected $product;
 
-    /**
-     * Many Comments have One Post.
-     *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    protected $post;
+  /**
+   * Many Comment have One Address.
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   */
+  protected $user;
 
-    /**
-     * Many Comments have One Shop.
-     *
-     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     */
-    protected $product;
-
-    /**
-     * Many Comment have One Address.
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    protected $user;
-
-    public function __construct()
-    {
-        $this->postDate = new \DateTime();
-    }
+  public function __construct() {
+    $this->postDate = new \DateTime();
+    $this->children = new ArrayCollection();
+  }
 
     /**
      * Get id
@@ -166,6 +148,64 @@ class Comment
     public function getPostDate()
     {
         return $this->postDate;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \MainBundle\Entity\Comment $parent
+     *
+     * @return Comment
+     */
+    public function setParent(\MainBundle\Entity\Comment $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \MainBundle\Entity\Comment
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \MainBundle\Entity\Comment $child
+     *
+     * @return Comment
+     */
+    public function addChild(\MainBundle\Entity\Comment $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \MainBundle\Entity\Comment $child
+     */
+    public function removeChild(\MainBundle\Entity\Comment $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     /**
@@ -238,159 +278,5 @@ class Comment
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set lft
-     *
-     * @param integer $lft
-     *
-     * @return Comment
-     */
-    public function setLft($lft)
-    {
-        $this->lft = $lft;
-
-        return $this;
-    }
-
-    /**
-     * Get lft
-     *
-     * @return integer
-     */
-    public function getLft()
-    {
-        return $this->lft;
-    }
-
-    /**
-     * Set lvl
-     *
-     * @param integer $lvl
-     *
-     * @return Comment
-     */
-    public function setLvl($lvl)
-    {
-        $this->lvl = $lvl;
-
-        return $this;
-    }
-
-    /**
-     * Get lvl
-     *
-     * @return integer
-     */
-    public function getLvl()
-    {
-        return $this->lvl;
-    }
-
-    /**
-     * Set rgt
-     *
-     * @param integer $rgt
-     *
-     * @return Comment
-     */
-    public function setRgt($rgt)
-    {
-        $this->rgt = $rgt;
-
-        return $this;
-    }
-
-    /**
-     * Get rgt
-     *
-     * @return integer
-     */
-    public function getRgt()
-    {
-        return $this->rgt;
-    }
-
-    /**
-     * Set root
-     *
-     * @param \MainBundle\Entity\Comment $root
-     *
-     * @return Comment
-     */
-    public function setRoot(\MainBundle\Entity\Comment $root = null)
-    {
-        $this->root = $root;
-
-        return $this;
-    }
-
-    /**
-     * Get root
-     *
-     * @return \MainBundle\Entity\Comment
-     */
-    public function getRoot()
-    {
-        return $this->root;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param \MainBundle\Entity\Comment $parent
-     *
-     * @return Comment
-     */
-    public function setParent(\MainBundle\Entity\Comment $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \MainBundle\Entity\Comment
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Add child
-     *
-     * @param \MainBundle\Entity\Comment $child
-     *
-     * @return Comment
-     */
-    public function addChild(\MainBundle\Entity\Comment $child)
-    {
-        $this->children[] = $child;
-
-        return $this;
-    }
-
-    /**
-     * Remove child
-     *
-     * @param \MainBundle\Entity\Comment $child
-     */
-    public function removeChild(\MainBundle\Entity\Comment $child)
-    {
-        $this->children->removeElement($child);
-    }
-
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
     }
 }

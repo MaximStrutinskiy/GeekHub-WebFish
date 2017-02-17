@@ -31,6 +31,12 @@ blog-post-like:
       id: \d+
       method: POST
 
+blog_comment_add_child:
+    path:    /blog/post/{id}/{shortTitle}/addCommentForComment/{commentId}
+    defaults: { _controller: MainBundle:Comment:addCommentForComment }
+    requirements:
+        comment_id: \d+
+
 blog_comment_edit:
     path:     /blog/post/{id}/{shortTitle}/{commentId}
     defaults: { _controller: MainBundle:Comment:edit }

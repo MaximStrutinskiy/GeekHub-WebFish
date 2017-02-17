@@ -90,6 +90,11 @@
                 <div class="blog-comment-item-content">
                   <p>{{ comment.commentText }}</p>
                 </div>
+                <div class="blog-comment-item-addComment">
+                  <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                    add comment child
+                  </a>
+                </div>
               </div>
           {% endfor %}
         </div>
