@@ -61,7 +61,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ],
         ];
 
-        foreach ($users as list($userName, $userEmail, $userPassword, $userEnabled, $userRole)) {
+        foreach ($users as list($userName, $userEmail, $userPassword, $userEnabled, $userRole, )) {
             $user = new User();
             $user->setUsername($userName);
             $user->setEmail($userEmail);
@@ -72,6 +72,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             foreach ($userRole as $userRoles) {
                 $user->addRole($userRoles);
             }
+
+            $user->setImg();
 
             $manager->persist($user);
             $manager->flush();
