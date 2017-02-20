@@ -45,9 +45,9 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             $moderIndex = rand(1, 2);
             $post->setUser($this->getReference("moder{$moderIndex}"));
             $post->setPostStatus($postStatus);
-            $categoryIndex = rand(1, 17);
+            $categoryIndex = rand(1, 7);
             $post->setCategory($this->getReference("category{$categoryIndex}"));
-            $tagIndex = array_rand(array_flip(range(1, 44)), 4);
+            $tagIndex = array_rand(array_flip(range(1, 113)), 7);
             /**@var Post $setTags */
             foreach ($tagIndex as $tag) {
                 $post->addTag($this->getReference("tag{$tag}"));

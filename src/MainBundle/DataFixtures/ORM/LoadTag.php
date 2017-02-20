@@ -15,22 +15,15 @@ class LoadTagData extends AbstractFixture implements OrderedFixtureInterface {
   public function load(ObjectManager $manager) {
     //add you custom Tag in $tags array
     $tags = [
-      //Browser.
       'Google Chrome',
       'Safari',
       'Firefox',
       'Internet Explorer',
-
-      //Html.
       'HTML',
       'Jade',
-
-      //CSS.
       'CSS',
       'LESS',
       'SASS',
-
-      // Programming Languages.
       'Javascript',
       'Coffeescript',
       'Python',
@@ -40,8 +33,6 @@ class LoadTagData extends AbstractFixture implements OrderedFixtureInterface {
       'Objective-C',
       'Swift',
       'Java',
-
-      // Frameworks.
       'Symfony3',
       'Meteor',
       'Node',
@@ -57,25 +48,89 @@ class LoadTagData extends AbstractFixture implements OrderedFixtureInterface {
       'Angular',
       'Ember',
       'Backbone',
-
-      // Libraries.
       'jQuery',
       'Underscore',
-
-      // Databases.
       'MongoDB',
       'Redis',
       'PostgreSQL',
       'MySQL',
       'Oracle',
       'SQL Server',
-
-      // Data formats.
       'JSON',
       'XML',
       'CSV',
+      'Art',
+      'Music',
+      'Museum',
+      'Movie',
+      'Theatre',
+      'Animals & Pets',
+      'Pets',
+      'Wild Life',
+      'Zoo',
+      'Design & Photography',
+      'Design',
+      'Photography',
+      'Architecture',
+      'Electronics',
+      'Mobile Store',
+      'Electronics Store',
+      'Video',
+      'Holidays',
+      'Gifts & Flowers',
+      'Flowers',
+      'Holidays',
+      'Gifts',
+      'Education & Books',
+      'Books',
+      'Education',
+      'Science',
+      'Business & Services',
+      'Consulting',
+      'Industrial',
+      'Law',
+      'Cars & Motorcycles',
+      'Cars',
+      'Motorcycles',
+      'Sports, Outdoors & Travel',
+      'Sports',
+      'Travel',
+      'Hotels',
+      'Fashion & Beauty',
+      'Fashion',
+      'Jewelry',
+      'Beauty',
+      'Computers & Internet',
+      'Hosting',
+      'Software',
+      'Food & Restaurant',
+      'Restaurant',
+      'Food & Drinks',
+      'Cafe',
+      'Society & People',
+      'Personal Pages',
+      'Dating',
+      'Religion',
+      'Charity',
+      'Home & Family',
+      'Wedding',
+      'Interior & Furniture',
+      'Kids & Children',
+      'Entertainment',
+      'Games & Nightlife',
+      'Games, Night Club',
+      'Online Casino',
+      'Radio',
+      'Real Estate',
+      'Real Estate Agency',
+      'Mortgage',
+      'Land Broker',
+      'Medical (Healthcare)',
+      'Drug Store',
+      'Dentistry',
+      'Herbal',
 
-      // Total (44)
+      // Total (113)
     ];
 
     $count = 0;
