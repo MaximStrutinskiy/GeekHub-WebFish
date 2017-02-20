@@ -25,43 +25,42 @@ class CommentController extends Controller
             ->getRepository('MainBundle:Comment')
             ->find($commentId);
 
-        if ($childComment->getParent() == null){
+        if ($childComment->getParent() == null) {
             $childComment
                 ->setPost($post)
                 ->setUser($this->getUser())
                 ->setParent($parentComment);
+        }
 
-            $form = $this->createForm(FormCommentType::class, $childComment);
-            $form->handleRequest($request);
+        $form = $this->createForm(FormCommentType::class, $childComment);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $comment = $form->getData();
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
 
-                return $this->redirect(
-                    $this->generateUrl(
-                        'blog-post',
-                        [
-                            'id' => $post->getId(),
-                            'shortTitle' => $post->getShortTitle(),
-                        ]
-                    )
-                );
-            }
-
-            return $this->render(
-                'MainBundle:Page:_internal_blog.html.twig',
-                [
-                    'post' => $post,
-                    'show_comment' => $commentPost,
-                    'form_comment' => $form->createView(),
-                    'count_comment' => $postCountComment->getResult(),
-                ]
+            return $this->redirect(
+                $this->generateUrl(
+                    'blog-post',
+                    [
+                        'id' => $post->getId(),
+                        'shortTitle' => $post->getShortTitle(),
+                    ]
+                )
             );
         }
 
+        return $this->render(
+            'MainBundle:Page:_internal_blog.html.twig',
+            [
+                'post' => $post,
+                'show_comment' => $commentPost,
+                'form_comment' => $form->createView(),
+                'count_comment' => $postCountComment->getResult(),
+            ]
+        );
     }
 
     // Check blog like action !! code review
