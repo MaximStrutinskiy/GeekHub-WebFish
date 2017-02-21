@@ -1,59 +1,94 @@
 {% macro blog_comment(show_comment, post) %}
   {% for comment in show_comment %}
 
-    {#{% if comment.parent is not empty %}#}
-
-      {#{% block block_{comment.parent} %}#}
-      {# add comment parent #}
-      {#{% endblock block_{comment.parent} %}#}
-
-    {#{% else %}#}
-      {#{% block block_{comment.parent} %}#}
-      {#{{ parent() }}#}
-
-      {#{% endblock block_{comment.parent} %}#}
-    {#{% endif %}#}
-
-    <div class="blog-comment-item {% if comment.user.img is empty %}no-image{% endif %} {% if comment.parent is not null %}comment-child{% endif %}">
-      <div class="blog-comment-item-info">
-        {% if comment.user.img is not empty %}
-          <img src="/user_images/{{ comment.user.img }}" alt="{{ comment.user.username }}">
-        {% endif %}
-        <div class="blog-cii-name">
-          {% if (comment.user.name and comment.user.soname) is not empty %}
-            {{ comment.user.name }}  {{ comment.user.soname }}
-          {% else %}
-            {{ comment.user.username }}
+    {% if (comment.parent is not empty) %}
+      <div class="blog-comment-item {% if comment.user.img is empty %}no-image{% endif %} {% if comment.parent is not null %}comment-child{% endif %}">
+        <div class="blog-comment-item-info">
+          {% if comment.user.img is not empty %}
+            <img src="/user_images/{{ comment.user.img }}" alt="{{ comment.user.username }}">
           {% endif %}
-        </div>
-        <div class="blog-cii-date">
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
-          {{ comment.postDate | date("d M:h-i-s") }}
-        </div>
-        <div class="blog-cii-id">
-          #{{ comment.id }}
-          {% if is_granted('edit_comment', comment) or is_granted('delete_comment', comment) %}
-            <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="blog-comment-item-content">
-        <p>{{ comment.commentText }}</p>
-
-        {% if comment.parent is null %}
-          <div class="blog-cic-add">
-            <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-              add comment
-            </a>
+          <div class="blog-cii-name">
+            {% if (comment.user.name and comment.user.soname) is not empty %}
+              {{ comment.user.name }}  {{ comment.user.soname }}
+            {% else %}
+              {{ comment.user.username }}
+            {% endif %}
           </div>
-        {% endif %}
+          <div class="blog-cii-date">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            {{ comment.postDate | date("d M:h-i-s") }}
+          </div>
+          <div class="blog-cii-id">
+            #{{ comment.id }}
+            {% if is_granted('edit_comment', comment) or is_granted('delete_comment', comment) %}
+              <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="blog-comment-item-content">
+          <p>{{ comment.commentText }}</p>
+
+          {% if comment.parent is null %}
+            <div class="blog-cic-add">
+              <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                add comment
+              </a>
+            </div>
+          {% endif %}
+        </div>
       </div>
-    </div>
+    {% endif %}
+
+    {% if (comment.children == comment.parent) %}
+      <div class="blog-comment-item {% if comment.user.img is empty %}no-image{% endif %} {% if comment.parent is not null %}comment-child{% endif %}">
+        <div class="blog-comment-item-info">
+          {% if comment.user.img is not empty %}
+            <img src="/user_images/{{ comment.user.img }}" alt="{{ comment.user.username }}">
+          {% endif %}
+          <div class="blog-cii-name">
+            {% if (comment.user.name and comment.user.soname) is not empty %}
+              {{ comment.user.name }}  {{ comment.user.soname }}
+            {% else %}
+              {{ comment.user.username }}
+            {% endif %}
+          </div>
+          <div class="blog-cii-date">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            {{ comment.postDate | date("d M:h-i-s") }}
+          </div>
+          <div class="blog-cii-id">
+            #{{ comment.id }}
+            {% if is_granted('edit_comment', comment) or is_granted('delete_comment', comment) %}
+              <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="blog-comment-item-content">
+          <p>{{ comment.commentText }}</p>
+
+          {% if comment.parent is null %}
+            <div class="blog-cic-add">
+              <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                add comment
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+
   {% endfor %}
 {% endmacro %}
