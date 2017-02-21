@@ -1,134 +1,95 @@
 {% extends "MainBundle:Page:_blog.html.twig" %}
 
 {% block bodyContent %}
-    <div class="blog-content">
-        <div class="blog-item blog-item-img">
-            {% if post.postImg is not empty %}
-                <div class="blog-img">
-                    <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
-                        <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}"
-                             alt="{{ post.shortTitle }}">
-                    </a>
-                </div>
-            {% endif %}
-            <div class="body-title">
-                <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
-                    {{ post.longTitle }}
-                </a>
-            </div>
-            <div class="body-descriptions">
-                <p>{{ post.longDescriptions }}</p>
-            </div>
-            <div class="body-footer">
-                <div class="body-footer-user">
-                    {% if post.user.img is not empty %}
-                        <img src="{% if post.user.img starts with 'http' %} {{ asset(post.user.img ) }} {% else %} {{ asset('user_images/' ~ post.user.img ) }} {% endif %}"
-                             alt="{{ post.user.username }}">
-                        {% if (post.user.name and post.user.soname) is not empty %}
-                            {{ post.user.name }}  {{ post.user.soname }}
-                        {% else %}
-                            {{ post.user.username }}
-                        {% endif %}
-                    {% else %}
-                        {{ post.user.username }}
-                    {% endif %}
-                </div>
-                <div class="body-footer-date">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    {{ post.postDate | date("M d") }}
-                </div>
-                <div class="blog-footer-category">
-                    <i class="fa fa-folder-o" aria-hidden="true"></i>
-                    <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
-                </div>
-                <div class="like-block">
-                    {{ render(controller('MainBundle:Blog:blogLike', { 'id': post.id } )) }}
-                </div>
-                <div class="body-footer-teg">
-                    <i class="fa fa-tags" aria-hidden="true"></i>
-                    {% for tag in post.tag %}
-                        <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
-                    {% endfor %}
-                </div>
-            </div>
+  <div class="blog-content">
+    <div class="blog-item blog-item-img">
+      {% if post.postImg is not empty %}
+        <div class="blog-img">
+          <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
+            <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}"
+                 alt="{{ post.shortTitle }}">
+          </a>
         </div>
-        {% if show_comment is not empty %}
-            <div class="blog-comment">
-                <div class="blog-item-comments">
-                    {% if count_comment.0.count_post_comments is not empty %}
-                        <div class="blog-comment-count">
-                            <p>Comment - {{ count_comment.0.count_post_comments }}</p>
-                        </div>
-                    {% endif %}
-                    {% for comment in show_comment %}
-                        <div class="blog-comment-item {% if comment.user.img is empty %}no-image{% endif %} {% if comment.parent is not null %}comment-child{% endif %}">
-                            <div class="blog-comment-item-info">
-                                {% if comment.user.img is not empty %}
-                                    <img src="/user_images/{{ comment.user.img }}" alt="{{ comment.user.username }}">
-                                {% endif %}
-                                <div class="blog-cii-name">
-                                    {% if (comment.user.name and comment.user.soname) is not empty %}
-                                        {{ comment.user.name }}  {{ comment.user.soname }}
-                                    {% else %}
-                                        {{ comment.user.username }}
-                                    {% endif %}
-                                </div>
-                                <div class="blog-cii-date">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                    {{ comment.postDate | date("d M:h-i-s") }}
-                                </div>
-                                <div class="blog-cii-id">
-                                    #{{ comment.id }}
-                                    {% if is_granted('edit_comment', comment) or is_granted('delete_comment', comment) %}
-                                        <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="blog-comment-item-content">
-                                <p>{{ comment.commentText }}</p>
-
-                                {% if comment.parent is null %}
-                                    <div class="blog-cic-add">
-                                        <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                            add comment
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {% if form_comment is not empty %}
-                <div class="blog-item-comment-form">
-                    <p>Hello
-                        {% if (app.user.name and app.user.soname) is not empty %}
-                            {{ app.user.name }}  {{ app.user.soname }}
-                        {% else %}
-                            {{ app.user.username }}
-                        {% endif %}, enter you comment hear
-                    </p>
-                    {{ form_start(form_comment) }}
-                    <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
-                    <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
-                    {{ form_end(form_comment) }}
-                </div>
+      {% endif %}
+      <div class="body-title">
+        <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }}">
+          {{ post.longTitle }}
+        </a>
+      </div>
+      <div class="body-descriptions">
+        <p>{{ post.longDescriptions }}</p>
+      </div>
+      <div class="body-footer">
+        <div class="body-footer-user">
+          {% if post.user.img is not empty %}
+            <img src="{% if post.user.img starts with 'http' %} {{ asset(post.user.img ) }} {% else %} {{ asset('user_images/' ~ post.user.img ) }} {% endif %}"
+                 alt="{{ post.user.username }}">
+            {% if (post.user.name and post.user.soname) is not empty %}
+              {{ post.user.name }}  {{ post.user.soname }}
+            {% else %}
+              {{ post.user.username }}
             {% endif %}
-        {% else %}
-            <div class="blog-item-comment-form text-center">
-                <p><a href="{{ path('fos_user_security_login') }}">Login</a> or
-                    <a href="{{ path('fos_user_registration_register') }}">Register</a>
-                </p>
-                <p>Sorry, but send comments can authorized users</p>
-            </div>
-        {% endif %}
+          {% else %}
+            {{ post.user.username }}
+          {% endif %}
+        </div>
+        <div class="body-footer-date">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          {{ post.postDate | date("M d") }}
+        </div>
+        <div class="blog-footer-category">
+          <i class="fa fa-folder-o" aria-hidden="true"></i>
+          <a href="{{ path('category', {'id' : post.category.id, 'name' : post.category.name|replace ({' ': '_'})}) }}">{{ post.category.name }}</a>
+        </div>
+        <div class="like-block">
+          {{ render(controller('MainBundle:Blog:blogLike', { 'id': post.id } )) }}
+        </div>
+        <div class="body-footer-teg">
+          <i class="fa fa-tags" aria-hidden="true"></i>
+          {% for tag in post.tag %}
+            <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">{{ tag.name|join(', ') }} {% if not loop.last %} , {% endif %} </a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
+    {% if show_comment is not empty %}
+      <div class="blog-comment">
+        <div class="blog-item-comments">
+          {% if count_comment.0.count_post_comments is not empty %}
+            <div class="blog-comment-count">
+              <p>Comment - {{ count_comment.0.count_post_comments }}</p>
+            </div>
+          {% endif %}
+
+          {% import 'MainBundle:_macro:_comment_macro.html.twig' as comment_macro %}
+          {{ comment_macro.blog_comment(show_comment, post) }}
+
+        </div>
+      </div>
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      {% if form_comment is not empty %}
+        <div class="blog-item-comment-form">
+          <p>Hello
+            {% if (app.user.name and app.user.soname) is not empty %}
+              {{ app.user.name }}  {{ app.user.soname }}
+            {% else %}
+              {{ app.user.username }}
+            {% endif %}, enter you comment hear
+          </p>
+          {{ form_start(form_comment) }}
+          <div class="input-text">{{ form_row(form_comment.commentText) }}</div>
+          <div class="form-buttons">{{ form_row(form_comment.send) }} {{ form_row(form_comment.clean) }}</div>
+          {{ form_end(form_comment) }}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="blog-item-comment-form text-center">
+        <p><a href="{{ path('fos_user_security_login') }}">Login</a> or
+          <a href="{{ path('fos_user_registration_register') }}">Register</a>
+        </p>
+        <p>Sorry, but send comments can authorized users</p>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
