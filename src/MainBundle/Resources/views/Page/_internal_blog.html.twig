@@ -61,8 +61,8 @@
             </div>
           {% endif %}
 
-          {% import 'MainBundle:_macro:_comment_macro.html.twig' as comment_macro %}
-          {{ comment_macro.blog_comment(show_comment, post) }}
+          {% include 'MainBundle:_macro:_comment_macro.html.twig' %}
+          {#{{ comment_macro.blog_comment(show_comment, post) }}#}
 
         </div>
       </div>

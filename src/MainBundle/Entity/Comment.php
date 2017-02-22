@@ -60,7 +60,6 @@ class Comment {
    *      targetEntity="MainBundle\Entity\Comment",
    *      mappedBy="parent"
    * )
-   * @ORM\OrderBy({"left" = "ASC"})
    */
   private $children;
 
