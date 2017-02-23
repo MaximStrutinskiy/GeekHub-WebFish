@@ -31,15 +31,6 @@
         </div>
         <div class="blog-comment-item-content">
           <p>{{ show_comment.commentText }}</p>
-
-          {% if show_comment.parent is null %}
-            <div class="blog-cic-add">
-              <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':show_comment.id }) }}">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                add comment
-              </a>
-            </div>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -90,6 +81,17 @@
         </div>
       {% endfor %}
     </div>
+  {% endif %}
+
+  {% if (show_comment.children is not empty) or (show_comment.parent is empty) %}
+    {% if show_comment.parent is null %}
+      <div class="blog-cic-add">
+        <a href="{{ path('blog_comment_add_child', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':show_comment.id }) }}">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          add comment
+        </a>
+      </div>
+    {% endif %}
   {% endif %}
 
   {% if show_comment.children %}

@@ -59,13 +59,15 @@
     }
   }
 
-  .comment-child{
-	padding-left: rem(50px);
+  .comment-children{
+	  padding-left: rem(50px);
   }
   
   .blog-cic-add{
-	padding-top: rem(25px);
+	padding: rem(25px) 0;
 	display: inline-block;
+    width: 100%;
+    text-align: right;
 
 	a{
 	  color: $grey;
