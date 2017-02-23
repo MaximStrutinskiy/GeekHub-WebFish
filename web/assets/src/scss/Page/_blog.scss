@@ -23,14 +23,14 @@
 
     .blog-img {
 
-	  a{
-		text-align: center;
-		display: block;
-	  }
+      a {
+        text-align: center;
+        display: block;
+      }
 
       img {
-		width: 100%;
-		max-height: rem(400px);
+        width: auto;
+        max-height: rem(400px);
       }
     }
 
@@ -80,7 +80,7 @@
     .blog-footer-category,
     .body-footer-teg,
     .like-block,
-    .blog-footer-comment{
+    .blog-footer-comment {
       vertical-align: middle;
       display: inline-block;
       padding-right: rem(25px);
