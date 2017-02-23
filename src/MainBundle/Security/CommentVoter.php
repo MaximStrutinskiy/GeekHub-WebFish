@@ -79,11 +79,10 @@ class CommentVoter extends Voter
             }
         }
 
-        $getCommentUser = $comment->getUser()->get('0');
-        $getCommentUserId = $getCommentUser->getId();
+        $getCommentUser = $comment->getUser()->getId();
         $getLoginUser = $user->getId();
 
-        if ($getCommentUserId === $getLoginUser) {
+        if ($getCommentUser === $getLoginUser) {
             return true;
         }
 

@@ -6,7 +6,8 @@
       {% if post.postImg is not empty %}
         <div class="blog-img">
           <a href="{{ path('blog-post', {'id' : post.id, 'shortTitle' : post.shortTitle|replace ({' ': '_'})}) }} ">
-            <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}" alt="{{ post.shortTitle }}">
+            <img src="{% if post.postImg starts with 'http' %} {{ asset(post.postImg ) }} {% else %} {{ asset('post_images/' ~ post.postImg ) }} {% endif %}"
+                 alt="{{ post.shortTitle }}">
           </a>
         </div>
       {% endif %}
@@ -21,7 +22,8 @@
       <div class="body-footer">
         <div class="body-footer-user">
           {% if post.user.img is not empty %}
-            <img src="{% if post.user.img starts with 'http' %} {{ asset(post.user.img ) }} {% else %} {{ asset('user_images/' ~ post.user.img ) }} {% endif %}" alt="{{ post.user.username }}">
+            <img src="{% if post.user.img starts with 'http' %} {{ asset(post.user.img ) }} {% else %} {{ asset('user_images/' ~ post.user.img ) }} {% endif %}"
+                 alt="{{ post.user.username }}">
             {% if (post.user.name and post.user.soname) is not empty %}
               {{ post.user.name }}  {{ post.user.soname }}
             {% else %}
@@ -58,42 +60,10 @@
               <p>Comment - {{ count_comment.0.count_post_comments }}</p>
             </div>
           {% endif %}
-          {% for comment in show_comment %}
-            {% for user in comment.user.owner.user %}
-              <div class="blog-comment-item {% if user.img is empty %}no-image{% endif %}">
-                <div class="blog-comment-item-info">
-                  {% if user.img is not empty %}
-                    <img src="/user_images/{{ user.img }}" alt="{{ user.username }}">
-                  {% endif %}
-                  <div class="blog-cii-name">
-                    {% if (user.name and user.soname) is not empty %}
-                      {{ user.name }}  {{ user.soname }}
-                    {% else %}
-                      {{ user.username }}
-                    {% endif %}
-                  </div>
-                  <div class="blog-cii-date">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    {{ comment.postDate | date("d M:h-i-s") }}
-                  </div>
-                  <div class="blog-cii-id">
-                    #{{ comment.id }}
-                    {% if is_granted('edit_comment', comment) or is_granted('delete_comment', comment)%}
-                      <a href="{{ path('blog_comment_edit', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                      </a>
-                      <a href="{{ path('blog_comment_delete', { 'id': post.id, 'shortTitle': post.shortTitle, 'commentId':comment.id }) }}">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                      </a>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="blog-comment-item-content">
-                  <p>{{ comment.commentText }}</p>
-                </div>
-              </div>
-            {% endfor %}
-          {% endfor %}
+
+          {% include 'MainBundle:_macro:_comment_macro.html.twig' %}
+          {#{{ comment_macro.blog_comment(show_comment, post) }}#}
+
         </div>
       </div>
     {% endif %}

@@ -59,6 +59,19 @@
     }
   }
 
+  .comment-child{
+	padding-left: rem(50px);
+  }
+  
+  .blog-cic-add{
+	padding-top: rem(25px);
+	display: inline-block;
+
+	a{
+	  color: $grey;
+	}
+  }
+
   .blog-comment-count {
     border-bottom: rem(1px) solid $grey;
 

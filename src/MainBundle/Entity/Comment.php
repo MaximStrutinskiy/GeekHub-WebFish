@@ -2,8 +2,10 @@
 
 namespace MainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Comment
@@ -11,67 +13,83 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package MainBundle\Entity
  * @ORM\Table(name="comment")
  * @ORM\Entity()
+ * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\CommentRepository")
  **/
-class Comment
-{
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Comment {
+  /**
+   * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
 
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @Assert\Length(
-     *     min=1,
-     *     max=20000,
-     *     minMessage="Comment to short.",
-     *     maxMessage="Comment is to long, max length 20000.",
-     * )
-     */
-    protected $commentText;
+  /**
+   * @ORM\Column(type="string")
+   *
+   * @Assert\Length(
+   *     min=1,
+   *     max=20000,
+   *     minMessage="Comment to short.",
+   *     maxMessage="Comment is to long, max length 20000.",
+   * )
+   */
+  protected $commentText;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected $postDate;
+  /**
+   * @ORM\Column(type="datetime")
+   */
+  protected $postDate;
 
-    /**
-     * Many Comments have One Post.
-     *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    protected $post;
+  /**
+   * @var Category
+   *
+   * @Gedmo\TreeParent
+   * @ORM\ManyToOne(
+   *      targetEntity="MainBundle\Entity\Comment",
+   *      inversedBy="children"
+   * )
+   * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+   */
+  private $parent;
 
-    /**
-     * Many Comments have One Shop.
-     *
-     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     */
-    protected $product;
+  /**
+   * @var Category[]
+   *
+   * @ORM\OneToMany(
+   *      targetEntity="MainBundle\Entity\Comment",
+   *      mappedBy="parent"
+   * )
+   */
+  private $children;
 
-    /**
-     * Many User have Many Comments.
-     * Used function __construct().
-     *
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="user_comments",
-     *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id", unique=false)},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
-     *      )
-     */
-    protected $user;
+  /**
+   * Many Comments have One Post.
+   *
+   * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
+   * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+   */
+  protected $post;
 
-    public function __construct()
-    {
-        $this->postDate = new \DateTime();
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+  /**
+   * Many Comments have One Shop.
+   *
+   * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
+   * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+   */
+  protected $product;
+
+  /**
+   * Many Comment have One Address.
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   */
+  protected $user;
+
+  public function __construct() {
+    $this->postDate = new \DateTime();
+    $this->children = new ArrayCollection();
+  }
 
     /**
      * Get id
@@ -132,6 +150,64 @@ class Comment
     }
 
     /**
+     * Set parent
+     *
+     * @param \MainBundle\Entity\Comment $parent
+     *
+     * @return Comment
+     */
+    public function setParent(\MainBundle\Entity\Comment $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \MainBundle\Entity\Comment
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \MainBundle\Entity\Comment $child
+     *
+     * @return Comment
+     */
+    public function addChild(\MainBundle\Entity\Comment $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \MainBundle\Entity\Comment $child
+     */
+    public function removeChild(\MainBundle\Entity\Comment $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
      * Set post
      *
      * @param \MainBundle\Entity\Post $post
@@ -180,33 +256,23 @@ class Comment
     }
 
     /**
-     * Add user
+     * Set user
      *
      * @param \MainBundle\Entity\User $user
      *
      * @return Comment
      */
-    public function addUser(\MainBundle\Entity\User $user)
+    public function setUser(\MainBundle\Entity\User $user = null)
     {
-        $this->user[] = $user;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Remove user
-     *
-     * @param \MainBundle\Entity\User $user
-     */
-    public function removeUser(\MainBundle\Entity\User $user)
-    {
-        $this->user->removeElement($user);
-    }
-
-    /**
      * Get user
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \MainBundle\Entity\User
      */
     public function getUser()
     {

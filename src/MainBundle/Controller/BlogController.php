@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BlogController extends Controller
 {
 
+    // main blog page
     public function blogAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -38,6 +39,7 @@ class BlogController extends Controller
         );
     }
 
+    // internal blog page
     public function blogInternalAction(Request $request, Post $post, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -59,7 +61,7 @@ class BlogController extends Controller
         if ($this->getUser() !== null && $post !== null) {
             $comment
                 ->setPost($post)
-                ->addUser($this->getUser());
+                ->setUser($this->getUser());
         }
 
         $commentForm = $this->createForm(FormCommentType::class, $comment);
@@ -89,6 +91,7 @@ class BlogController extends Controller
         );
     }
 
+    // likes
     public function blogLikeAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
