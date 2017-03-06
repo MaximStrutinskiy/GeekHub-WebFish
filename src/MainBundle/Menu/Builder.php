@@ -11,21 +11,22 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  *
  * @package MainBundle\Menu
  */
-class Builder implements ContainerAwareInterface
-{
-    use ContainerAwareTrait;
+class Builder implements ContainerAwareInterface {
+  use ContainerAwareTrait;
 
-    public function mainMenu(FactoryInterface $factory, array $options)
-    {
+  public function mainMenu(FactoryInterface $factory, array $options) {
 
-        $menu = $factory->createItem('root');
+    $menu = $factory->createItem('root');
 
-        // Home.
-        $menu->addChild('Home', array('route' => 'home'));
+    // Home.
+    $menu->addChild('Home', ['route' => 'home']);
 
-        // Blog.
-        $menu->addChild('Blog', array('route' => 'blog'));
+    // Blog.
+    $menu->addChild('Blog', ['route' => 'blog']);
 
-        return $menu;
-    }
+    // Shop.
+    $menu->addChild('Shop', ['route' => 'shop']);
+
+    return $menu;
+  }
 }

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller
 {
-    // Check blog like action !! code review
     public function addCommentForCommentAction(Request $request, Post $post, $id, $commentId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -63,7 +62,6 @@ class CommentController extends Controller
         );
     }
 
-    // Check blog like action !! code review
     public function editAction(Request $request, Post $post, $id, $commentId)
     {
         $em = $this->getDoctrine()->getManager();
