@@ -3,6 +3,7 @@
 namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Class CommentRepository
  *
@@ -11,11 +12,13 @@ use Doctrine\ORM\EntityRepository;
 class CommentRepository extends EntityRepository
 {
 
-  public function findAllComments($id) {
-    $qb = $this->createQueryBuilder('c');
-    $qb
-      ->where('c.post = :idPost')
-      ->setParameter('idPost', $id);
-    return $qb->getQuery()->getResult();
-  }
+    public function findAllComments($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.post = :idPost')
+            ->setParameter('idPost', $id);
+
+        return $qb->getQuery()->getResult();
+    }
 }

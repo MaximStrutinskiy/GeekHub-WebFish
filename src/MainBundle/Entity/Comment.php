@@ -16,80 +16,82 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\CommentRepository")
  **/
-class Comment {
-  /**
-   * @ORM\Column(type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  protected $id;
+class Comment
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-  /**
-   * @ORM\Column(type="string")
-   *
-   * @Assert\Length(
-   *     min=1,
-   *     max=20000,
-   *     minMessage="Comment to short.",
-   *     maxMessage="Comment is to long, max length 20000.",
-   * )
-   */
-  protected $commentText;
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\Length(
+     *     min=1,
+     *     max=20000,
+     *     minMessage="Comment to short.",
+     *     maxMessage="Comment is to long, max length 20000.",
+     * )
+     */
+    protected $commentText;
 
-  /**
-   * @ORM\Column(type="datetime")
-   */
-  protected $postDate;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $postDate;
 
-  /**
-   * @var Category
-   *
-   * @Gedmo\TreeParent
-   * @ORM\ManyToOne(
-   *      targetEntity="MainBundle\Entity\Comment",
-   *      inversedBy="children"
-   * )
-   * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
-   */
-  private $parent;
+    /**
+     * @var Category
+     *
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(
+     *      targetEntity="MainBundle\Entity\Comment",
+     *      inversedBy="children"
+     * )
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
 
-  /**
-   * @var Category[]
-   *
-   * @ORM\OneToMany(
-   *      targetEntity="MainBundle\Entity\Comment",
-   *      mappedBy="parent"
-   * )
-   */
-  private $children;
+    /**
+     * @var Category[]
+     *
+     * @ORM\OneToMany(
+     *      targetEntity="MainBundle\Entity\Comment",
+     *      mappedBy="parent"
+     * )
+     */
+    private $children;
 
-  /**
-   * Many Comments have One Post.
-   *
-   * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
-   * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-   */
-  protected $post;
+    /**
+     * Many Comments have One Post.
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="postComment")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     */
+    protected $post;
 
-  /**
-   * Many Comments have One Shop.
-   *
-   * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
-   * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-   */
-  protected $product;
+    /**
+     * Many Comments have One Shop.
+     *
+     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    protected $product;
 
-  /**
-   * Many Comment have One Address.
-   * @ORM\ManyToOne(targetEntity="User")
-   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-   */
-  protected $user;
+    /**
+     * Many Comment have One Address.
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
-  public function __construct() {
-    $this->postDate = new \DateTime();
-    $this->children = new ArrayCollection();
-  }
+    public function __construct()
+    {
+        $this->postDate = new \DateTime();
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
