@@ -2,17 +2,16 @@
 
 namespace MainBundle\Controller;
 
-use MainBundle\Entity\Shop;
+use MainBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ShopController extends Controller {
+class ProductController extends Controller {
 
-  // main shop page
-  public function shopAction() {
+  public function ProductAction() {
 
     return $this->render(
-      'MainBundle:Page:_shop.html.twig'
+      'MainBundle:Page:_product.html.twig'
     );
   }
 }

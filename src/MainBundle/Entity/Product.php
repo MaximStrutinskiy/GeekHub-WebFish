@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Shop
+ * Class Product
  * @package MainBundle\Entity
- * @ORM\Table(name="shop")
+ * @ORM\Table(name="product")
  * @ORM\Entity()
- * @ORM\Entity(repositoryClass="MainBundle\Repository\ShopRepository")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\ProductRepository")
  **/
-class Shop
+class Product
 {
     /**
      * @ORM\Column(type="integer")
@@ -104,26 +104,26 @@ class Shop
     protected $productStatus;
 
     /**
-     * Many Shop have Many Tags.
+     * Many Product have Many Tags.
      * Used function __construct().
      *
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="shop_tags",
-     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="Product_tags",
+     *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=false)}
      *      )
      */
     protected $tag;
 
     /**
-     * Many Shop have One Category.
+     * Many Product have One Category.
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
 
     /**
-     * One Shop has Many Comments.
+     * One Product has Many Comments.
      * Used function __construct().
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
@@ -131,7 +131,7 @@ class Shop
     protected $productComment;
 
     /**
-     * One Shop has One User.
+     * One Product has One User.
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -148,33 +148,33 @@ class Shop
     protected $productPrice;
 
     /**
-     * Many User's can add many shops to favorite
+     * Many User's can add many Products to favorite
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="favorite_user_shop",
-     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="favorite_user_Product",
+     *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
      *      )
      */
     protected $favorite;
 
     /**
-     * Many User's can add many shops to favorite
+     * Many User's can add many Products to favorite
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="cart_user_shop",
-     *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="cart_user_Product",
+     *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
      *      )
      */
     protected $cart;
 
     /**
-     * Shop constructor.
+     * Product constructor.
      */
     public function __construct()
     {
-        $this->shopComment = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productComment = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -193,7 +193,7 @@ class Shop
      *
      * @param string $productImg
      *
-     * @return Shop
+     * @return Product
      */
     public function setProductImg($productImg)
     {
@@ -217,7 +217,7 @@ class Shop
      *
      * @param string $shortTitle
      *
-     * @return Shop
+     * @return Product
      */
     public function setShortTitle($shortTitle)
     {
@@ -241,7 +241,7 @@ class Shop
      *
      * @param string $longTitle
      *
-     * @return Shop
+     * @return Product
      */
     public function setLongTitle($longTitle)
     {
@@ -265,7 +265,7 @@ class Shop
      *
      * @param string $shortDescriptions
      *
-     * @return Shop
+     * @return Product
      */
     public function setShortDescriptions($shortDescriptions)
     {
@@ -289,7 +289,7 @@ class Shop
      *
      * @param string $longDescriptions
      *
-     * @return Shop
+     * @return Product
      */
     public function setLongDescriptions($longDescriptions)
     {
@@ -313,7 +313,7 @@ class Shop
      *
      * @param \DateTime $postDate
      *
-     * @return Shop
+     * @return Product
      */
     public function setPostDate($postDate)
     {
@@ -337,7 +337,7 @@ class Shop
      *
      * @param integer $productLike
      *
-     * @return Shop
+     * @return Product
      */
     public function setProductLike($productLike)
     {
@@ -361,7 +361,7 @@ class Shop
      *
      * @param integer $productStatus
      *
-     * @return Shop
+     * @return Product
      */
     public function setProductStatus($productStatus)
     {
@@ -385,7 +385,7 @@ class Shop
      *
      * @param float $productPrice
      *
-     * @return Shop
+     * @return Product
      */
     public function setProductPrice($productPrice)
     {
@@ -409,7 +409,7 @@ class Shop
      *
      * @param \MainBundle\Entity\Tag $tag
      *
-     * @return Shop
+     * @return Product
      */
     public function addTag(\MainBundle\Entity\Tag $tag)
     {
@@ -443,7 +443,7 @@ class Shop
      *
      * @param \MainBundle\Entity\Category $category
      *
-     * @return Shop
+     * @return Product
      */
     public function setCategory(\MainBundle\Entity\Category $category = null)
     {
@@ -467,7 +467,7 @@ class Shop
      *
      * @param \MainBundle\Entity\Comment $productComment
      *
-     * @return Shop
+     * @return Product
      */
     public function addProductComment(\MainBundle\Entity\Comment $productComment)
     {
@@ -501,7 +501,7 @@ class Shop
      *
      * @param \MainBundle\Entity\User $user
      *
-     * @return Shop
+     * @return Product
      */
     public function setUser(\MainBundle\Entity\User $user = null)
     {
@@ -525,7 +525,7 @@ class Shop
      *
      * @param \MainBundle\Entity\User $favorite
      *
-     * @return Shop
+     * @return Product
      */
     public function addFavorite(\MainBundle\Entity\User $favorite)
     {
@@ -559,7 +559,7 @@ class Shop
      *
      * @param \MainBundle\Entity\User $cart
      *
-     * @return Shop
+     * @return Product
      */
     public function addCart(\MainBundle\Entity\User $cart)
     {

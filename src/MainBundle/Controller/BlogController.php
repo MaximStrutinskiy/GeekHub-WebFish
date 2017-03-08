@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BlogController extends Controller
 {
 
-    // main blog page
     public function blogAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -39,7 +38,6 @@ class BlogController extends Controller
         );
     }
 
-    // internal blog page
     public function blogInternalAction(Request $request, Post $post, $id)
     {
         $em = $this->getDoctrine()->getManager();

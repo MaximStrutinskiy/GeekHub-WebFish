@@ -25,7 +25,7 @@ class Builder implements ContainerAwareInterface {
     $menu->addChild('Blog', ['route' => 'blog']);
 
     // Shop.
-    $menu->addChild('Shop', ['route' => 'shop']);
+    $menu->addChild('Shop', ['route' => 'product']);
 
     return $menu;
   }

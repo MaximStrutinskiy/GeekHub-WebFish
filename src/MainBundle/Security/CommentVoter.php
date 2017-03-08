@@ -40,7 +40,6 @@ class CommentVoter extends Voter
             return false;
         }
 
-// you know $subject is a Comment object, thanks to supports
         /** @var Comment $comment */
         $comment = $subject;
 

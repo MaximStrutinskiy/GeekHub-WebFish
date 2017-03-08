@@ -73,9 +73,9 @@ class Comment
     protected $post;
 
     /**
-     * Many Comments have One Shop.
+     * Many Comments have One Product.
      *
-     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="productComment")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productComment")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     protected $product;
@@ -236,11 +236,11 @@ class Comment
     /**
      * Set product
      *
-     * @param \MainBundle\Entity\Shop $product
+     * @param \MainBundle\Entity\Product $product
      *
      * @return Comment
      */
-    public function setProduct(\MainBundle\Entity\Shop $product = null)
+    public function setProduct(\MainBundle\Entity\Product $product = null)
     {
         $this->product = $product;
 
@@ -250,7 +250,7 @@ class Comment
     /**
      * Get product
      *
-     * @return \MainBundle\Entity\Shop
+     * @return \MainBundle\Entity\Product
      */
     public function getProduct()
     {

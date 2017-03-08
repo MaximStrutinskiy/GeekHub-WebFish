@@ -7,9 +7,9 @@ blog:
     defaults: { _controller: MainBundle:Blog:blog }
 
 
-shop:
+product:
     path: /shop
-    defaults: { _controller: MainBundle:Shop:shop }
+    defaults: { _controller: MainBundle:Product:Product }
 
 blog-post:
     path:     /blog/post/{id}/{shortTitle}

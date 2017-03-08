@@ -5,11 +5,11 @@ namespace MainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class ShopRepository
+ * Class ProductRepository
  *
  * @package MainBundle\Repository
  */
-class ShopRepository extends EntityRepository
+class ProductRepository extends EntityRepository
 {
 
 }
