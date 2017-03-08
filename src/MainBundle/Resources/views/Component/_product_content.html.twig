@@ -1,0 +1,9 @@
+<div class="blog-content">
+    Products
+    {% if product is not empty %}
+        {% for product in product.items %}
+            {{ product.shortTitle }}
+            {{ product.shortDescriptions }}
+        {% endfor %}
+    {% endif %}
+</div>

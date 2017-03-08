@@ -6,7 +6,12 @@
       {{ wo_render_breadcrumbs() }}
     </div>
     <div class="clearfix">
-      Hello shop page
+        {% block bodyContent %}
+            {% include 'MainBundle:Component:_product_content.html.twig' %}
+        {% endblock %}
+        {% block bodyNavigation %}
+            {% include 'MainBundle:Component:_navigation.html.twig' %}
+        {% endblock %}
     </div>
   </div>
 {% endblock %}
