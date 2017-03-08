@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -112,8 +113,9 @@ class ProductAdmin extends Admin
             )
             ->add(
                 'productImg',
-                FileType::class,
+                CollectionType::class,
                 array(
+                    'entry_type'   => FileType::class,
                     'mapped' => false,
                     'label' => 'Upload Post img (PNG file)',
                     'data_class' => null,

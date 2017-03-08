@@ -23,19 +23,6 @@ class Product
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @Assert\Image(
-     *     minWidth = 250,
-     *     maxWidth = 3500,
-     *     minHeight = 250,
-     *     maxHeight = 2500,
-     *     maxSize = "5M",
-     *     minWidthMessage="min width 250px.",
-     *     maxWidthMessage="max width 3500px.",
-     *     minHeightMessage="min height 250px.",
-     *     maxHeightMessage="max height 2500px.",
-     *     maxSizeMessage = "Too big img, max size = 5M."
-     * )
      */
     protected $productImg;
 

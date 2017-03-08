@@ -9,6 +9,7 @@ parameters:
     locale: en
     user_images: '%kernel.root_dir%/../web/user_images/'
     post_images: '%kernel.root_dir%/../web/post_images/'
+    product_images: '%kernel.root_dir%/../web/product_images/'
 
 framework:
     #esi:             ~
