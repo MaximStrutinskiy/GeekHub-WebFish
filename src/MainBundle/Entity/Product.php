@@ -101,7 +101,7 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $productStatus;
+    protected $postStatus;
 
     /**
      * Many Product have Many Tags.
@@ -142,8 +142,8 @@ class Product
      *
      * min = 1,
      * max = 1000,
-     * minMessage = "You price to small {{ limit }}",
-     * maxMessage = "You price to big {{ limit }}"
+     * minMessage = "You price to small {{ limit }}, must be > 1$",
+     * maxMessage = "You price to big {{ limit }}, must be < 1000$"
      */
     protected $productPrice;
 
@@ -586,5 +586,29 @@ class Product
     public function getCart()
     {
         return $this->cart;
+    }
+
+    /**
+     * Set postStatus
+     *
+     * @param integer $postStatus
+     *
+     * @return Product
+     */
+    public function setPostStatus($postStatus)
+    {
+        $this->postStatus = $postStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get postStatus
+     *
+     * @return integer
+     */
+    public function getPostStatus()
+    {
+        return $this->postStatus;
     }
 }

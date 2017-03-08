@@ -31,21 +31,29 @@ services:
             class: MainBundle\Admin\CategoryAdmin
             arguments: [~, MainBundle\Entity\Category, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Category/Tags,  label: Category }
+                - { name: sonata.admin, manager_type: orm, group: Criteria,  label: Category }
 
     # Tag.
     app.admin.tag:
             class: MainBundle\Admin\TagAdmin
             arguments: [~, MainBundle\Entity\Tag, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Category/Tags,  label: Tag }
+                - { name: sonata.admin, manager_type: orm, group: Criteria,  label: Tag }
 
     # Post.
     app.admin.post:
             class: MainBundle\Admin\PostAdmin
             arguments: [~, MainBundle\Entity\Post, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, group: Post,  label: Post }
+                - { name: sonata.admin, manager_type: orm, group: Content,  label: Post }
+
+    # Product.
+    app.admin.product:
+            class: MainBundle\Admin\ProductAdmin
+            arguments: [~, MainBundle\Entity\Product, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Content,  label: Product }
+
 # Voter
     app.comment_voter:
         class: MainBundle\Security\CommentVoter
