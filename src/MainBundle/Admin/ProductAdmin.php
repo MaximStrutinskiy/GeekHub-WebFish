@@ -115,7 +115,7 @@ class ProductAdmin extends Admin
                 'productImg',
                 CollectionType::class,
                 array(
-                    'entry_type'   => FileType::class,
+                    'entry_type' => FileType::class,
                     'mapped' => false,
                     'label' => 'Upload Post img (PNG file)',
                     'data_class' => null,

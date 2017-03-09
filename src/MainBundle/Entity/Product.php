@@ -139,8 +139,8 @@ class Product
      * Many User's can add many Products to favorite
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="favorite_user_Product",
-     *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="favorite_user_product",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
      *      )
      */
@@ -150,8 +150,8 @@ class Product
      * Many User's can add many Products to favorite
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="cart_user_Product",
-     *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="cart_user_product",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
      *      )
      */
