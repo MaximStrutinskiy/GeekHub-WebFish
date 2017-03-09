@@ -2,8 +2,15 @@
     Products
     {% if product is not empty %}
         {% for product in product.items %}
-            {{ product.shortTitle }}
-            {{ product.shortDescriptions }}
+            <div>
+                title:{{ product.shortTitle }}
+            </div>
+            <div>
+                description:{{ product.shortDescriptions }}
+            </div>
+            <div>
+            img:<img style="max-width: 400px;" src="{% if product.productImg starts with 'http' %} {{ asset(product.productImg) }} {% else %} {{ asset('product_images/' ~ product.productImg ) }} {% endif %}" alt="{{ product.productImg }}">
+            </div>
         {% endfor %}
     {% endif %}
 </div>

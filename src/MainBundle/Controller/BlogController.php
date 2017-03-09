@@ -89,7 +89,6 @@ class BlogController extends Controller
         );
     }
 
-    // likes
     public function blogLikeAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();

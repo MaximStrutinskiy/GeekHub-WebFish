@@ -22,6 +22,7 @@ class Product
     protected $id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
      * @ORM\Column(type="string", nullable=true)
      */
     protected $productImg;
@@ -161,6 +162,7 @@ class Product
      */
     public function __construct()
     {
+        $this->productImg = new \Doctrine\Common\Collections\ArrayCollection();
         $this->productComment = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }
