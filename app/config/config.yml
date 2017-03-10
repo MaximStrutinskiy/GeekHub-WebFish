@@ -52,6 +52,9 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+
+        types:
+            json: Sonata\Doctrine\Types\JsonType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -63,6 +66,8 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
 
         mappings:
+            ApplicationSonataMediaBundle: ~
+            SonataMediaBundle: ~
             translatable:
                 type: annotation
                 alias: Gedmo
@@ -71,8 +76,6 @@ doctrine:
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
-
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -128,6 +131,36 @@ sonata_admin:
 
     templates:
             layout:  MainBundle:SonataAdminBundle/Main:_main.html.twig
+
+sonata_media:
+    # if you don't use default namespace configuration
+#    class:
+#        media: MyVendor\MediaBundle\Entity\Media
+#        gallery: MyVendor\MediaBundle\Entity\Gallery
+#        gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+                - sonata.media.provider.vimeo
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  "%kernel.root_dir%/../web/product_images"
+            create:     false
 
 # KNPMenuBundle Configuration
 knp_menu:

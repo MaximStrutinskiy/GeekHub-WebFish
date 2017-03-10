@@ -129,7 +129,7 @@ class ProductAdmin extends Admin {
       //  ]
       //)
       ->add(
-        'path',
+        'productImg',
         'sonata_type_collection',
         [
           'required' => TRUE
@@ -146,6 +146,45 @@ class ProductAdmin extends Admin {
           // this will be your admin class service name
         ]
       )
+      //->add('productImg', 'sonata_type_collection', [
+      //  'type_options' => [
+      //    // Prevents the "Delete" option from being displayed
+      //    'delete' => FALSE,
+      //    'delete_options' => [
+      //      // You may otherwise choose to put the field but hide it
+      //      'type' => 'hidden',
+      //      // In that case, you need to fill in the options as well
+      //      'type_options' => [
+      //        'mapped' => FALSE,
+      //        'required' => FALSE,
+      //      ]
+      //    ]
+      //  ]
+      //], [
+      //  'edit' => 'inline',
+      //  'inline' => 'table',
+      //  'sortable' => 'position',
+      //])
+      //->add(
+      //  'productImg', 'sonata_type_collection', [
+      //  'type_options' => [
+      //    // Prevents the "Delete" option from being displayed
+      //    'delete' => FALSE,
+      //    'delete_options' => [
+      //      // You may otherwise choose to put the field but hide it
+      //      'type' => 'hidden',
+      //      // In that case, you need to fill in the options as well
+      //      'type_options' => [
+      //        'mapped' => FALSE,
+      //        'required' => FALSE,
+      //      ],
+      //    ],
+      //  ],
+      //], [
+      //  'edit' => 'inline',
+      //  'inline' => 'table',
+      //  'sortable' => 'position',
+      //])
       ->end();
   }
 
