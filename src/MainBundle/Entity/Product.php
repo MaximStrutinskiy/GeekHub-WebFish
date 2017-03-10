@@ -22,8 +22,7 @@ class Product
     protected $id;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $productImg;
 
@@ -180,7 +179,7 @@ class Product
     /**
      * Set productImg
      *
-     * @param string $productImg
+     * @param array $productImg
      *
      * @return Product
      */
@@ -194,7 +193,7 @@ class Product
     /**
      * Get productImg
      *
-     * @return string
+     * @return array
      */
     public function getProductImg()
     {
@@ -346,27 +345,27 @@ class Product
     }
 
     /**
-     * Set productStatus
+     * Set postStatus
      *
-     * @param integer $productStatus
+     * @param integer $postStatus
      *
      * @return Product
      */
-    public function setProductStatus($productStatus)
+    public function setPostStatus($postStatus)
     {
-        $this->productStatus = $productStatus;
+        $this->postStatus = $postStatus;
 
         return $this;
     }
 
     /**
-     * Get productStatus
+     * Get postStatus
      *
      * @return integer
      */
-    public function getProductStatus()
+    public function getPostStatus()
     {
-        return $this->productStatus;
+        return $this->postStatus;
     }
 
     /**
@@ -575,29 +574,5 @@ class Product
     public function getCart()
     {
         return $this->cart;
-    }
-
-    /**
-     * Set postStatus
-     *
-     * @param integer $postStatus
-     *
-     * @return Product
-     */
-    public function setPostStatus($postStatus)
-    {
-        $this->postStatus = $postStatus;
-
-        return $this;
-    }
-
-    /**
-     * Get postStatus
-     *
-     * @return integer
-     */
-    public function getPostStatus()
-    {
-        return $this->postStatus;
     }
 }

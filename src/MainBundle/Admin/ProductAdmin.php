@@ -20,182 +20,200 @@ use MainBundle\Entity\Product as Product;
  *
  * @package MainBundle\Admin
  */
-class ProductAdmin extends Admin
-{
+class ProductAdmin extends Admin {
 
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with(
-                'Blog data 1',
-                array(
-                    'class' => 'col-md-9',
-                )
-            )
-            ->add(
-                'shortTitle',
-                TextType::class
-            )
-            ->add(
-                'longTitle',
-                TextType::class
-            )
-            ->add(
-                'shortDescriptions',
-                TextType::class
-            )
-            ->add(
-                'longDescriptions',
-                'textarea',
-                array(
-                    'attr' => array('class' => 'ckeditor'),
-                )
-            )
-            ->add(
-                'postDate',
-                DateTimeType::class
-            )
-            ->end()
-            ->with(
-                'Blog data 2',
-                array(
-                    'class' => 'col-md-3',
-                )
-            )
-            ->add(
-                'user',
-                EntityType::class,
-                array(
-                    'label' => 'Moderator',
-                    'class' => 'MainBundle\Entity\User',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.roles LIKE :roles')
-                            ->setParameter('roles', '%"'.'ROLE_MODERATOR'.'"%')
-                            ->orderBy('u.id', 'ASC');
-                    },
-                )
-            )
-            ->add(
-                'postStatus',
-                ChoiceType::class,
-                array(
-                    'choices' => array(
-                        'Yes' => true,
-                        'No' => false,
-                    ),
-                )
-            )
-            ->add(
-                'tag',
-                EntityType::class,
-                array(
-                    'class' => 'MainBundle\Entity\Tag',
-                    'multiple' => true,
-                    'choice_label' => 'name',
-                )
-            )
-            ->add(
-                'category',
-                'sonata_type_model',
-                array(
-                    'class' => 'MainBundle\Entity\Category',
-                    'property' => 'name',
-                )
-            )
-            ->add(
-                'productPrice',
-                IntegerType::class,
-                array(
-                    'label' => 'Enter Product price',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'productImg',
-                CollectionType::class,
-                array(
-                    'entry_type' => FileType::class,
-                    'mapped' => false,
-                    'label' => 'Upload Post img (PNG file)',
-                    'data_class' => null,
-                    'required' => false,
-                )
-            )
-            ->end();
-    }
+  protected function configureFormFields(FormMapper $formMapper) {
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('id')
-            ->add('shortTitle')
-            ->add('shortDescriptions')
-            ->add('postStatus')
-            ->add('user')
-            ->add('postDate');
-    }
+    $formMapper
+      ->with(
+        'Shop data 1',
+        [
+          'class' => 'col-md-9',
+        ]
+      )
+      ->add(
+        'shortTitle',
+        TextType::class
+      )
+      ->add(
+        'longTitle',
+        TextType::class
+      )
+      ->add(
+        'shortDescriptions',
+        TextType::class
+      )
+      ->add(
+        'longDescriptions',
+        'textarea',
+        [
+          'attr' => ['class' => 'ckeditor'],
+        ]
+      )
+      ->add(
+        'postDate',
+        DateTimeType::class
+      )
+      ->end()
+      ->with(
+        'Shop data 2',
+        [
+          'class' => 'col-md-3',
+        ]
+      )
+      ->add(
+        'user',
+        EntityType::class,
+        [
+          'label' => 'Moderator',
+          'class' => 'MainBundle\Entity\User',
+          'query_builder' => function (EntityRepository $er) {
+            return $er->createQueryBuilder('u')
+                      ->where('u.roles LIKE :roles')
+                      ->setParameter('roles', '%"' . 'ROLE_MODERATOR' . '"%')
+                      ->orderBy('u.id', 'ASC');
+          },
+        ]
+      )
+      ->add(
+        'postStatus',
+        ChoiceType::class,
+        [
+          'choices' => [
+            'Yes' => TRUE,
+            'No' => FALSE,
+          ],
+        ]
+      )
+      ->add(
+        'tag',
+        EntityType::class,
+        [
+          'class' => 'MainBundle\Entity\Tag',
+          'multiple' => TRUE,
+          'choice_label' => 'name',
+        ]
+      )
+      ->add(
+        'category',
+        'sonata_type_model',
+        [
+          'class' => 'MainBundle\Entity\Category',
+          'property' => 'name',
+        ]
+      )
+      ->add(
+        'productPrice',
+        IntegerType::class,
+        [
+          'label' => 'Enter Product price',
+          'required' => TRUE,
+        ]
+      )
+      ->end()
+      ->with(
+        'Shop data 3',
+        [
+          'class' => 'col-md-12',
+        ]
+      )
+      //->add(
+      //  'productImg',
+      //  CollectionType::class,
+      //  [
+      //    'entry_type' => FileType::class,
+      //    'mapped' => FALSE,
+      //    'label' => 'Upload Post img (PNG file)',
+      //    'data_class' => NULL,
+      //    'required' => FALSE,
+      //  ]
+      //)
+      ->add(
+        'path',
+        'sonata_type_collection',
+        [
+          'required' => TRUE
+        ],
+        [
+          'edit' => 'inline',
+          'inline' => 'table',
+          'sortable' => 'position',
+          'targetEntity' => 'Application\Sonata\MediaBundle\Entity\GalleryHasMedia',
+          'link_parameters' => [
+            'context' => 'attachment'
+          ],
+          'admin_code' => 'sonata.media.admin.gallery_has_media'
+          // this will be your admin class service name
+        ]
+      )
+      ->end();
+  }
 
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->add('id')
-            ->addIdentifier('shortTitle')
-            ->add('shortDescriptions')
-            ->add('postStatus')
-            ->add('user')
-            ->add('postDate')
-//            ->add(
-//                'postImg',
-//                null,
-//                array(
-//                    'template' => 'MainBundle:SonataAdminBundle/AdminPanel:post_list_fields.html.twig',
-//                )
-//            )
-            ->add(
-                '_action',
-                'actions',
-                [
-                    'actions' => [
-                        'edit' => [],
-                        'delete' => [],
-                    ],
-                ]
-            );
-    }
+  protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    $datagridMapper
+      ->add('id')
+      ->add('shortTitle')
+      ->add('shortDescriptions')
+      ->add('postStatus')
+      ->add('user')
+      ->add('postDate');
+  }
 
-    /**
-     * @post Product $object
-     */
-    public function preUpdate($object)
-    {
-        $this->processImage($object);
-    }
+  protected function configureListFields(ListMapper $listMapper) {
+    $listMapper
+      ->add('id')
+      ->addIdentifier('shortTitle')
+      ->add('shortDescriptions')
+      ->add('postStatus')
+      ->add('user')
+      ->add('postDate')
+      //            ->add(
+      //                'postImg',
+      //                null,
+      //                array(
+      //                    'template' => 'MainBundle:SonataAdminBundle/AdminPanel:post_list_fields.html.twig',
+      //                )
+      //            )
+      ->add(
+        '_action',
+        'actions',
+        [
+          'actions' => [
+            'edit' => [],
+            'delete' => [],
+          ],
+        ]
+      );
+  }
 
-    public function prePersist($object)
-    {
-        $this->processImage($object);
-    }
+  /**
+   * @post Product $object
+   */
+  public function preUpdate($object) {
+    $this->processImage($object);
+  }
 
-    private function processImage($object)
-    {
-        $img = $this->getForm()->get('productImg')->getData();
-        if ($img !== null) {
-            $fileName = md5(uniqid()).'.'.$img->getExtension();
-            $img->move(
-                $this->getConfigurationPool()
-                    ->getContainer()
-                    ->getParameter('product_images'),
-                $fileName
-            );
-            $object->setProductImg($fileName);
-        }
-    }
+  public function prePersist($object) {
+    $this->processImage($object);
+  }
 
-    public function toString($object)
-    {
-        return $object instanceof Product
-            ? $object->getShortTitle()
-            : 'Product';
+  private function processImage($object) {
+    $img = $this->getForm()->get('productImg')->getData();
+    if ($img !== NULL) {
+      $fileName = md5(uniqid()) . '.' . $img->getExtension();
+      $img->move(
+        $this->getConfigurationPool()
+             ->getContainer()
+             ->getParameter('product_images'),
+        $fileName
+      );
+      $object->setProductImg($fileName);
     }
+  }
+
+  public function toString($object) {
+    return $object instanceof Product
+      ? $object->getShortTitle()
+      : 'Product';
+  }
 }
