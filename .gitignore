@@ -20,3 +20,4 @@ node_modules/
 !/web/user_images/fixture_images
 /web/post_images/*
 !/web/post_images/fixture_images
+/web/product_images/default/
