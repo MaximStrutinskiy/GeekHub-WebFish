@@ -8,7 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+//use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -128,24 +129,45 @@ class ProductAdmin extends Admin {
       //    'required' => FALSE,
       //  ]
       //)
-      ->add(
-        'productImg',
-        'sonata_type_collection',
-        [
-          'required' => TRUE
-        ],
-        [
-          'edit' => 'inline',
-          'inline' => 'table',
-          'sortable' => 'position',
-          'targetEntity' => 'Application\Sonata\MediaBundle\Entity\GalleryHasMedia',
-          'link_parameters' => [
-            'context' => 'attachment'
-          ],
-          'admin_code' => 'sonata.media.admin.gallery_has_media'
-          // this will be your admin class service name
+      //->add(
+      //  'productImg',
+      //  'sonata_type_collection',
+      //  [
+      //    'required' => TRUE
+      //  ],
+      //  [
+      //    'edit' => 'inline',
+      //    'inline' => 'table',
+      //    'sortable' => 'position',
+      //    'targetEntity' => 'Application\Sonata\MediaBundle\Entity\GalleryHasMedia',
+      //    'link_parameters' => [
+      //      'context' => 'attachment'
+      //    ],
+      //    'admin_code' => 'sonata.media.admin.gallery_has_media'
+      //    // this will be your admin class service name
+      //  ]
+      //)
+
+      ->add('productImg', 'sonata_type_collection', [
+        'type_options' => [
+          // Prevents the "Delete" option from being displayed
+          'delete' => FALSE,
+          'delete_options' => [
+            // You may otherwise choose to put the field but hide it
+            'type' => 'hidden',
+            // In that case, you need to fill in the options as well
+            'type_options' => [
+              'mapped' => FALSE,
+              'required' => FALSE,
+            ]
+          ]
         ]
-      )
+      ], [
+        'edit' => 'inline',
+        'inline' => 'table',
+        'sortable' => 'position',
+      ])
+
       //->add('productImg', 'sonata_type_collection', [
       //  'type_options' => [
       //    // Prevents the "Delete" option from being displayed
