@@ -98,8 +98,8 @@ class Product {
    * Used function __construct().
    *
    * @ORM\ManyToMany(targetEntity="Tag")
-   * @ORM\JoinTable(name="Product_tags",
-   *      joinColumns={@ORM\JoinColumn(name="Product_id", referencedColumnName="id")},
+   * @ORM\JoinTable(name="product_tags",
+   *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
    *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", unique=false)}
    *      )
    */

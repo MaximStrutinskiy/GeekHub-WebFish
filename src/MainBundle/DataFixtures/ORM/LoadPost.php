@@ -26,7 +26,6 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
 
         //users in LoadUserData.php
 
-
         // Generate random posts.
         $faker = Faker::create();
         $randomPosts = [];
