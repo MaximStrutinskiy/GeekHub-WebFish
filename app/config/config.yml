@@ -173,3 +173,31 @@ knp_menu:
     default_renderer: twig
 # White october breadcrumbs
 white_october_breadcrumbs: ~
+
+# Elastic search Configuration
+fos_elastica:
+     clients:
+         default: { host: "%elastic_host%", port: "%elastic_port%" }
+     indexes:
+         space_blog:
+             client: default
+             settings:
+                 index:
+                     analysis:
+                         analyzer:
+                             main_analyzer:
+                                 type: snowball
+                                 language: English
+             types:
+                 post:
+                     mappings:
+                         title: { boost: 10, analyzer: main_analyzer }
+                         article: { boost: 20, analyzer: main_analyzer }
+                         createdAt :
+                             type: date
+                     persistence:
+                         driver: orm
+                         model: MainBundle\Entity\Post
+                         provider: ~
+                         listener: ~
+                         finder: ~
