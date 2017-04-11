@@ -6,6 +6,9 @@ blog:
     path: /blog
     defaults: { _controller: MainBundle:Blog:blog }
 
+search:
+    path: /search
+    defaults: { _controller: MainBundle:Search:index }
 
 product:
     path: /shop
