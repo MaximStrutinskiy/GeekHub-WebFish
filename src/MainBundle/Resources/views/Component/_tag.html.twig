@@ -1,5 +1,5 @@
+{% if tags is not empty %}
 <ul class="block-tags">
-  {% if tags is not empty %}
     {% for tag in tags %}
       <li>
         <a href="{{ path('tag', {'id' : tag.id, 'name' : tag.name|replace ({' ': '_'})}) }}">
@@ -9,5 +9,5 @@
     {% endfor %}
   {% else %}
     <p>No tags</p>
-  {% endif %}
 </ul>
+{% endif %}

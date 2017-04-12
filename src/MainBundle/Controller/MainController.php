@@ -9,6 +9,6 @@ class MainController extends Controller
 
     public function indexAction()
     {
-        return $this->render('MainBundle::base.html.twig');
+        return $this->render('MainBundle:Page:_index.html.twig');
     }
 }

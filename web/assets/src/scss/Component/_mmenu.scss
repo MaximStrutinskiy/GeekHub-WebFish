@@ -8,6 +8,10 @@
   // Navigation.
   .mmenu-navigation {
     @include span(9 of 12);
+
+	li{
+	  display: inline-block;
+	}
   }
 
   // User info.
