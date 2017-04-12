@@ -1,0 +1,29 @@
+{% extends "MainBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="blog-container">
+        <div class="blog-breadcrumbs">
+            {{ wo_render_breadcrumbs() }}
+        </div>
+
+        Hi, search form =)
+        <h1>Form</h1>
+        {{ form_start(search_form) }}
+        {{ form_row(search_form.searchText) }}
+        <button type="submit">GO <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+        {{ form_end(search_form) }}
+
+
+        {% if posts is not empty %}
+            {{ dump(posts) }}
+            {% for post in posts.items %}
+                <div>{{ post.shortTitle }}</div>
+            {% endfor %}
+            <div class="navigation text-center">
+                {{ knp_pagination_render(posts) }}
+            </div>
+        {% else %}
+            <p>No posts with this settings.</p>
+        {% endif %}
+    </div>
+{% endblock %}

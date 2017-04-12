@@ -114,4 +114,18 @@ class PostRepository extends EntityRepository
 
         return $qb->getQuery();
     }
+
+    public function findPostByTitle($search_text){
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->select('p')
+            ->where('p.shortTitle LIKE :search_text')
+            ->andWhere('p.postStatus = :postStatus')
+            ->orderBy('p.id', 'DESC')
+            ->setParameter('postStatus', true)
+            ->setParameter('search_text', '%'.$search_text.'%');
+
+        return $qb->getQuery();
+    }
 }
